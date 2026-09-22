@@ -1,0 +1,2589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>부천 공동교육과정 안내</title>
+  
+  <!-- Pretendard Web Font -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <!-- Tailwind CSS CDN with custom configuration -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            latte: {
+              50: '#FAF7F2',
+              100: '#F5EFEB',
+              200: '#EADECF',
+              300: '#D8C3AE',
+              400: '#C2A38A',
+              500: '#A68266',
+              600: '#8C684E',
+              700: '#6E4F38',
+              800: '#523A28',
+              900: '#3A271B',
+            },
+            warm: {
+              cream: '#FFFDF9',
+              sand: '#F7F3EC',
+              card: '#FCFAF7',
+              border: '#E8DED1',
+              accent: '#C59A78',
+              accentLight: '#F3E8DE',
+              textMain: '#2D231C',
+              textMuted: '#6D5B50',
+              textSub: '#8E796D',
+            }
+          },
+          boxShadow: {
+            'soft': '0 4px 20px -2px rgba(140, 104, 78, 0.08), 0 2px 6px -1px rgba(140, 104, 78, 0.04)',
+            'soft-lg': '0 10px 30px -4px rgba(140, 104, 78, 0.12), 0 4px 10px -2px rgba(140, 104, 78, 0.06)',
+            'soft-xl': '0 20px 35px -5px rgba(140, 104, 78, 0.14), 0 8px 16px -3px rgba(140, 104, 78, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- React 18 & Babel Standalone -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      background-color: #FAF7F2;
+      color: #2D231C;
+      font-family: 'Pretendard', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F5EFEB;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8C3AE;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C2A38A;
+    }
+
+    .badge-online {
+      background-color: #EEF6F8;
+      color: #2A6E78;
+      border: 1px solid #C4E2E6;
+    }
+    .badge-offline {
+      background-color: #F8F1EB;
+      color: #8C5938;
+      border: 1px solid #E5CEBE;
+    }
+    .badge-grade1 {
+      background-color: #EDF7ED;
+      color: #2E6B33;
+      border: 1px solid #C5E4C7;
+    }
+    .badge-grade2 {
+      background-color: #F4EFEA;
+      color: #6D503C;
+      border: 1px solid #DECFC2;
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-latte-200 selection:text-latte-900">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useMemo, useEffect } = React;
+
+    // 개설 강좌 원본 데이터베이스 (지침 문서 100% 정밀 반영)
+    const COURSES_DATA = [
+      {
+        id: 1,
+        school: "계남고등학교",
+        subject: "화학 실험",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월 / 수",
+        operatingHours: "월 17:00~18:50 / 수 18:00~19:50",
+        dayTime: "월 17:00~18:50 / 수 18:00~19:50",
+        selectionType: "융합 선택 과목",
+        subjectInfo: "과학, 융합선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<화학 실험>은 21세기를 살아가는 데 필요한 핵심역량과 물질 현상을 과학적이고 창의적으로 분석하고 예측할 수 있는 화학적 소양을 함양하는 과학 계열 융합 선택 과목이다. 물질 탐구 과정과 지식에 대한 통합적 이해를 바탕으로 학생들이 화학에 대한 호기심과 흥미를 갖고 과학적 탐구 능력과 태도를 함양하여 개인과 사회의 문제를 과학적이고 창의적으로 해결하는 전문가로서의 역량 신장을 목표로 한다.",
+        subjectFeatures: "화학 실험의 기초(데이터 처리, 첨단 기자재 사용법), 물질의 성질(물질의 세 가지 상태와 특징, 혼합물의 분리, 묽은 용액의 성질), 화학 반응(화학 변화와 반응열 측정, 산화·환원 반응, 화학 평형, 반응 속도, 산·염기 평형), 탄소 화합물의 합성과 특성 등을 실험과 탐구 중심으로 체계적으로 학습한다.",
+        description: "물질의 상태와 변화, 화학 반응열, 산·염기 적정, 유기화합물 합성 등 심화 화학 실험을 수행하고 탐구보고서를 작성하는 과학계열 융합 선택 과목입니다.",
+        classroom: "계남고등학교 화학실험실",
+        locationType: "오프라인 대면 집합 (계남고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 2,
+        school: "덕산고등학교",
+        subject: "보건C",
+        grade: "1, 2학년",
+        credits: 2,
+        totalHours: 32,
+        days: "수",
+        operatingHours: "수 18:00~19:50 / 18:00~20:50",
+        dayTime: "수 18:00~19:50 / 18:00~20:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "교양, 진로선택, P/F",
+        type: "온라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "보건·의료",
+        evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<보건>은 학생들이 건강역량을 함양하여 생활 속에서 건강을 실천하며 건강하고 행복한 시민으로 성장하는 데 필요한 자질을 갖추도록 설계한 교양 교과의 진로 선택 과목이다.",
+        subjectFeatures: "건강 증진과 질병 예방(다차원적 건강 개념, 건강지표와 건강 평가), 정서와 정신건강(스트레스 관리, 약물 오남용 예방), 성과 건강(생애주기별 성 건강, 성인지 감수성), 건강 안전과 응급처치(심폐소생술, 응급처치체계), 건강 자원과 건강문화(디지털 헬스케어, 보건의료제도)를 다룬다.",
+        description: "1학년과 2학년 모두 수강 가능! 개인과 공동체의 건강 역량을 기르고 일상생활 속 건강 실천 및 보건의료·간호 계열 진로를 위한 기초 소양을 탐구하는 교양 교과 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 3,
+        school: "도당고등학교",
+        subject: "보건D",
+        grade: "2학년",
+        credits: 2,
+        totalHours: 32,
+        days: "월 / 수",
+        operatingHours: "월 17:00~19:50 / 수 18:00~19:50",
+        dayTime: "월 17:00~19:50 / 수 18:00~19:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "교양, 진로선택, P/F",
+        type: "오프라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "보건·의료",
+        evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<보건>은 학생들이 건강역량을 함양하여 생활 속에서 건강을 실천하며 건강하고 행복한 시민으로 성장하는 데 필요한 자질을 갖추도록 설계한 교양 교과의 진로 선택 과목이다.",
+        subjectFeatures: "건강 증진과 질병 예방, 정서와 정신건강 관리, 성과 건강, 건강 안전과 응급처치(CPR 및 AED 시뮬레이션, 활력징후 측정 등 대면 실습), 건강 자원과 건강문화에 대해 탐구하고 보건의료 현장 실무 역량을 함양한다.",
+        description: "의료 기자재 및 시뮬레이터를 활용한 대면 실습을 통해 응급처치, 건강 증진 및 공공보건 역량을 체득하는 2학년 대상 오프라인 교양 진로 선택 과목입니다.",
+        classroom: "도당고등학교 보건실습실",
+        locationType: "오프라인 대면 집합 (도당고 보건실)",
+        status: "개설 확정"
+      },
+      {
+        id: 4,
+        school: "범박고등학교",
+        subject: "인간과 심리A",
+        grade: "2학년",
+        credits: 2,
+        totalHours: 32,
+        days: "수 / 월",
+        operatingHours: "수 17:00~19:00 / 월 17:30~19:30",
+        dayTime: "수 17:00~19:00 / 월 17:30~19:30",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "교양, 진로선택, P/F",
+        type: "온라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "교육·심리·인문",
+        evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<인간과 심리> 과목은 심리학을 이해하고 실생활 문제 해결에 응용할 수 있도록 함으로써, 개인의 건강한 발달과 적응을 도모할 뿐만 아니라 민주시민으로서 필요한 주도성, 의사소통 능력, 창의적 문제 해결력, 개방적이고 포용적인 태도를 기르기 위한 교양 교과의 진로 선택 과목이다.",
+        subjectFeatures: "마음의 과학적 탐구(과학으로서의 심리학, 심리학 연구 방법과 연구 윤리), 자기 이해(행동의 생물학적 기초, 성격과 동기, 인지와 정서 조절), 타인 이해(사회 인지, 집단과 사회적 영향, 사회적 관계), 삶과 적응(적응과 부적응, 스트레스 대처, 행복의 다면적 의미와 증진 활동)을 심층 학습한다.",
+        description: "심리학의 과학적 연구 방법론을 바탕으로 인간의 마음과 행동, 대인관계 및 정서 조절 원리를 탐구하는 2학년 대상 온라인 교양 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 5,
+        school: "부명고등학교",
+        subject: "물리학 실험",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월 / 수",
+        operatingHours: "월·수 17:50~20:20",
+        dayTime: "매주 월·수요일 17:50~20:20",
+        selectionType: "융합 선택 과목",
+        subjectInfo: "과학, 융합선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<물리학 실험>은 역학, 전자기, 광학, 현대 물리와 관련된 다양한 주제의 실험을 설계하고 수행하여 물리 현상에 대한 이해를 심화하고 실생활에 응용할 수 있는 과학적 소양과 창의성을 함양하기 위한 과학 계열 융합 선택 과목이다.",
+        subjectFeatures: "물리 실험의 기초(측정 오차와 유효숫자, 컴퓨터 센서 활용), 역학(마찰력, 진자 운동, 운동량 보존, 역학적 에너지 보존), 전자기학(휘트스톤 브리지, 전자기 유도, RLC 회로), 광학(빛의 간섭과 회절, 굴절과 전반사, 편광), 현대 물리(광전효과, 전자의 비전하 측정, 에너지 준위) 등 첨단 MBL 장비를 활용한 정량 실험을 수행한다.",
+        description: "역학, 전자기, 광학, 현대물리 영역의 고난도 물리 법칙을 MBL 센서와 실험 설계를 통해 정량 검증하는 과학계열 융합 선택 과목입니다.",
+        classroom: "부명고등학교 물리실험실",
+        locationType: "오프라인 대면 집합 (부명고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 6,
+        school: "부천고등학교",
+        subject: "고급 대수",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월 / 수",
+        operatingHours: "월·수 17:50~20:20",
+        dayTime: "매주 월·수요일 17:50~20:20",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "수학, 진로선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 24.(월)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<고급 대수>는 수학의 여러 분야에서 대수적 개념과 방법을 어떻게 사용하는지, 인공지능, 기계공학, 전자공학 등 다양한 영역에서 행렬 및 벡터가 어떻게 사용되는지 이해하는 데 도움이 되며 대수의 심화된 내용과 추론 방식을 이해하고 탐구하는 과학 계열 진로 선택 과목이다.",
+        subjectFeatures: "벡터공간(n차원 벡터공간, 기저벡터, 벡터의 내적과 정사영), 행렬과 선형변환(연립일차방정식과 가우스 소거법, 선형변환의 행렬 표현), 행렬의 대각화(고윳값과 고유벡터, 대각화의 성질과 공학적 활용) 등 대학 수학 및 인공지능 기초 수학을 체계적으로 다룬다.",
+        description: "벡터공간, 선형변환, 행렬의 대각화 및 고윳값 등 첨단 공학 및 인공지능 수학의 핵심 토대를 심층 탐구하는 과학계열 진로 선택 과목입니다.",
+        classroom: "부천고등학교 지능형 수학교실",
+        locationType: "오프라인 대면 집합 (부천고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 7,
+        school: "부천북고등학교",
+        subject: "인간과 심리B",
+        grade: "2학년",
+        credits: 2,
+        totalHours: 32,
+        days: "월 / 수",
+        operatingHours: "월 17:00~18:50 / 수 18:00~19:50",
+        dayTime: "월 17:00~18:50 / 수 18:00~19:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "교양, 진로선택, P/F",
+        type: "온라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "교육·심리·인문",
+        evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<인간과 심리> 과목은 심리학을 이해하고 실생활 문제 해결에 응용할 수 있도록 함으로써, 개인의 건강한 발달과 적응을 도모할 뿐만 아니라 민주시민으로서 필요한 주도성, 의사소통 능력, 창의적 문제 해결력, 개방적이고 포용적인 태도를 기르기 위한 교양 교과의 진로 선택 과목이다.",
+        subjectFeatures: "마음의 과학적 탐구(심리학의 하위 분야와 연구 윤리), 자기 이해(생물학적 기초, 인지와 동기, 성격 형성), 타인 이해(사회 인지 및 집단 역동), 삶과 적응(스트레스 대처와 정신건강, 행복 증진 활동)을 실생활 사례와 연계하여 학습한다.",
+        description: "인지, 정서, 발달 및 사회심리학 이론을 바탕으로 자아 정체성 확립과 상담·복지 계열 진로 역량을 키우는 2학년 대상 온라인 교양 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 8,
+        school: "부천여자고등학교",
+        subject: "교육의 이해A",
+        grade: "2학년",
+        credits: 2,
+        totalHours: 32,
+        days: "수",
+        operatingHours: "수 18:00~19:50",
+        dayTime: "매주 수요일 18:00~19:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "교양, 진로선택, P/F",
+        type: "온라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "교육·심리·인문",
+        evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<교육의 이해> 과목은 인간 활동 및 사회 제도 차원에서 이루어지는 교육에 대한 이해와 실천에 도움을 줌으로써 학생들이 당당한 교육의 주체로서 행복한 삶을 살아가는 데 필요한 역량을 함양하고자 하는 교양 교과의 진로 선택 과목이다.",
+        subjectFeatures: "교육의 의미와 중요성(교육적 존재로서의 인간, 평생학습 역량), 교육 활동(학습과 교수의 원리 및 방법론), 교육 제도(교육 제도의 역사적 변천, 사회적 기능, 현대 교육 문제), 미래 교육(디지털·AI 소양 함양, 미래 학습 환경 변화)을 체계적으로 다룬다.",
+        description: "사범계열 및 교대 진학 희망자를 위해 교육철학, 교수학습 이론, 미래 학교 모델 및 교육 정책을 심층 고찰하는 2학년 대상 온라인 교양 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 9,
+        school: "상동고등학교",
+        subject: "기초 체육 전공 실기",
+        grade: "2학년",
+        credits: 2,
+        totalHours: 32,
+        days: "월/수",
+        operatingHours: "월·수 17:20~19:50",
+        dayTime: "매주 월·수요일 17:20~19:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "체육, 진로선택, 3단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "예체능",
+        evaluation: "체육 교과군 (3단계 성취도(A·B·C) 표기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<기초 체육 전공 실기>는 체육 전공 실기의 기본 기능을 깊이 있게 이해하고, 전문적으로 숙련함으로써 체육 전공 실기를 경기에 능숙하게 발휘하는 능력을 길러주는 체육계열 진로 선택 과목이다.",
+        subjectFeatures: "전공 실기 기본 기능의 종류와 특성, 스포츠 과학적 원리, 기본 기능 트레이닝 방법론 및 맞춤형 기능 향상 프로그램을 통해 체육대학 입시 실기 및 체육 지도자 역량을 숙련한다.",
+        description: "기초 체력 훈련과 전공 실기 종목별 과학적 트레이닝을 통해 체육계열 전공 진학 역량을 다지는 2학년 대상 오프라인 진로 선택 과목입니다.",
+        classroom: "상동고등학교 체육관",
+        locationType: "오프라인 대면 집합 (상동고 체육관)",
+        status: "개설 확정"
+      },
+      {
+        id: 10,
+        school: "상원고등학교",
+        subject: "프로그래밍A",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월 / 수",
+        operatingHours: "월·수 17:30~20:20",
+        dayTime: "매주 월·수요일 17:30~20:20",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "정보, 진로선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<프로그래밍>은 컴퓨팅 기술을 기반으로 디지털 사회를 살아가는 데 필요한 컴퓨팅 사고력을 기르고, 프로그래밍 언어의 원리와 알고리즘을 습득하여 실생활 및 학문 분야의 문제를 창의적으로 해결하는 정보 교과의 진로 선택 과목이다.",
+        subjectFeatures: "변수와 자료형, 제어 구조(조건문, 반복문), 함수와 모듈화, 기본 자료구조(배열, 리스트, 스택, 큐), 탐색과 정렬 알고리즘, 파이썬 기반 문제 해결 프로젝트 및 프로그램 디버깅을 실습한다.",
+        description: "알고리즘 설계와 파이썬 프로그래밍 문법을 학습하고 실세계 문제 해결을 위한 소프트웨어를 직접 개발하는 2학년 대상 오프라인 진로 선택 과목입니다.",
+        classroom: "상원고등학교 컴퓨터실습실",
+        locationType: "오프라인 대면 집합 (상원고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 11,
+        school: "상일고등학교",
+        subject: "인공지능 수학",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월/수",
+        operatingHours: "월·수 17:30~20:20",
+        dayTime: "매주 월·수요일 17:30~20:20",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "수학, 진로선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<인공지능 수학>은 인공지능의 데이터 처리와 의사 결정에 수학이 활용되는 다양한 사례를 경험함으로써, 융합적 관점에서 인공지능과 수학의 관련성을 탐구하는 진로 선택 과목이다.",
+        subjectFeatures: "인공지능과 빅데이터의 수학적 표현(텍스트와 이미지의 행렬·벡터 변환), 예측과 최적화(손실함수와 미분, 경사하강법), 합리적 의사 결정(확률과 조건부확률, 분류 모델) 등을 수학과 코딩을 결합하여 탐구한다.",
+        description: "행렬, 벡터, 미분 및 확률통계가 인공지능 알고리즘과 딥러닝에서 구현되는 수학적 원리를 탐구하는 2학년 대상 오프라인 진로 선택 과목입니다.",
+        classroom: "상일고등학교 지능형 수학교실",
+        locationType: "오프라인 대면 집합 (상일고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 12,
+        school: "소명여자고등학교",
+        subject: "매체 의사소통",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "수",
+        operatingHours: "수 17:30~21:20",
+        dayTime: "매주 수요일 17:30~21:20",
+        selectionType: "융합 선택 과목",
+        subjectInfo: "국어, 융합선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "교육·심리·인문",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<매체 의사소통>은 고등학교 ‘공통국어1, 공통국어2’의 매체 영역을 심화·확장한 융합 선택 과목이다. 변화하는 매체 환경 속에서 개인과 사회에 영향을 미치는 매체 의사소통의 방식과 문화를 탐구하고 비판적으로 성찰하는 태도를 기르고 텍스트의 의미가 사회·문화적으로 어떻게 구성되는지 이해하며 개인적·사회적 관심사에 대한 자신의 관점을 반영하여 매체 자료를 제작하고 공유하는데 목적이 있다.",
+        subjectFeatures: "매체의 유형과 특성, 디지털 기술과 매체 환경 변화, 매체 자료의 사회·문화적 구성과 재현, 매체 의사소통 현상 관찰, 매체 자료 기획·구성 및 제작·공유, 협력적 문제 해결과 매체 윤리를 다룬다.",
+        description: "미디어 리터러시를 기르고 영상, 카드뉴스, 웹 콘텐츠 등 복합양식 매체 자료를 비판적으로 분석·제작하는 2학년 대상 오프라인 국어 융합 선택 과목입니다.",
+        classroom: "소명여자고등학교 국어/미디어실",
+        locationType: "오프라인 대면 집합 (소명여고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 13,
+        school: "소명여자고등학교",
+        subject: "프로그래밍B",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월 / 수",
+        operatingHours: "월·수 17:30~20:20",
+        dayTime: "매주 월·수요일 17:30~20:20",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "정보, 진로선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<프로그래밍>은 컴퓨팅 기술을 기반으로 디지털 사회를 살아가는 데 필요한 컴퓨팅 사고력을 기르고, 프로그래밍 언어의 원리와 알고리즘을 습득하여 실생활 및 학문 분야의 문제를 창의적으로 해결하는 정보 교과의 진로 선택 과목이다.",
+        subjectFeatures: "알고리즘적 사고, 프로그래밍 언어 문법, 함수와 모듈의 응용, 실생활 데이터 처리와 구조화, 소프트웨어 협업 프로젝트 및 디버깅 기법을 체계적으로 실습한다.",
+        description: "소프트웨어 개발의 기초 논리와 프로그래밍 구현 역량을 기르고 실세계 문제 해결 프로젝트를 완성하는 2학년 대상 오프라인 진로 선택 과목입니다.",
+        classroom: "소명여자고등학교 정보실습실",
+        locationType: "오프라인 대면 집합 (소명여고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 14,
+        school: "소사고등학교",
+        subject: "고급 화학",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "수",
+        operatingHours: "수 18:00~20:30",
+        dayTime: "매주 수요일 18:00~20:30",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "과학, 진로선택, 5단계 성취도",
+        type: "온라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<고급 화학>은 21세기를 살아가는 데 필요한 핵심역량과 물질 현상을 과학적이고 창의적으로 분석하고 예측할 수 있는 화학적 소양을 함양하는 과학 계열 진로 선택 과목이다. 물질 탐구 과정과 지식에 대한 통합적 이해를 바탕으로 학생들이 화학에 대한 호기심과 흥미를 갖고 과학적 탐구 능력과 태도를 함양하여 개인과 사회의 문제를 과학적이고 창의적으로 해결하는 전문가로서의 역량 신장을 목표로 한다.",
+        subjectFeatures: "원자 오비탈과 분자 구조, 기체 분자 운동론과 상평형, 열역학(엔탈피, 엔트로피, 깁스 자유 에너지), 화학 반응 속도론, 화학 평형과 산·염기 평형의 정량적 분석 등 화학 전공 심화 이론을 학습한다.",
+        description: "물질의 미시적 구조와 열역학, 반응 속도 및 화학 평형의 심층 이론을 다루는 화학·바이오·재료 계열 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 15,
+        school: "송내고등학교",
+        subject: "인공지능 모델링",
+        grade: "1, 2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월 / 수",
+        operatingHours: "월 18:00~20:50 / 수 17:30~20:20",
+        dayTime: "월 18:00~20:50 / 수 17:30~20:20",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "정보, 진로선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<인공지능 모델링>은 인공지능의 기본 원리를 이해하고, 데이터 수집·가공부터 기계학습 및 딥러닝 알고리즘을 활용하여 문제 해결을 위한 최적의 인공지능 모델을 직접 설계하고 구현하는 정보계열 진로 선택 과목이다.",
+        subjectFeatures: "인공지능 데이터 전처리, 지도학습(회귀, 분류)과 비지도학습(군집화), 인공신경망과 딥러닝 모델 설계, 자연어 및 컴퓨터 비전 모델링, 인공지능 프로젝트 평가 및 윤리적 쟁점 탐구를 수행한다.",
+        description: "1·2학년 누구나 수강 가능! 파이썬을 활용해 머신러닝·딥러닝 신경망 모델을 직접 코딩하고 실무 AI 프로젝트를 구현하는 오프라인 진로 선택 과목입니다.",
+        classroom: "송내고등학교 첨단 AI실습실",
+        locationType: "오프라인 대면 집합 (송내고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 16,
+        school: "수주고등학교",
+        subject: "보건A",
+        grade: "1학년",
+        credits: 2,
+        totalHours: 32,
+        days: "수",
+        operatingHours: "수 17:30~19:30 / 17:30~20:30",
+        dayTime: "수 17:30~19:30 / 17:30~20:30",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "교양, 진로선택, P/F",
+        type: "온라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "보건·의료",
+        evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<보건>은 학생들이 건강역량을 함양하여 생활 속에서 건강을 실천하며 건강하고 행복한 시민으로 성장하는 데 필요한 자질을 갖추도록 설계한 교양 교과의 진로 선택 과목이다.",
+        subjectFeatures: "청소년기 건강 관리와 질병 예방, 정서 및 정신건강 증진, 성과 생명 윤리, 응급처치와 안전 수칙, 보건의료 제도와 지역사회 건강 자원 탐색을 통합적으로 학습한다.",
+        description: "1학년 전용 강좌로, 청소년기 건강 관리와 응급처치, 보건의료 체계 및 간호·의학 계열 진로를 위한 기초 건강역량을 기르는 온라인 교양 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 17,
+        school: "시온고등학교",
+        subject: "보건B",
+        grade: "1학년",
+        credits: 2,
+        totalHours: 32,
+        days: "수",
+        operatingHours: "수 18:30~19:50",
+        dayTime: "매주 수요일 18:30~19:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "교양, 진로선택, P/F",
+        type: "온라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "보건·의료",
+        evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<보건>은 학생들이 건강역량을 함양하여 생활 속에서 건강을 실천하며 건강하고 행복한 시민으로 성장하는 데 필요한 자질을 갖추도록 설계한 교양 교과의 진로 선택 과목이다.",
+        subjectFeatures: "생활 속 건강 증진과 질병 예방, 신체적·정신적 안녕, 생활 안전과 응급구조 원리, 디지털 시대 헬스케어와 미래 보건의료 환경을 다각적으로 탐구한다.",
+        description: "1학년 전용 강좌로, 생애주기별 건강 증진과 보건 안전, 의학·간호·보건계열 진학을 위한 기초 소양을 함양하는 온라인 교양 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 18,
+        school: "심원고등학교",
+        subject: "고급 물리학",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "수",
+        operatingHours: "수 18:00~20:50",
+        dayTime: "매주 수요일 18:00~20:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "과학, 진로선택, 5단계 성취도",
+        type: "온라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<고급 물리학>은 물리학에 흥미와 관심이 있는 과학계열 고등학교 학생이나 일반계 고등학교에서 과학 과목 중점 교육과정을 이수하는 학생들의 심화된 수준으로 물리학의 학문적 체계와 내용을 학습하기 위한 과학 계열 진로 선택 과목이다.",
+        subjectFeatures: "역학(입자계 운동, 각운동량 보존, 열역학 제1·2법칙), 전자기학(전기장, 키르히호프 법칙, 맥스웰 방정식), 광학(빛의 간섭·회절, 편광), 현대 물리(특수·일반 상대성 이론, 핵융합, 상보성 원리와 불확정성 원리)를 심층 다룬다.",
+        description: "역학, 전자기학, 광학, 상대성 이론 및 양자역학 등 물리·기계·전자·우주항공 계열 필수 심화 이론을 탐구하는 과학계열 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 19,
+        school: "역곡고등학교",
+        subject: "고급 생명과학",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월, 수",
+        operatingHours: "월·수 18:00~20:40",
+        dayTime: "매주 월·수요일 18:00~20:40",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "과학, 진로선택, 5단계 성취도",
+        type: "온라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<고급 생명과학>은 과학계열 고등학교 학생이나 일반계 고등학교에서 과학 과목 중점으로 교육과정을 이수하는 학생들이 심화된 수준의 생명과학의 학문적 체계와 내용을 학습하기 위한 과학 계열 진로 선택 과목이다. ‘고급 생명과학’은 생물의 구조와 에너지, 생물의 조절과 방어, 생명의 연속성, 생명공학기술과 미래 4개의 영역으로 구성된다.",
+        subjectFeatures: "세포 수준 에너지 대사(광인산화, 캘빈회로, 전자전달계), 신경계 전달과 면역 반응 기전, 분자유전학(DNA 복제·수선, 전사인자와 오페론 설), 유전자 재조합 및 최신 생명공학 기술의 전망을 학습한다.",
+        description: "분자생물학, 유전학, 면역학 및 첨단 바이오 기술을 심층 탐구하여 의예·생명공학·약학 진로를 설계하는 과학계열 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 20,
+        school: "원미고등학교",
+        subject: "소설 창작",
+        grade: "2학년",
+        credits: 2,
+        totalHours: 32,
+        days: "월, 수",
+        operatingHours: "월 18:10~20:00 / 수 17:30~20:00",
+        dayTime: "월 18:10~20:00 / 수 17:30~20:00",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "예술, 진로선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "교육·심리·인문",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<소설 창작>은 사건, 인물, 배경, 시점 등 소설을 구성하는 주요 요소에 대한 탐구를 바탕으로 체험과 상상을 통해 구성한 이야기를 문학 언어로 표현하는 예술 계열 진로 선택 과목이다. 소설 창작의 원리에 대한 이해를 바탕으로 창작자의 개성이 담긴 소설을 창작하고 독자와 능동적으로 소통하는 방안을 모색한다.",
+        subjectFeatures: "소설의 플롯과 구성 원리, 인물 형상화와 배경 설정, 시점과 서술 방식, 개성 있는 문체 형성, 단편소설 습작 및 상호 합평을 통해 문학적 상상력을 구체화한다.",
+        description: "서사 구조와 인물 설정, 플롯 구성을 익히고 실제 단편 소설을 집필·합평하며 문예창작 역량을 기르는 2학년 대상 오프라인 예술 진로 선택 과목입니다.",
+        classroom: "원미고등학교 창의인문실",
+        locationType: "오프라인 대면 집합 (원미고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 21,
+        school: "원종고등학교",
+        subject: "국제 정치",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월 / 수",
+        operatingHours: "월·수 18:00~20:50",
+        dayTime: "매주 월·수요일 18:00~20:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "사회, 진로선택, 5단계 성취도",
+        type: "온라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "사회·국제",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<국제 정치>는 외국어·국제 계열의 진로 선택 과목으로 일반사회 영역에서 국제 관계의 협력과 경쟁 및 갈등을 이해하고, 급변하는 국제 정치 변화에 능동적으로 대처하며 세계 평화에 기여할 수 있는 능력을 키우기 위한 과목이다.",
+        subjectFeatures: "국제 정치 체제의 형성과 이론(현실주의, 자유주의, 구성주의), 국제 분쟁의 원인과 외교적 해결, 국제법과 국제기구의 역할, 한반도를 둘러싼 국제 정세와 통일 외교 과제를 다룬다.",
+        description: "외교, 국제 안보, 글로벌 거버넌스 및 국제 분쟁의 메커니즘을 탐구하여 정치·외교·행정 계열 진로를 준비하는 온라인 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 22,
+        school: "정명고등학교",
+        subject: "교육의 이해B",
+        grade: "2학년",
+        credits: 2,
+        totalHours: 32,
+        days: "수",
+        operatingHours: "수 18:00~19:50",
+        dayTime: "매주 수요일 18:00~19:50",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "교양, 진로선택, P/F",
+        type: "온라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "교육·심리·인문",
+        evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
+        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        subjectNature: "<교육의 이해> 과목은 인간 활동 및 사회 제도 차원에서 이루어지는 교육에 대한 이해와 실천에 도움을 줌으로써 학생들이 당당한 교육의 주체로서 행복한 삶을 살아가는 데 필요한 역량을 함양하고자 하는 교양 교과의 진로 선택 과목이다.",
+        subjectFeatures: "교육의 본질과 교직관 형성, 교수-학습 원리 및 혁신 교수법, 교육 제도의 사회적 변천과 교육 불평등 해소 방안, AI 디지털 교과서 등 미래 교육 환경 혁신을 탐색한다.",
+        description: "교직관 확립, 교육과정 및 교수학습 설계, 미래 디지털 교육 혁신 모델을 고찰하여 교원 양성 대학 진학을 대비하는 2학년 대상 온라인 교양 진로 선택 과목입니다.",
+        classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
+        locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
+        status: "개설 확정"
+      },
+      {
+        id: 23,
+        school: "중원고등학교",
+        subject: "생명과학 실험",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월 / 수",
+        operatingHours: "월·수 17:30~20:20",
+        dayTime: "매주 월·수요일 17:30~20:20",
+        selectionType: "융합 선택 과목",
+        subjectInfo: "과학, 융합선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 26.(수)",
+        category: "자연과학·공학",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<생명과학 실험>은 과학계열 고등학교 학생이나 일반계 고등학교에서 과학 과목 중점으로 교육과정을 이수하는 학생들이 심화된 수준의 생명과학의 학문적 체계와 내용을 탐구하기 위한 과학 계열 융합 선택 과목이다.",
+        subjectFeatures: "현미경 표본 제작, 삼투와 수분퍼텐셜, 효소 반응 속도 측정, 세포분열과 염색체 관찰, 플라스미드 DNA 추출, 제한효소 절단 및 겔 전기영동, 박테리아 형질전환 등 핵심 실험을 직접 수행한다.",
+        description: "DNA 추출, 겔 전기영동, 효소 활성도 측정 등 분자생물학 핵심 실험을 직접 수행하고 보고서를 작성하는 과학계열 융합 선택 과목입니다.",
+        classroom: "중원고등학교 생물실험실",
+        locationType: "오프라인 대면 집합 (중원고 특별실)",
+        status: "개설 확정"
+      },
+      {
+        id: 24,
+        school: "중흥고등학교",
+        subject: "국제 경제",
+        grade: "2학년",
+        credits: 3,
+        totalHours: 48,
+        days: "월, 수",
+        operatingHours: "월·수 17:30~20:20",
+        dayTime: "매주 월·수요일 17:30~20:20",
+        selectionType: "진로 선택 과목",
+        subjectInfo: "사회, 진로선택, 5단계 성취도",
+        type: "오프라인",
+        startDate: "2026. 8. 19.(수)",
+        category: "사회·국제",
+        evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
+        capacity: "13~25명 권장 (본교생 70% 이하)",
+        subjectNature: "<국제 경제>는 외국어·국제 계열의 진로 선택 과목으로 <경제> 과목에서 배운 내용을 국가 간의 관계에 적용하고 확장하기 위한 과목이다. 일반사회 영역에서 국제 교역, 외환 시장과 환율, 국제 통화 등 국제 경제 현상과 관련 있는 내용을 학습하며 국제 사회의 변화를 선도할 수 있는 능력을 갖추기 위한 과목이다.",
+        subjectFeatures: "국제 무역 이론과 무역 정책(자유무역과 관세), 환율 변동과 국제통화체제(IMF, 외환시장), 글로벌 금융위기와 통화정책, 세계 속 한국 경제의 당면 과제를 케이스 스터디로 다룬다.",
+        description: "국제무역, 환율, 글로벌 금융 시장 및 무역 정책을 심층 분석하여 상경계열(경영·경제·통상) 진로 역량을 기르는 오프라인 진로 선택 과목입니다.",
+        classroom: "중흥고등학교 교과교실",
+        locationType: "오프라인 대면 집합 (중흥고 특별실)",
+        status: "개설 확정"
+      }
+    ];
+
+    // FAQ 데이터
+    const FAQ_DATA = [
+      {
+        q: "석차 등급이 안 나온다면 대입에서 불리하지 않나요?",
+        a: "전혀 불리하지 않으며, 오히려 학생부종합전형에서 매우 유리합니다! 소인수 선택에 따른 상대평가 내신 불이익을 방지하기 위해 석차 등급을 일체 산출하지 않으며(공란 또는 · 처리), 보통교과는 성취도 표기와 원점수/과목평균이 기재되고, 교양교과는 이수(P)만 표기됩니다. 대학 입학사정관은 지원자가 자신의 진로를 위해 일반 학교에서 배우기 힘든 심화 과목을 도전적으로 이수하고, 세특(500자)에 기록된 자기주도적 탐구 역량을 높이 평가합니다."
+      },
+      {
+        q: "공동교육과정의 학점 이수 기준은 어떻게 되나요?",
+        a: "공동교육과정의 학점 이수 기준은 공식 운영 지침에 따라 다음과 같이 운영됩니다.\n• 보통교과: 과목출석률(기준 수업횟수의 2/3 이상)과 학업성취율(40% 이상)을 모두 충족해야 학점이 정식 인정됩니다.\n• 교양 교과군(보건, 인간과 심리, 교육의 이해): 지필시험 없이 과목출석률(수업횟수의 2/3 이상)만 반영하여 이수(P) 여부를 결정합니다.\n학업성취율 40% 미도달이 우려되는 학생에게는 거점학교에서 '최소 성취수준 보장지도' 및 보충 과제를 제공하여 이수를 지원합니다. 최종 미도달(미이수) 시 학교생활기록부 비고란에 '미이수'로 기재되므로 성실한 출석과 참여가 필수적입니다."
+      },
+      {
+        q: "고등학교 1학년이 수강할 수 있는 강좌도 있나요?",
+        a: "네, 수강 가능합니다! 2026학년도 2학기 1학년 학생이 수강 가능한 강좌는 총 4개입니다.\n• 수주고등학교 [보건A] (온라인 / 2학점 / 1학년 전용)\n• 시온고등학교 [보건B] (온라인 / 2학점 / 1학년 전용)\n• 덕산고등학교 [보건C] (온라인 / 2학점 / 1, 2학년 대상)\n• 송내고등학교 [인공지능 모델링] (오프라인 / 3학점 / 1, 2학년 대상)\n특히 송내고의 인공지능 모델링 강좌는 1학년부터 AI 및 머신러닝 코딩 실습 역량을 기를 수 있는 훌륭한 기회입니다."
+      },
+      {
+        q: "우리 학교(본교)에 개설된 과목을 공동교육과정으로 수강할 수 있나요?",
+        a: "수강할 수 없습니다. 본인 소속 학교의 3개년 교육과정 편제표에 이미 개설되어 있거나 향후 학기에 개설 예정인 과목은 공동교육과정으로 수강할 수 없습니다(본교 미개설 원칙). 소인수 과목 학습 기회 확대를 위한 제도이므로, 본교 개설 과목 우회 수강은 엄격히 차단됩니다. (단, 거점학교 재학생은 자교에 설치된 강좌에 한해 정원 내 수강이 가능합니다.)"
+      },
+      {
+        q: "한 학기에 몇 개 강좌까지 수강할 수 있나요?",
+        a: "공동교육과정 지침상 '학기당 최대 2개 과목 이내'로 수강 신청이 가능합니다. 단, 정규 일과 후 방과 후에 운영되므로 학생 본인의 학습 부담, 이동 거리, 본교 정규 교육과정 이수 균형을 종합적으로 고려하여 신중하게 수강해야 합니다."
+      },
+      {
+        q: "수업을 듣다가 도중에 힘들면 수강 취소나 중도 포기를 할 수 있나요?",
+        a: "수강 확정 이후에는 어떠한 개인적 사유(학업 부담, 변심, 학원 일정 중복 등)로도 수강 취소나 중도 포기가 일체 불가능합니다. 임의로 수업에 불참하면 출결 미달로 학교생활기록부에 '미이수'로 영구 기록되며, 불성실한 태도가 과목별 세특에 그대로 기재되어 대입에서 치명적인 불이익을 받을 수 있습니다. 또한 다른 친구들의 수강 기회를 빼앗거나 강좌 폐강의 원인이 되므로 책임감을 갖고 성실히 참여해야 합니다."
+      },
+      {
+        q: "소속 학교 시험이나 수련활동 등으로 결석할 때는 어떻게 하나요?",
+        a: "공동교육과정은 소속 학교의 주간 출결과 자동 연동되지 않습니다. 소속 학교의 정기시험, 수련활동, 수학여행 등 공식 행사나 법정 감염병 격리의 경우, 학생은 소속 학교장의 직인이 찍힌 결석계와 증빙서류를 결석일로부터 3일 이내에 거점학교 담당 교사에게 서면 제출해야 공결(출석인정 결석)로 승인됩니다."
+      },
+      {
+        q: "온라인 강좌는 녹화된 동영상을 보고 듣는 방식인가요?",
+        a: "아닙니다! 단순 동영상 시청 방식은 일체 배제되며, 온라인 수업은 '경기온라인학교, 온라인공동교육과정' 사이트에서 정규 일과 후 실시간 쌍방향 원격 화상 수업으로 진행됩니다. 학생은 반드시 웹캠과 마이크를 켠 상태로 발표, 토론, 실시간 질의응답 및 협업 프로젝트에 능동적으로 참여해야 출석 및 수업 참여가 인정됩니다."
+      }
+    ];
+
+    // 메인 앱 컴포넌트
+    function App() {
+      const [activeTab, setActiveTab] = useState('home'); // 'home', 'guide', 'courses', 'simulator', 'faq'
+      const [selectedGrade, setSelectedGrade] = useState('all'); // 'all', 'grade1', 'grade2'
+      const [selectedType, setSelectedType] = useState('all'); // 'all', 'online', 'offline'
+      const [selectedCategory, setSelectedCategory] = useState('all');
+      const [selectedDay, setSelectedDay] = useState('all');
+      const [searchQuery, setSearchQuery] = useState('');
+      const [viewMode, setViewMode] = useState('card'); // 'card' or 'school'
+      const [selectedCourseModal, setSelectedCourseModal] = useState(null);
+
+      // 출결 계산기 상태
+      const [calcCredits, setCalcCredits] = useState(2); // 2 or 3
+      const [calcAbsence, setCalcAbsence] = useState(0);
+
+      // 자가진단 체크리스트 상태
+      const [checkList, setCheckList] = useState({
+        q1: false,
+        q2: false,
+        q3: false,
+        q4: false
+      });
+
+      // Lucide 아이콘 초기화
+      useEffect(() => {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      }, [activeTab, viewMode, selectedCourseModal, selectedGrade, selectedType, selectedCategory]);
+
+      // 필터링된 강좌 목록
+      const filteredCourses = useMemo(() => {
+        return COURSES_DATA.filter(course => {
+          // 학년 필터
+          if (selectedGrade === 'grade1') {
+            if (!course.grade.includes('1학년')) return false;
+          } else if (selectedGrade === 'grade2') {
+            if (!course.grade.includes('2학년')) return false;
+          }
+
+          // 운영 형태 필터
+          if (selectedType === 'online' && course.type !== '온라인') return false;
+          if (selectedType === 'offline' && course.type !== '오프라인') return false;
+
+          // 계열 필터
+          if (selectedCategory !== 'all' && course.category !== selectedCategory) return false;
+
+          // 요일 필터
+          if (selectedDay === 'wed') {
+            if (!course.days || !course.days.includes('수') || course.days.includes('월')) return false;
+          } else if (selectedDay === 'mon_wed') {
+            if (!course.days || !course.days.includes('월')) return false;
+          }
+
+          // 검색어 (과목명, 학교명, 키워드)
+          if (searchQuery.trim() !== '') {
+            const query = searchQuery.toLowerCase().trim();
+            const matchName = course.subject.toLowerCase().includes(query);
+            const matchSchool = course.school.toLowerCase().includes(query);
+            const matchDesc = course.description.toLowerCase().includes(query);
+            const matchCat = course.category.toLowerCase().includes(query);
+            if (!matchName && !matchSchool && !matchDesc && !matchCat) return false;
+          }
+
+          return true;
+        });
+      }, [selectedGrade, selectedType, selectedCategory, selectedDay, searchQuery]);
+
+      // 학교별 그룹화
+      const schoolGrouped = useMemo(() => {
+        const groups = {};
+        filteredCourses.forEach(c => {
+          if (!groups[c.school]) {
+            groups[c.school] = [];
+          }
+          groups[c.school].push(c);
+        });
+        return groups;
+      }, [filteredCourses]);
+
+      // 출결 계산기 로직
+      const calcStats = useMemo(() => {
+        const total = calcCredits === 2 ? 32 : 48;
+        const required = calcCredits === 2 ? 22 : 32; // 기준 수업량 2/3 이상
+        const totalAbsence = calcAbsence;
+        const currentAttended = Math.max(0, total - totalAbsence);
+        const maxPossibleAbsence = total - required; // 2학점: 최대 10회 결석 가능, 3학점: 최대 16회 결석 가능
+        const remainingAbsenceBudget = maxPossibleAbsence - totalAbsence;
+
+        let status = "안전 (정상 이수 가능)";
+        let statusColor = "text-emerald-700 bg-emerald-50 border-emerald-200";
+        if (remainingAbsenceBudget < 0) {
+          status = "학점 미이수 위험 (기준 출석 미달)";
+          statusColor = "text-rose-700 bg-rose-50 border-rose-200";
+        } else if (remainingAbsenceBudget <= 2) {
+          status = "경고 (결석 한도 임박)";
+          statusColor = "text-amber-700 bg-amber-50 border-amber-200";
+        }
+
+        return {
+          total,
+          required,
+          totalAbsence,
+          currentAttended,
+          maxPossibleAbsence,
+          remainingAbsenceBudget,
+          status,
+          statusColor
+        };
+      }, [calcCredits, calcAbsence]);
+
+      const allChecked = checkList.q1 && checkList.q2 && checkList.q3 && checkList.q4;
+
+      return (
+        <div className="flex flex-col min-h-screen">
+          {/* 상단 네비게이션 헤더 */}
+          <header className="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-warm-border/80 shadow-xs transition-all">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16 md:h-20">
+                {/* 브랜드 로고 */}
+                <div 
+                  onClick={() => setActiveTab('home')}
+                  className="flex items-center space-x-3 cursor-pointer group"
+                >
+                  <div className="w-10 h-10 md:w-11 md:h-11 rounded-2xl bg-gradient-to-br from-latte-500 to-latte-700 text-white flex items-center justify-center shadow-md shadow-latte-600/20 group-hover:scale-105 transition-transform">
+                    <i data-lucide="compass" className="w-6 h-6"></i>
+                  </div>
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-latte-100 text-latte-700 border border-latte-200">
+                        2026학년도 2학기
+                      </span>
+                    </div>
+                    <h1 className="text-lg md:text-xl font-bold text-warm-textMain tracking-tight">
+                      부천 공동교육과정
+                    </h1>
+                  </div>
+                </div>
+
+                {/* 데스크톱 메뉴 */}
+                <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+                  <button
+                    onClick={() => setActiveTab('home')}
+                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                      activeTab === 'home'
+                        ? 'bg-latte-600 text-white shadow-sm'
+                        : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
+                    }`}
+                  >
+                    <span className="flex items-center space-x-1.5">
+                      <i data-lucide="home" className="w-4 h-4"></i>
+                      <span>홈</span>
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('guide')}
+                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                      activeTab === 'guide'
+                        ? 'bg-latte-600 text-white shadow-sm'
+                        : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
+                    }`}
+                  >
+                    <span className="flex items-center space-x-1.5">
+                      <i data-lucide="book-open-text" className="w-4 h-4"></i>
+                      <span>공통 안내 지침</span>
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('courses')}
+                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                      activeTab === 'courses'
+                        ? 'bg-latte-600 text-white shadow-sm'
+                        : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
+                    }`}
+                  >
+                    <span className="flex items-center space-x-1.5">
+                      <i data-lucide="graduation-cap" className="w-4 h-4"></i>
+                      <span>학교별 강좌 탐색</span>
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('simulator')}
+                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                      activeTab === 'simulator'
+                        ? 'bg-latte-600 text-white shadow-sm'
+                        : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
+                    }`}
+                  >
+                    <span className="flex items-center space-x-1.5">
+                      <i data-lucide="calculator" className="w-4 h-4"></i>
+                      <span>이수·출결 시뮬레이터</span>
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('faq')}
+                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                      activeTab === 'faq'
+                        ? 'bg-latte-600 text-white shadow-sm'
+                        : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
+                    }`}
+                  >
+                    <span className="flex items-center space-x-1.5">
+                      <i data-lucide="help-circle" className="w-4 h-4"></i>
+                      <span>자주 묻는 질문</span>
+                    </span>
+                  </button>
+                </nav>
+
+                {/* 우측 빠른 강좌 탐색 버튼 (강조) */}
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => setActiveTab('courses')}
+                    className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs md:text-sm font-semibold bg-latte-100 hover:bg-latte-200 text-latte-800 border border-latte-300 transition-colors shadow-2xs"
+                  >
+                    <i data-lucide="search" className="w-4 h-4 text-latte-600"></i>
+                    <span>강좌 찾기</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* 모바일 탭 바 */}
+            <div className="md:hidden flex border-t border-warm-border/60 bg-warm-sand/80 px-2 py-1.5 overflow-x-auto gap-1 text-xs">
+              <button
+                onClick={() => setActiveTab('home')}
+                className={`flex-1 py-1.5 px-2 rounded-lg font-medium whitespace-nowrap text-center ${
+                  activeTab === 'home' ? 'bg-latte-600 text-white' : 'text-warm-textMuted'
+                }`}
+              >
+                홈
+              </button>
+              <button
+                onClick={() => setActiveTab('guide')}
+                className={`flex-1 py-1.5 px-2 rounded-lg font-medium whitespace-nowrap text-center ${
+                  activeTab === 'guide' ? 'bg-latte-600 text-white' : 'text-warm-textMuted'
+                }`}
+              >
+                공통 지침
+              </button>
+              <button
+                onClick={() => setActiveTab('courses')}
+                className={`flex-1 py-1.5 px-2 rounded-lg font-medium whitespace-nowrap text-center ${
+                  activeTab === 'courses' ? 'bg-latte-600 text-white' : 'text-warm-textMuted'
+                }`}
+              >
+                강좌 탐색
+              </button>
+              <button
+                onClick={() => setActiveTab('simulator')}
+                className={`flex-1 py-1.5 px-2 rounded-lg font-medium whitespace-nowrap text-center ${
+                  activeTab === 'simulator' ? 'bg-latte-600 text-white' : 'text-warm-textMuted'
+                }`}
+              >
+                자가진단/출결
+              </button>
+              <button
+                onClick={() => setActiveTab('faq')}
+                className={`flex-1 py-1.5 px-2 rounded-lg font-medium whitespace-nowrap text-center ${
+                  activeTab === 'faq' ? 'bg-latte-600 text-white' : 'text-warm-textMuted'
+                }`}
+              >
+                FAQ
+              </button>
+            </div>
+          </header>
+
+          {/* 메인 컨텐츠 영역 */}
+          <main className="flex-grow">
+            {/* ======================= TAB 1: 홈 대시보드 ======================= */}
+            {activeTab === 'home' && (
+              <div>
+                {/* Hero Section */}
+                <section className="relative overflow-hidden pt-10 pb-16 md:pt-14 md:pb-24 border-b border-warm-border/60 bg-gradient-to-b from-[#FAF7F2] via-warm-sand/50 to-[#FAF7F2]">
+                  <div className="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#C2A38A_1px,transparent_1px)] [background-size:24px_24px]"></div>
+                  
+                  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-4xl mx-auto text-center">
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-warm-textMain tracking-tight mb-3">
+                        공동교육과정 안내
+                      </h2>
+                      <p className="text-sm sm:text-base md:text-lg text-warm-textMuted max-w-2xl mx-auto mb-10">
+                        공동교육과정이 무엇이고, 어떤 강좌가 개설되어 있으며, 어떻게 진행되는지 한눈에 쉽게 확인해 보세요.
+                      </p>
+
+                      {/* 학생 맞춤 3대 핵심 안내 (뭐고 / 뭐가 있고 / 어떻게 진행되나) */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left mb-10">
+                        {/* 1. 공동교육과정이 뭐예요? */}
+                        <div 
+                          onClick={() => setActiveTab('guide')}
+                          className="bg-warm-card p-5 sm:p-6 rounded-3xl border border-latte-200 hover:border-latte-400 shadow-soft hover:shadow-soft-lg cursor-pointer transition-all group flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-3">
+                              <span className="w-8 h-8 rounded-xl bg-latte-100 text-latte-700 font-bold flex items-center justify-center text-sm">
+                                01
+                              </span>
+                              <span className="text-xs font-semibold text-latte-600 group-hover:translate-x-0.5 transition-transform flex items-center">
+                                지침 보기 &rarr;
+                              </span>
+                            </div>
+                            <h3 className="text-lg font-bold text-warm-textMain mb-2 group-hover:text-latte-700 transition-colors">
+                              공동교육과정이 뭐예요?
+                            </h3>
+                            <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-4">
+                              우리 학교에 없는 심화·소인수 과목을 부천 관내 다른 고등학교(거점교)와 함께 배우는 <strong>정규 교육과정</strong>입니다.
+                            </p>
+                          </div>
+                          <div className="space-y-2 text-xs pt-3 border-t border-latte-100">
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span><strong>석차 등급 미산출</strong> (상대평가 부담 Zero)</span>
+                            </div>
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span>생기부 교과학습발달상황 정식 등재</span>
+                            </div>
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span>거점교 교사가 작성한 <strong>세특 500자</strong> 소속교 자동 전송</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 2. 어떤 강좌가 개설되어 있나요? */}
+                        <div 
+                          onClick={() => setActiveTab('courses')}
+                          className="bg-warm-card p-5 sm:p-6 rounded-3xl border border-latte-200 hover:border-latte-400 shadow-soft hover:shadow-soft-lg cursor-pointer transition-all group flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-3">
+                              <span className="w-8 h-8 rounded-xl bg-latte-100 text-latte-700 font-bold flex items-center justify-center text-sm">
+                                02
+                              </span>
+                              <span className="text-xs font-semibold text-latte-600 group-hover:translate-x-0.5 transition-transform flex items-center">
+                                강좌 찾기 &rarr;
+                              </span>
+                            </div>
+                            <h3 className="text-lg font-bold text-warm-textMain mb-2 group-hover:text-latte-700 transition-colors">
+                              어떤 강좌가 있나요?
+                            </h3>
+                            <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-4">
+                              관내 거점 고등학교에서 온라인 및 오프라인으로 다양한 심화·소인수 강좌가 개설되어 운영됩니다.
+                            </p>
+                          </div>
+                          <div className="space-y-2 text-xs pt-3 border-t border-latte-100">
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span><strong>1학년 수강 가능:</strong> 보건, AI모델링(송내고) 등</span>
+                            </div>
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span><strong>2학년 전공 심화:</strong> 과학실험, 고급수학/과학, 국제정치·경제, 심리, 창작 등</span>
+                            </div>
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span>인문·사회, 자연·공학, 보건·예체능 진로 맞춤 선택</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 3. 어떻게 진행되나요? */}
+                        <div 
+                          onClick={() => setActiveTab('guide')}
+                          className="bg-warm-card p-5 sm:p-6 rounded-3xl border border-latte-200 hover:border-latte-400 shadow-soft hover:shadow-soft-lg cursor-pointer transition-all group flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-3">
+                              <span className="w-8 h-8 rounded-xl bg-latte-100 text-latte-700 font-bold flex items-center justify-center text-sm">
+                                03
+                              </span>
+                              <span className="text-xs font-semibold text-latte-600 group-hover:translate-x-0.5 transition-transform flex items-center">
+                                일정 보기 &rarr;
+                              </span>
+                            </div>
+                            <h3 className="text-lg font-bold text-warm-textMain mb-2 group-hover:text-latte-700 transition-colors">
+                              어떻게 진행되나요?
+                            </h3>
+                            <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-4">
+                              <strong>정규 일과 후</strong>에 진행되며, 기준 수업 시수의 2/3 이상 출석하면 학점이 승인됩니다.
+                            </p>
+                          </div>
+                          <div className="space-y-2 text-xs pt-3 border-t border-latte-100">
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span><strong>수업 방식:</strong> 온라인('경기온라인학교, 온라인공동교육과정' 사이트) 또는 거점교 특별실 대면</span>
+                            </div>
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span><strong>이수 기준:</strong> 과목 출석률 2/3 이상 및 학업성취율 40% 이상 (교양은 출석률 적용)</span>
+                            </div>
+                            <div className="flex items-start space-x-2 text-warm-textMain">
+                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
+                              <span><strong>학사 운영:</strong> 거점학교별 오리엔테이션 및 정규 일과 후 수업 개시</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 빠른 액션 버튼들 */}
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                        <button
+                          onClick={() => setActiveTab('courses')}
+                          className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-latte-600 hover:bg-latte-700 text-white font-semibold text-base shadow-soft hover:shadow-soft-lg transition-all flex items-center justify-center space-x-2"
+                        >
+                          <i data-lucide="sparkles" className="w-5 h-5"></i>
+                          <span>개설 강좌 찾아보기</span>
+                        </button>
+                        
+                        <button
+                          onClick={() => setActiveTab('guide')}
+                          className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-warm-card hover:bg-latte-100 text-warm-textMain border border-warm-border font-semibold text-base shadow-2xs transition-all flex items-center justify-center space-x-2"
+                        >
+                          <i data-lucide="book-open-text" className="w-5 h-5 text-latte-600"></i>
+                          <span>성적·출결 운영 지침 자세히 보기</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 핵심 지표 4대 카드 */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 md:mt-16">
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-soft flex flex-col items-center text-center">
+                        <div className="w-12 h-12 rounded-xl bg-latte-100 text-latte-700 flex items-center justify-center mb-3">
+                          <i data-lucide="layers" className="w-6 h-6"></i>
+                        </div>
+                        <span className="text-2xl md:text-3xl font-bold text-warm-textMain">온·오프라인</span>
+                        <span className="text-xs md:text-sm text-warm-textSub mt-1">거점학교 연계 운영</span>
+                      </div>
+
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-soft flex flex-col items-center text-center">
+                        <div className="w-12 h-12 rounded-xl bg-latte-100 text-latte-700 flex items-center justify-center mb-3">
+                          <i data-lucide="shield-check" className="w-6 h-6"></i>
+                        </div>
+                        <span className="text-2xl md:text-3xl font-bold text-latte-600">석차 등급 無</span>
+                        <span className="text-xs md:text-sm text-warm-textSub mt-1">석차 등급 '·' 표기 (미산출)</span>
+                      </div>
+
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-soft flex flex-col items-center text-center">
+                        <div className="w-12 h-12 rounded-xl bg-latte-100 text-latte-700 flex items-center justify-center mb-3">
+                          <i data-lucide="check-circle" className="w-6 h-6"></i>
+                        </div>
+                        <span className="text-2xl md:text-3xl font-bold text-warm-textMain">출석 2/3 + 40%</span>
+                        <span className="text-xs md:text-sm text-warm-textSub mt-1">기준 출석 및 성취율 충족</span>
+                      </div>
+
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-soft flex flex-col items-center text-center">
+                        <div className="w-12 h-12 rounded-xl bg-latte-100 text-latte-700 flex items-center justify-center mb-3">
+                          <i data-lucide="file-text" className="w-6 h-6"></i>
+                        </div>
+                        <span className="text-2xl md:text-3xl font-bold text-warm-textMain">세특 500자</span>
+                        <span className="text-xs md:text-sm text-warm-textSub mt-1">소속교 생기부 전자 자동전송</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* 수강생 필수 학사 준칙 및 유의사항 섹션 */}
+                <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="mb-8 text-center sm:text-left">
+                    <span className="text-xs font-bold text-latte-600 tracking-wider uppercase">Academic Rules</span>
+                    <h3 className="text-2xl md:text-3xl font-bold text-warm-textMain mt-1">
+                      수강생 필수 학사 준칙 및 유의사항
+                    </h3>
+                    <p className="text-sm text-warm-textMuted mt-1">
+                      성공적인 과목 이수와 학사 운영의 신뢰를 위해 모든 수강생이 반드시 준수해야 합니다.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* 준칙 1 */}
+                    <div className="bg-warm-card p-6 rounded-2xl border border-latte-200 hover:border-latte-400 shadow-soft transition-all">
+                      <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold text-base mb-4">
+                        01
+                      </div>
+                      <h4 className="text-lg font-bold text-warm-textMain mb-2">
+                        수강 확정 후 임의 포기 불가
+                      </h4>
+                      <p className="text-sm text-warm-textMuted leading-relaxed">
+                        수강자로 최종 확정된 이후에는 학업 부담, 단순 변심, 사교육 학원 일정 등 
+                        <strong> 어떠한 개인적 사유로도 임의 수강 취소 및 중도 포기가 일체 허용되지 않습니다</strong>. 
+                        임의 불참 시 출결 미달로 생활기록부에 <strong>'미이수'</strong>로 공식 기록되며 과목별 세특에 부정적 영향을 초래합니다.
+                      </p>
+                    </div>
+
+                    {/* 준칙 2 */}
+                    <div className="bg-warm-card p-6 rounded-2xl border border-latte-200 hover:border-latte-400 shadow-soft transition-all">
+                      <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-base mb-4">
+                        02
+                      </div>
+                      <h4 className="text-lg font-bold text-warm-textMain mb-2">
+                        출석 및 학업성취율 기반 이수
+                      </h4>
+                      <p className="text-sm text-warm-textMuted leading-relaxed">
+                        보통교과는 <strong>과목출석률 2/3 이상 및 학업성취율 40% 이상</strong>을 모두 충족해야 하며, 교양교과는 과목출석률 2/3 이상 충족 시 이수(P)됩니다. 
+                        성취율 40% 미도달 우려 시 거점교에서 최소 성취수준 보장지도 및 보충 과제를 제공합니다.
+                      </p>
+                    </div>
+
+                    {/* 준칙 3 */}
+                    <div className="bg-warm-card p-6 rounded-2xl border border-latte-200 hover:border-latte-400 shadow-soft transition-all">
+                      <div className="w-10 h-10 rounded-xl bg-latte-200 text-latte-900 flex items-center justify-center font-bold text-base mb-4">
+                        03
+                      </div>
+                      <h4 className="text-lg font-bold text-warm-textMain mb-2">
+                        생활기록부 등재 및 세특 반영
+                      </h4>
+                      <p className="text-sm text-warm-textMuted leading-relaxed">
+                        초·중등교육법에 기반한 정규 교과목으로 이수 결과가 소속교 생활기록부에 정식 기재됩니다. 
+                        <strong> 석차 등급은 산출하지 않으며('·' 표기)</strong>, 
+                        거점교 교사가 작성한 <strong>과목별 세특(500자)</strong>이 소속교 NEIS로 자동 전송되어 대입 학생부 종합전형에 반영됩니다.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+
+                {/* 2학기 공동교육과정 학사 운영 로드맵 */}
+                <section className="py-12 bg-latte-100/50 border-y border-warm-border/60">
+                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center max-w-2xl mx-auto mb-10">
+                      <span className="text-xs font-bold text-latte-600 tracking-wider uppercase">Academic Roadmap</span>
+                      <h3 className="text-2xl md:text-3xl font-bold text-warm-textMain mt-1">
+                        2학기 공동교육과정 학사 운영 로드맵
+                      </h3>
+                      <p className="text-sm text-warm-textMuted mt-1">
+                        개강부터 출결 관리, 평가, 나이스 생활기록부 등재까지의 학사 진행 과정입니다.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+                      {/* 단계 1 */}
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-2xs relative">
+                        <div className="text-xs font-bold text-latte-500 mb-1">1단계</div>
+                        <h4 className="text-base font-bold text-warm-textMain">오리엔테이션 및 개강</h4>
+                        <div className="text-xs text-latte-600 font-semibold my-2 px-2 py-1 rounded-md bg-latte-50 inline-block">
+                          2학기 개학 직후
+                        </div>
+                        <p className="text-xs text-warm-textMuted leading-relaxed">
+                          거점학교별 강의계획서 배부, 수업 진행 방식 오리엔테이션 및 첫 정규 수업 개시
+                        </p>
+                      </div>
+
+                      {/* 단계 2 */}
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-2xs relative">
+                        <div className="text-xs font-bold text-latte-500 mb-1">2단계</div>
+                        <h4 className="text-base font-bold text-warm-textMain">정규 일과 후 수업 참여</h4>
+                        <div className="text-xs text-latte-600 font-semibold my-2 px-2 py-1 rounded-md bg-latte-50 inline-block">
+                          학기 중 운영
+                        </div>
+                        <p className="text-xs text-warm-textMuted leading-relaxed">
+                          온라인('경기온라인학교, 온라인공동교육과정' 사이트 실시간 쌍방향) 또는 거점교 특별실 대면 실험·실습 성실 참여
+                        </p>
+                      </div>
+
+                      {/* 단계 3 */}
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-2xs relative">
+                        <div className="text-xs font-bold text-latte-500 mb-1">3단계</div>
+                        <h4 className="text-base font-bold text-warm-textMain">과정 중심 평가 및 탐구</h4>
+                        <div className="text-xs text-latte-600 font-semibold my-2 px-2 py-1 rounded-md bg-latte-50 inline-block">
+                          수행평가 30% 이상
+                        </div>
+                        <p className="text-xs text-warm-textMuted leading-relaxed">
+                          정기시험 및 서·논술형 수행평가 진행, 학생 주도형 탐구 보고서 및 프로젝트 완성
+                        </p>
+                      </div>
+
+                      {/* 단계 4 */}
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-2xs relative">
+                        <div className="text-xs font-bold text-latte-500 mb-1">4단계</div>
+                        <h4 className="text-base font-bold text-warm-textMain">출결·성적 정산 및 이수 판정</h4>
+                        <div className="text-xs text-latte-600 font-semibold my-2 px-2 py-1 rounded-md bg-latte-50 inline-block">
+                          출석 2/3 + 성취율 40%
+                        </div>
+                        <p className="text-xs text-warm-textMuted leading-relaxed">
+                          출석률 2/3 이상과 학업성취율 40% 이상(교양은 출석률) 충족 확인 후 최종 학점 이수 승인
+                        </p>
+                      </div>
+
+                      {/* 단계 5 */}
+                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-2xs relative">
+                        <div className="text-xs font-bold text-latte-500 mb-1">5단계</div>
+                        <h4 className="text-base font-bold text-warm-textMain">나이스 성적·세특 전송</h4>
+                        <div className="text-xs text-latte-600 font-semibold my-2 px-2 py-1 rounded-md bg-latte-50 inline-block">
+                          학기 말 소속교 반영
+                        </div>
+                        <p className="text-xs text-warm-textMuted leading-relaxed">
+                          석차 등급 없는 성취도(또는 P) 및 거점교 교사의 세특(500자) 소속교 NEIS 전자 자동 전송
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* 학년별 빠른 과목 바로가기 배너 */}
+                <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* 고1 배너 */}
+                    <div 
+                      onClick={() => {
+                        setSelectedGrade('grade1');
+                        setActiveTab('courses');
+                      }}
+                      className="bg-gradient-to-r from-latte-100 to-warm-card p-6 md:p-8 rounded-3xl border border-latte-300 shadow-soft hover:shadow-soft-lg cursor-pointer group transition-all"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                          고등학교 1학년 수강 가능 강좌
+                        </span>
+                        <i data-lucide="arrow-right" className="w-5 h-5 text-latte-600 group-hover:translate-x-1 transition-transform"></i>
+                      </div>
+                      <h4 className="text-xl md:text-2xl font-bold text-warm-textMain mb-2">
+                        1학년 참여 가능 추천 강좌
+                      </h4>
+                      <p className="text-sm text-warm-textMuted mb-4">
+                        수주고·시온고·덕산고의 <strong>보건</strong> 및 송내고의 최첨단 <strong>인공지능 모델링</strong>을 1학년부터 이수해 보세요!
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
+                          수주고(보건A)
+                        </span>
+                        <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
+                          시온고(보건B)
+                        </span>
+                        <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
+                          덕산고(보건C)
+                        </span>
+                        <span className="text-xs px-2.5 py-1 rounded-lg bg-latte-600 text-white font-medium">
+                          송내고(인공지능 모델링)
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* 고2 배너 */}
+                    <div 
+                      onClick={() => {
+                        setSelectedGrade('grade2');
+                        setActiveTab('courses');
+                      }}
+                      className="bg-gradient-to-r from-latte-100 to-warm-card p-6 md:p-8 rounded-3xl border border-latte-300 shadow-soft hover:shadow-soft-lg cursor-pointer group transition-all"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-latte-200 text-latte-800 border border-latte-300">
+                          고등학교 2학년 전공 심화
+                        </span>
+                        <i data-lucide="arrow-right" className="w-5 h-5 text-latte-600 group-hover:translate-x-1 transition-transform"></i>
+                      </div>
+                      <h4 className="text-xl md:text-2xl font-bold text-warm-textMain mb-2">
+                        2학년 전공 심화·실험 강좌
+                      </h4>
+                      <p className="text-sm text-warm-textMuted mb-4">
+                        고급 화학·물리·생명과학 실험부터 고급 대수, 국제 정치·경제, 소설 창작, 교육의 이해까지 진로별 맞춤 탐구!
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
+                          자연·공학 실험
+                        </span>
+                        <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
+                          인문·사회 심화
+                        </span>
+                        <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
+                          교양·예체능
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {/* ======================= TAB 2: 공통 안내 지침 ======================= */}
+            {activeTab === 'guide' && (
+              <div className="py-10 md:py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* 섹션 타이틀 */}
+                <div className="text-center max-w-3xl mx-auto mb-12">
+                  <span className="text-xs font-bold text-latte-600 tracking-wider uppercase">Academic Regulations</span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-warm-textMain mt-1">
+                    2026학년도 부천 공동교육과정 공통 운영 지침
+                  </h2>
+                  <p className="text-sm md:text-base text-warm-textMuted mt-2">
+                    초·중등교육법 및 2026학년도 고교 공동교육과정 운영 지침에 기반한 정규 학사 준칙으로, 
+                    성적 산출, 학점 이수 기준, 출결 관리 및 NEIS 생활기록부 등재에 대한 공식 규정입니다.
+                  </p>
+                </div>
+
+                {/* 가이드 카드 그리드 */}
+                <div className="space-y-8">
+                  {/* 카드 1: 성적 산출 방식 및 평가 원칙 */}
+                  <div className="bg-warm-card rounded-3xl border border-warm-border p-6 md:p-8 shadow-soft">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-latte-100 text-latte-700 flex items-center justify-center font-bold">
+                        <i data-lucide="award" className="w-6 h-6"></i>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold text-latte-600">내신 상대평가 부담 Zero</span>
+                        <h3 className="text-xl md:text-2xl font-bold text-warm-textMain">
+                          학업성적 산출 및 학교생활기록부 기재 방식
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 text-sm md:text-base text-warm-textMain leading-relaxed">
+                      <div className="p-4 rounded-2xl bg-latte-50 border border-latte-200">
+                        <h4 className="font-bold text-latte-800 flex items-center space-x-2 mb-1">
+                          <i data-lucide="check" className="w-4 h-4 text-latte-600"></i>
+                          <span>석차 등급을 일체 산출하지 않으며 '·'로 표기합니다!</span>
+                        </h4>
+                        <p className="text-xs md:text-sm text-warm-textMuted">
+                          소인수 수강에 따른 상대평가 석차등급 불이익을 방지하기 위해 석차등급란에 '·'(가운뎃점)을 입력하며, 성취도 표기와 정성적 세특 기록을 통해 학생의 심화 학업 역량을 대입에서 긍정적으로 평가받을 수 있습니다.
+                        </p>
+                      </div>
+
+                      {/* 성적 산출 표 */}
+                      <div className="overflow-x-auto rounded-2xl border border-warm-border mt-4">
+                        <table className="w-full text-left text-xs md:text-sm">
+                          <thead className="bg-latte-100 text-latte-800 font-semibold border-b border-warm-border">
+                            <tr>
+                              <th className="py-3 px-4">편제 구분</th>
+                              <th className="py-3 px-4">학생부 반영 항목</th>
+                              <th className="py-3 px-4">세부 기재 규정 및 표기 예시</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-warm-border/60 bg-white/70">
+                            <tr>
+                              <td className="py-3.5 px-4 font-bold text-warm-textMain align-top" rowSpan="3">
+                                보통교과
+                              </td>
+                              <td className="py-3 px-4 text-warm-textMuted">원점수 / 과목평균</td>
+                              <td className="py-3 px-4 font-medium">정기시험 + 수행평가 합산 원점수 및 과목평균 병기 (예: 93 / 81.4)</td>
+                            </tr>
+                            <tr>
+                              <td className="py-3 px-4 text-warm-textMuted">성취도 (수강자수)</td>
+                              <td className="py-3 px-4 font-medium">성취도 표기 및 총 수강자수 병기 (예: A(15))</td>
+                            </tr>
+                            <tr>
+                              <td className="py-3 px-4 text-warm-textMuted">석차 등급 / 비고</td>
+                              <td className="py-3 px-4 font-medium text-latte-700">
+                                석차 등급란에 <strong>'·'</strong>(가운뎃점) 표기 / 비고란에 <strong>'공동'</strong> 표기
+                              </td>
+                            </tr>
+                            <tr className="bg-latte-50/40">
+                              <td className="py-3.5 px-4 font-bold text-warm-textMain">
+                                교양 교과군<br />
+                                <span className="text-xs font-normal text-warm-textSub">(보건, 인간과 심리, 교육의 이해)</span>
+                              </td>
+                              <td className="py-3 px-4 text-warm-textMuted">이수 여부 (P) / 비고</td>
+                              <td className="py-3 px-4 font-medium text-emerald-800">
+                                지필평가 없이 <strong>P(이수)</strong> 표기 / 비고란에 <strong>'공동'</strong> 표기 (석차등급 '·' 표기)
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="py-3.5 px-4 font-bold text-warm-textMain">
+                                과목별 세특<br />
+                                <span className="text-xs font-normal text-warm-textSub">(세부능력 및 특기사항)</span>
+                              </td>
+                              <td className="py-3 px-4 text-warm-textMuted">과목당 500자 (한글 기준)</td>
+                              <td className="py-3 px-4 text-warm-textMain">
+                                거점교 담당 교사가 학생의 탐구 보고서, 실험 설계 역량, 전공 심화 태도를 직접 관찰하여 서술형 500자 이내 입력<br />
+                                <span className="text-xs text-latte-600 font-medium">
+                                  * 소속교 생활기록부 기재 시 "본교(또는 타교)에 개설된 공동교육과정(과목명)을 이수함." 표준 문구 연계
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-xs md:text-sm text-warm-textMuted">
+                        <div className="flex items-start space-x-2">
+                          <i data-lucide="info" className="w-4 h-4 text-latte-600 shrink-0 mt-0.5"></i>
+                          <span><strong>정기시험 용어 준수:</strong> 기존 '지필평가' 용어는 공식 지침에 따라 '정기시험'으로 표기됩니다.</span>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <i data-lucide="info" className="w-4 h-4 text-latte-600 shrink-0 mt-0.5"></i>
+                          <span><strong>과정중심 평가:</strong> 학생 참여형 수업과 연계한 수행평가 및 서·논술형 평가를 적극 실시합니다.</span>
+                        </div>
+                        <div className="flex items-start space-x-2 md:col-span-2">
+                          <i data-lucide="send" className="w-4 h-4 text-latte-600 shrink-0 mt-0.5"></i>
+                          <span><strong>나이스(NEIS) 전자 전송:</strong> 거점학교에서 학기 말 성적 산출 및 세특 입력을 마감하면 교육정보시스템(NEIS)을 통해 학생 소속 학교 생활기록부로 자동 전자 전송됩니다.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 카드 2: 학점 이수 기준 및 최소 성취수준 보장지도 */}
+                  <div className="bg-warm-card rounded-3xl border border-warm-border p-6 md:p-8 shadow-soft">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-latte-100 text-latte-700 flex items-center justify-center font-bold">
+                        <i data-lucide="calendar-check" className="w-6 h-6"></i>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold text-latte-600">2026 공동교육과정 운영 지침 준수</span>
+                        <h3 className="text-xl md:text-2xl font-bold text-warm-textMain">
+                          학점 이수 기준 및 최소 성취수준 보장지도
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      {/* 보통교과 이수 기준 */}
+                      <div className="p-5 rounded-2xl bg-latte-50/70 border border-latte-200">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-latte-600 text-white">
+                            보통교과 이수 기준
+                          </span>
+                          <span className="text-xs font-bold text-latte-800">출석률 + 학업성취율</span>
+                        </div>
+                        <h4 className="text-base font-bold text-warm-textMain mb-2">
+                          출석률 2/3 이상 + 성취율 40% 이상
+                        </h4>
+                        <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-4">
+                          보통교과는 과목출석률(기준 수업횟수의 2/3 이상)과 학업성취율(40% 이상)을 모두 충족해야 공식 학점으로 인정됩니다.
+                        </p>
+                        <div className="space-y-2 text-xs md:text-sm font-semibold text-warm-textMain">
+                          <div className="p-2.5 rounded-xl bg-white/90 border border-latte-200 flex justify-between">
+                            <span>2학점 과목 (총 32차시)</span>
+                            <span className="text-latte-700">22차시 이상 출석 + 성취율 40%</span>
+                          </div>
+                          <div className="p-2.5 rounded-xl bg-white/90 border border-latte-200 flex justify-between">
+                            <span>3학점 과목 (총 48차시)</span>
+                            <span className="text-latte-700">32차시 이상 출석 + 성취율 40%</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 교양교과 및 최소 성취수준 보장지도 */}
+                      <div className="p-5 rounded-2xl bg-warm-sand/70 border border-latte-200">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-700 text-white">
+                            교양교과 & 예방 지도
+                          </span>
+                          <span className="text-xs font-bold text-emerald-800">미도달 예방 지원</span>
+                        </div>
+                        <h4 className="text-base font-bold text-warm-textMain mb-2">
+                          교양교과 출석 2/3 충족 & 보장지도
+                        </h4>
+                        <ul className="space-y-2.5 text-xs md:text-sm text-warm-textMuted leading-relaxed">
+                          <li className="flex items-start space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-latte-500 mt-2 shrink-0"></span>
+                            <span><strong>교양 교과목군:</strong> 보건, 인간과 심리, 교육의 이해 등 교양 교과는 학업성취율 미적용, <strong>과목출석률(수업횟수의 2/3 이상)만 반영</strong>하여 이수(P) 여부를 결정합니다.</span>
+                          </li>
+                          <li className="flex items-start space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-latte-500 mt-2 shrink-0"></span>
+                            <span><strong>최소 성취수준 보장지도:</strong> 보통교과 학업성취율 40% 미도달 예방 지도 및 대체(보충)과제·학습을 제공하여 학생의 성실한 이수를 끝까지 지원합니다.</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-xs md:text-sm text-amber-900 flex items-start space-x-2.5">
+                      <i data-lucide="alert-triangle" className="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+                      <span>
+                        <strong>최종 미이수 처리 규정:</strong> 보충지도에도 불구하고 기준 수업 시수 출석률(2/3)에 미달하거나 학업성취율(40%)에 최종 미도달한 경우, 학점이 인정되지 않으며 학교생활기록부 비고란에 <strong>'미이수'</strong>로 공식 기재됩니다. 출결 및 과제 수행에 각별히 유의해야 합니다.
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 카드 3: 수강 자격 및 학사·출결 관리 준칙 */}
+                  <div className="bg-warm-card rounded-3xl border border-warm-border p-6 md:p-8 shadow-soft">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-latte-100 text-latte-700 flex items-center justify-center font-bold">
+                        <i data-lucide="shield-alert" className="w-6 h-6"></i>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold text-latte-600">공정한 학사 운영</span>
+                        <h3 className="text-xl md:text-2xl font-bold text-warm-textMain">
+                          수강 자격 및 출결 행정 준칙
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* 수강 신청 자격 및 제한 */}
+                      <div className="p-5 rounded-2xl bg-latte-50/70 border border-latte-200 space-y-3">
+                        <h4 className="text-base font-bold text-warm-textMain flex items-center space-x-2">
+                          <i data-lucide="file-text" className="w-4 h-4 text-latte-600"></i>
+                          <span>수강 신청 자격 및 이수 한도</span>
+                        </h4>
+                        <ul className="space-y-2 text-xs md:text-sm text-warm-textMuted leading-relaxed">
+                          <li className="flex items-start space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-latte-500 mt-2 shrink-0"></span>
+                            <span><strong>학기당 이수 한도:</strong> 수강 신청 가능 과목 수는 <strong>학기당 최대 2개 과목 이내</strong>로 제한됩니다.</span>
+                          </li>
+                          <li className="flex items-start space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-latte-500 mt-2 shrink-0"></span>
+                            <span><strong>본교 미개설 원칙:</strong> 본인 소속 고등학교의 3개년 교육과정 편제표상 미편성 또는 미개설된 과목만 수강 신청할 수 있습니다. (우회 수강 불가)</span>
+                          </li>
+                          <li className="flex items-start space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-latte-500 mt-2 shrink-0"></span>
+                            <span><strong>수강 확정 후 포기 불가:</strong> 수강자로 최종 확정된 이후에는 개인적 사유(변심, 학원 일정, 학업 부담 등)로 임의 취소 및 중도 포기가 일체 허용되지 않습니다.</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* 출결 관리 및 결석 행정 절차 */}
+                      <div className="p-5 rounded-2xl bg-warm-sand/70 border border-latte-200 space-y-3">
+                        <h4 className="text-base font-bold text-warm-textMain flex items-center space-x-2">
+                          <i data-lucide="calendar-x" className="w-4 h-4 text-latte-600"></i>
+                          <span>출결 관리 및 공결 처리 행정 절차</span>
+                        </h4>
+                        <ul className="space-y-2 text-xs md:text-sm text-warm-textMuted leading-relaxed">
+                          <li className="flex items-start space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-latte-500 mt-2 shrink-0"></span>
+                            <span><strong>독립 출석부 비치:</strong> 정규 일과 후(일과 외) 운영되므로 소속 학교 주간 출결과 자동 연동되지 않으며, 거점학교에서 별도의 학생 출석부를 독립 비치·관리합니다.</span>
+                          </li>
+                          <li className="flex items-start space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-latte-500 mt-2 shrink-0"></span>
+                            <span><strong>공결(출석인정) 승인 절차:</strong> 소속 학교의 정기시험, 수련활동, 수학여행, 법정 감염병 격리 등 공적 사유에 한해, <strong>소속 학교장 직인이 날인된 결석계 및 공문/증빙 서류를 결석일로부터 3일 이내 거점학교 교사에게 서면 제출</strong>해야 출석으로 인정됩니다.</span>
+                          </li>
+                          <li className="flex items-start space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-latte-500 mt-2 shrink-0"></span>
+                            <span><strong>무단 결석 통보:</strong> 사유 없는 결석은 소속 학교 및 학부모에게 통보되며 이수율에 직접 산입됩니다.</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 카드 4: 수업 플랫폼 및 권장 인원 운영 체계 */}
+                  <div className="bg-warm-card rounded-3xl border border-warm-border p-6 md:p-8 shadow-soft">
+                    <div className="flex items-center space-x-3 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-latte-100 text-latte-700 flex items-center justify-center font-bold">
+                        <i data-lucide="clock" className="w-6 h-6"></i>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold text-latte-600">정규 일과 종료 후 운영</span>
+                        <h3 className="text-xl md:text-2xl font-bold text-warm-textMain">
+                          수업 플랫폼 및 권장 운영 체계
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* 온라인 플랫폼 */}
+                      <div className="p-5 rounded-2xl bg-cyan-50/40 border border-cyan-200/80">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="badge-online px-2.5 py-1 rounded-lg text-xs font-bold">
+                            온라인 공동교육과정
+                          </span>
+                          <span className="text-xs font-semibold text-cyan-800">15명 내외 권장</span>
+                        </div>
+                        <h4 className="font-bold text-warm-textMain text-base mb-2">
+                          '경기온라인학교, 온라인공동교육과정' 사이트
+                        </h4>
+                        <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-3">
+                          단순 동영상 시청 강의는 일체 배제되며, 온라인 수업은 <strong>'경기온라인학교, 온라인공동교육과정' 사이트</strong>의 실시간 쌍방향 원격 화상 강의실에서 이루어집니다. 학생은 <strong>웹캠과 마이크를 켠 상태</strong>로 토론, 협업 프로젝트, 질의응답에 능동적으로 참여해야 합니다.
+                        </p>
+                        <div className="text-xs text-warm-textSub bg-white/80 p-2.5 rounded-xl border border-cyan-100">
+                          <strong>개설 과목군:</strong> 보건A·B·C, 인간과 심리A·B, 교육의 이해A·B, 고급 물리학/화학/생명과학, 국제 정치 등
+                        </div>
+                      </div>
+
+                      {/* 오프라인 플랫폼 */}
+                      <div className="p-5 rounded-2xl bg-amber-50/40 border border-amber-200/80">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="badge-offline px-2.5 py-1 rounded-lg text-xs font-bold">
+                            오프라인 공동교육과정
+                          </span>
+                          <span className="text-xs font-semibold text-amber-800">13~25명 내외 권장</span>
+                        </div>
+                        <h4 className="font-bold text-warm-textMain text-base mb-2">
+                          거점학교 특별교실 대면 집합
+                        </h4>
+                        <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-3">
+                          실험·실습, SW 코딩, 전공 실기가 수반되는 강좌로 거점학교의 특별교실(과학실험실, AI실습실, 지능형 수학교실, 체육관)에서 전면 대면으로 진행됩니다.
+                        </p>
+                        <div className="text-xs text-warm-textSub bg-white/80 p-2.5 rounded-xl border border-amber-100">
+                          <strong>개설 과목군:</strong> 화학/생명과학/물리학 실험, 프로그래밍A·B, 인공지능 모델링, 스포츠 경기 체력 등
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 수강 비율 및 시간표 블록 타임제 */}
+                    <div className="mt-6 p-4 rounded-2xl bg-latte-50 border border-latte-200 text-xs md:text-sm text-warm-textMain space-y-2">
+                      <h5 className="font-bold text-latte-800 mb-1 flex items-center space-x-1.5">
+                        <i data-lucide="check" className="w-4 h-4 text-latte-600"></i>
+                        <span>본교생 비율 권장선 및 시간표 운영 규정</span>
+                      </h5>
+                      <p className="text-warm-textMuted leading-relaxed">
+                        • <strong>본교생 비율:</strong> 단위학교 거점 개설 시 인근 타 고교 학생들의 학습 선택권 확대를 위해 <strong>거점교 본교생 비율 70% 이하</strong> 편성을 권장합니다.<br />
+                        • <strong>단위수업량:</strong> 1학점은 50분을 기준으로 하여 16회를 이수하는 수업량을 원칙으로 합니다.<br />
+                        • <strong>수업 결손 보충:</strong> 소속 학교 행사 등으로 인한 결손 차시는 거점교 담당 교사의 사전 공지 후 <strong>토요일 또는 방학 중 보충 수업</strong>을 통해 필수 이수 차시를 반드시 충족합니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ======================= TAB 3: 학교별 강좌 탐색 ======================= */}
+            {activeTab === 'courses' && (
+              <div className="py-8 md:py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* 상단 검색 & 헤더 */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                  <div>
+                    <span className="text-xs font-bold text-latte-600 tracking-wider uppercase">Course Catalog</span>
+                    <h2 className="text-2xl md:text-3xl font-bold text-warm-textMain mt-1">
+                      부천 거점학교별 개설 강좌 탐색
+                    </h2>
+                    <p className="text-xs md:text-sm text-warm-textMuted mt-1">
+                      학교별 운영 형태, 학점, 강의실, 수업 요일 및 세부 내용을 검색해 보세요.
+                    </p>
+                  </div>
+
+                  {/* 뷰 모드 토글 (카드별 vs 학교별 모아보기) */}
+                  <div className="flex items-center space-x-1 bg-latte-100 p-1 rounded-2xl border border-latte-200 self-start md:self-auto">
+                    <button
+                      onClick={() => setViewMode('card')}
+                      className={`px-3 py-1.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center space-x-1.5 ${
+                        viewMode === 'card' ? 'bg-white text-latte-800 shadow-2xs' : 'text-warm-textMuted hover:text-warm-textMain'
+                      }`}
+                    >
+                      <i data-lucide="grid" className="w-4 h-4"></i>
+                      <span>강좌별 카드</span>
+                    </button>
+                    <button
+                      onClick={() => setViewMode('school')}
+                      className={`px-3 py-1.5 rounded-xl text-xs md:text-sm font-semibold transition-all flex items-center space-x-1.5 ${
+                        viewMode === 'school' ? 'bg-white text-latte-800 shadow-2xs' : 'text-warm-textMuted hover:text-warm-textMain'
+                      }`}
+                    >
+                      <i data-lucide="building" className="w-4 h-4"></i>
+                      <span>학교별 모아보기</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 스마트 필터링 제어바 */}
+                <div className="bg-warm-card rounded-3xl border border-warm-border p-5 md:p-6 shadow-soft mb-8 space-y-5">
+                  {/* 검색창 */}
+                  <div className="relative">
+                    <i data-lucide="search" className="w-5 h-5 text-latte-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="과목명 (예: 물리학, 보건, 인공지능) 또는 학교명 (예: 송내고, 부천고, 심원고) 검색..."
+                      className="w-full pl-12 pr-10 py-3 rounded-2xl bg-latte-50/60 border border-latte-200 focus:outline-none focus:ring-2 focus:ring-latte-400 focus:bg-white text-sm md:text-base text-warm-textMain placeholder-warm-textSub transition-all"
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery('')}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-warm-textSub hover:text-warm-textMain text-xs bg-latte-200/80 rounded-full w-5 h-5 flex items-center justify-center"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+
+                  {/* 필터 칩 목록 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs md:text-sm">
+                    {/* 1. 수강 학년 필터 */}
+                    <div>
+                      <label className="block text-xs font-bold text-warm-textSub mb-2">수강 대상 학년</label>
+                      <div className="flex rounded-xl bg-latte-100 p-1 border border-latte-200">
+                        <button
+                          onClick={() => setSelectedGrade('all')}
+                          className={`flex-1 py-1.5 rounded-lg font-medium transition-all ${
+                            selectedGrade === 'all' ? 'bg-latte-600 text-white shadow-2xs' : 'text-warm-textMuted'
+                          }`}
+                        >
+                          전체
+                        </button>
+                        <button
+                          onClick={() => setSelectedGrade('grade1')}
+                          className={`flex-1 py-1.5 rounded-lg font-medium transition-all ${
+                            selectedGrade === 'grade1' ? 'bg-emerald-700 text-white shadow-2xs' : 'text-warm-textMuted'
+                          }`}
+                        >
+                          1학년 가능
+                        </button>
+                        <button
+                          onClick={() => setSelectedGrade('grade2')}
+                          className={`flex-1 py-1.5 rounded-lg font-medium transition-all ${
+                            selectedGrade === 'grade2' ? 'bg-latte-600 text-white shadow-2xs' : 'text-warm-textMuted'
+                          }`}
+                        >
+                          2학년
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 2. 수업 운영 형태 필터 */}
+                    <div>
+                      <label className="block text-xs font-bold text-warm-textSub mb-2">운영 형태</label>
+                      <div className="flex rounded-xl bg-latte-100 p-1 border border-latte-200">
+                        <button
+                          onClick={() => setSelectedType('all')}
+                          className={`flex-1 py-1.5 rounded-lg font-medium transition-all ${
+                            selectedType === 'all' ? 'bg-latte-600 text-white shadow-2xs' : 'text-warm-textMuted'
+                          }`}
+                        >
+                          전체
+                        </button>
+                        <button
+                          onClick={() => setSelectedType('online')}
+                          className={`flex-1 py-1.5 rounded-lg font-medium transition-all ${
+                            selectedType === 'online' ? 'bg-[#2A6E78] text-white shadow-2xs' : 'text-warm-textMuted'
+                          }`}
+                        >
+                          온라인
+                        </button>
+                        <button
+                          onClick={() => setSelectedType('offline')}
+                          className={`flex-1 py-1.5 rounded-lg font-medium transition-all ${
+                            selectedType === 'offline' ? 'bg-[#8C5938] text-white shadow-2xs' : 'text-warm-textMuted'
+                          }`}
+                        >
+                          오프라인
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 3. 진로 / 계열 필터 */}
+                    <div>
+                      <label className="block text-xs font-bold text-warm-textSub mb-2">진로 및 교과 계열</label>
+                      <select
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        className="w-full py-2 px-3 rounded-xl bg-latte-50 border border-latte-200 text-warm-textMain text-xs md:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-latte-400"
+                      >
+                        <option value="all">전체 계열 보기</option>
+                        <option value="자연과학·공학">자연과학·공학 (실험, AI, 고급과학)</option>
+                        <option value="사회·국제">사회·국제 (국제정치, 국제경제)</option>
+                        <option value="보건·의료">보건·의료 (보건 교과)</option>
+                        <option value="교육·심리·인문">교육·심리·인문 (심리, 교육, 창작)</option>
+                        <option value="예체능">예체능 (체육 전공 실기)</option>
+                      </select>
+                    </div>
+
+                    {/* 4. 요일 필터 */}
+                    <div>
+                      <label className="block text-xs font-bold text-warm-textSub mb-2">수업 요일 체계</label>
+                      <select
+                        value={selectedDay}
+                        onChange={(e) => setSelectedDay(e.target.value)}
+                        className="w-full py-2 px-3 rounded-xl bg-latte-50 border border-latte-200 text-warm-textMain text-xs md:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-latte-400"
+                      >
+                        <option value="all">전체 요일</option>
+                        <option value="wed">매주 수요일 집중 (주 1회)</option>
+                        <option value="mon_wed">매주 월·수요일 분할 (주 2회)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* 활성 필터 리셋 & 개수 표시 */}
+                  <div className="flex items-center justify-between pt-2 border-t border-warm-border/60 text-xs text-warm-textMuted">
+                    <span>
+                      검색 결과: <strong className="text-latte-700 font-bold">{filteredCourses.length}개</strong> 강좌 발견
+                    </span>
+                    {(selectedGrade !== 'all' || selectedType !== 'all' || selectedCategory !== 'all' || selectedDay !== 'all' || searchQuery !== '') && (
+                      <button
+                        onClick={() => {
+                          setSelectedGrade('all');
+                          setSelectedType('all');
+                          setSelectedCategory('all');
+                          setSelectedDay('all');
+                          setSearchQuery('');
+                        }}
+                        className="text-xs text-latte-600 hover:text-latte-800 font-semibold underline underline-offset-2 flex items-center space-x-1"
+                      >
+                        <i data-lucide="rotate-ccw" className="w-3.5 h-3.5"></i>
+                        <span>필터 초기화</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* ================= VIEW 1: 강좌별 카드 뷰 ================= */}
+                {viewMode === 'card' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredCourses.map((c) => (
+                      <div
+                        key={c.id}
+                        className="bg-warm-card rounded-3xl border border-warm-border hover:border-latte-400 shadow-soft hover:shadow-soft-lg transition-all flex flex-col justify-between overflow-hidden group"
+                      >
+                        {/* 카드 상단 배지 */}
+                        <div className="p-5 pb-3">
+                          <div className="flex items-center justify-between gap-2 mb-3">
+                            <span className="text-xs font-bold text-latte-700 bg-latte-100 px-2.5 py-0.5 rounded-full border border-latte-200">
+                              연번 #{c.id}
+                            </span>
+                            <div className="flex items-center space-x-1.5">
+                              {c.status === '미개설(폐강)' ? (
+                                <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-700 border border-rose-200">
+                                  미개설(폐강)
+                                </span>
+                              ) : (
+                                <>
+                                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                                    c.type === '온라인' ? 'badge-online' : 'badge-offline'
+                                  }`}>
+                                    {c.type}
+                                  </span>
+                                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                                    c.grade.includes('1학년') ? 'badge-grade1' : 'badge-grade2'
+                                  }`}>
+                                    {c.grade}
+                                  </span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="text-xs font-semibold text-warm-textSub mb-1 flex items-center space-x-1">
+                            <i data-lucide="map-pin" className="w-3.5 h-3.5 text-latte-500"></i>
+                            <span>{c.school}</span>
+                          </div>
+
+                          <h3 className="text-xl font-bold text-warm-textMain group-hover:text-latte-700 transition-colors">
+                            {c.subject}
+                          </h3>
+
+                          {/* 학점, 교과 정보, 개강일 배지 */}
+                          <div className="flex flex-wrap items-center gap-1.5 my-2.5 text-xs">
+                            {c.credits > 0 && (
+                              <span className="px-2 py-0.5 rounded-md bg-warm-sand text-warm-textMuted border border-latte-200 font-medium">
+                                {c.credits}학점 ({c.totalHours}차시)
+                              </span>
+                            )}
+                            <span className="px-2 py-0.5 rounded-md bg-latte-50 text-latte-700 border border-latte-200 font-medium">
+                              {c.subjectInfo}
+                            </span>
+                            {c.startDate && c.startDate !== '미개설(폐강)' && c.startDate !== '미개설' && (
+                              <span className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200 font-bold">
+                                개강: {c.startDate.replace('2026. ', '')}
+                              </span>
+                            )}
+                          </div>
+
+                          <p className="text-xs md:text-sm text-warm-textMuted line-clamp-2 mt-2 leading-relaxed">
+                            {c.description}
+                          </p>
+                        </div>
+
+                        {/* 카드 하단 정보 & 모달 열기 버튼 */}
+                        <div className="px-5 py-3.5 bg-latte-50/50 border-t border-warm-border/60 flex items-center justify-between text-xs">
+                          <div className="text-warm-textSub truncate pr-2">
+                            <div className="flex items-center space-x-1 text-[11px] font-medium text-warm-textMuted">
+                              <i data-lucide="clock" className="w-3 h-3 text-latte-500 shrink-0"></i>
+                              <span className="truncate">{c.operatingHours}</span>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => setSelectedCourseModal(c)}
+                            className="shrink-0 px-3 py-1.5 rounded-xl bg-latte-600 hover:bg-latte-700 text-white font-semibold text-xs shadow-2xs transition-all flex items-center space-x-1"
+                          >
+                            <span>상세보기</span>
+                            <i data-lucide="chevron-right" className="w-3.5 h-3.5"></i>
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+
+                    {filteredCourses.length === 0 && (
+                      <div className="col-span-full py-16 text-center bg-warm-card rounded-3xl border border-warm-border">
+                        <div className="w-12 h-12 rounded-full bg-latte-100 text-latte-500 flex items-center justify-center mx-auto mb-3">
+                          <i data-lucide="alert-circle" className="w-6 h-6"></i>
+                        </div>
+                        <h4 className="text-base font-bold text-warm-textMain">조건에 맞는 개설 강좌가 없습니다</h4>
+                        <p className="text-xs text-warm-textMuted mt-1">
+                          검색어나 상단 필터 조건을 변경하여 다시 찾아보세요.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* ================= VIEW 2: 학교별 모아보기 뷰 ================= */}
+                {viewMode === 'school' && (
+                  <div className="space-y-6">
+                    {Object.keys(schoolGrouped).map((schoolName) => {
+                      const courses = schoolGrouped[schoolName];
+                      return (
+                        <div key={schoolName} className="bg-warm-card rounded-3xl border border-warm-border p-6 shadow-soft">
+                          <div className="flex items-center justify-between pb-4 border-b border-warm-border/60 mb-4">
+                            <div className="flex items-center space-x-3">
+                              <div className="w-10 h-10 rounded-2xl bg-latte-100 text-latte-700 flex items-center justify-center font-bold">
+                                <i data-lucide="school" className="w-5 h-5"></i>
+                              </div>
+                              <div>
+                                <h3 className="text-lg md:text-xl font-bold text-warm-textMain">{schoolName}</h3>
+                                <span className="text-xs text-warm-textSub">부천시 거점학교 개설 강좌 {courses.length}개</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {courses.map((c) => (
+                              <div
+                                key={c.id}
+                                onClick={() => setSelectedCourseModal(c)}
+                                className="p-4 rounded-2xl bg-latte-50/50 hover:bg-latte-100/60 border border-latte-200 cursor-pointer transition-all flex flex-col justify-between"
+                              >
+                                <div>
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-xs font-bold text-latte-700">연번 #{c.id}</span>
+                                    <div className="flex items-center space-x-1">
+                                      {c.status === '미개설(폐강)' ? (
+                                        <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-100 text-rose-700 border border-rose-200">
+                                          미개설
+                                        </span>
+                                      ) : (
+                                        <>
+                                          <span className={`px-2 py-0.2 rounded-full text-[11px] font-bold ${
+                                            c.type === '온라인' ? 'badge-online' : 'badge-offline'
+                                          }`}>
+                                            {c.type}
+                                          </span>
+                                          <span className="px-2 py-0.2 rounded-full text-[11px] font-bold badge-grade2">
+                                            {c.grade}
+                                          </span>
+                                        </>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <h4 className="text-base font-bold text-warm-textMain mb-1">{c.subject}</h4>
+                                  <div className="text-[11px] text-latte-700 font-medium mb-1.5">
+                                    {c.subjectInfo} {c.credits > 0 ? `· ${c.credits}학점 (${c.totalHours}차시)` : ''}
+                                  </div>
+                                  <p className="text-xs text-warm-textMuted line-clamp-2 leading-relaxed mb-2">
+                                    {c.description}
+                                  </p>
+                                </div>
+                                <div className="text-xs text-latte-700 font-semibold flex items-center justify-between pt-2 border-t border-latte-200/60">
+                                  <span className="truncate pr-2">{c.operatingHours} {c.startDate && c.startDate !== '미개설(폐강)' && c.startDate !== '미개설' ? `(개강: ${c.startDate.replace('2026. ', '')})` : ''}</span>
+                                  <span className="shrink-0 underline underline-offset-2">상세보기 &rarr;</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ======================= TAB 4: 자가진단 & 출결 계산기 ======================= */}
+            {activeTab === 'simulator' && (
+              <div className="py-10 md:py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* 헤더 */}
+                <div className="text-center max-w-2xl mx-auto mb-10">
+                  <span className="text-xs font-bold text-latte-600 tracking-wider uppercase">Interactive Tools</span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-warm-textMain mt-1">
+                    수강생 학사 자가진단 & 출결 시뮬레이터
+                  </h2>
+                  <p className="text-sm md:text-base text-warm-textMuted mt-2">
+                    수강 확정 학생으로서 학사 준칙을 확인하고, 2026학년도 개정 학점 이수 기준에 따른 결석 허용 횟수를 계산해 보세요.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* 도구 1: 수강생 필수 4문항 체크리스트 */}
+                  <div className="bg-warm-card rounded-3xl border border-warm-border p-6 md:p-8 shadow-soft flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center space-x-3 mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+                          <i data-lucide="clipboard-check" className="w-6 h-6"></i>
+                        </div>
+                        <div>
+                          <span className="text-xs font-semibold text-latte-600">수강생 필수 확인</span>
+                          <h3 className="text-xl font-bold text-warm-textMain">수강생 학사 준칙 자가진단</h3>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <label className="flex items-start space-x-3 p-3.5 rounded-2xl bg-latte-50/70 border border-latte-200 cursor-pointer hover:bg-latte-100/60 transition-colors">
+                          <input
+                            type="checkbox"
+                            checked={checkList.q1}
+                            onChange={(e) => setCheckList({...checkList, q1: e.target.checked})}
+                            className="mt-1 w-4 h-4 rounded text-latte-600 focus:ring-latte-400"
+                          />
+                          <div className="text-xs md:text-sm">
+                            <span className="font-bold text-warm-textMain block">1. 소속 학교(본교) 미개설 원칙 확인</span>
+                            <span className="text-warm-textMuted">소속 학교의 3개년 교육과정에 개설되지 않은 심화·소인수 과목을 정상 수강 중인가요?</span>
+                          </div>
+                        </label>
+
+                        <label className="flex items-start space-x-3 p-3.5 rounded-2xl bg-latte-50/70 border border-latte-200 cursor-pointer hover:bg-latte-100/60 transition-colors">
+                          <input
+                            type="checkbox"
+                            checked={checkList.q2}
+                            onChange={(e) => setCheckList({...checkList, q2: e.target.checked})}
+                            className="mt-1 w-4 h-4 rounded text-latte-600 focus:ring-latte-400"
+                          />
+                          <div className="text-xs md:text-sm">
+                            <span className="font-bold text-warm-textMain block">2. 학기당 최대 2개 과목 이내 성실 수강 준수</span>
+                            <span className="text-warm-textMuted">선정된 강좌에 집중하여 한 학기 동안 성실하게 학업에 몰입할 준비가 되셨나요?</span>
+                          </div>
+                        </label>
+
+                        <label className="flex items-start space-x-3 p-3.5 rounded-2xl bg-latte-50/70 border border-latte-200 cursor-pointer hover:bg-latte-100/60 transition-colors">
+                          <input
+                            type="checkbox"
+                            checked={checkList.q3}
+                            onChange={(e) => setCheckList({...checkList, q3: e.target.checked})}
+                            className="mt-1 w-4 h-4 rounded text-latte-600 focus:ring-latte-400"
+                          />
+                          <div className="text-xs md:text-sm">
+                            <span className="font-bold text-warm-textMain block">3. 정규 일과 후 수업 환경 및 이동 준비</span>
+                            <span className="text-warm-textMuted">온라인은 '경기온라인학교, 온라인공동교육과정' 사이트 접속 환경 및 웹캠/마이크가 준비되었으며, 오프라인은 거점학교까지 정규 일과 후 안전하게 이동 가능한가요?</span>
+                          </div>
+                        </label>
+
+                        <label className="flex items-start space-x-3 p-3.5 rounded-2xl bg-latte-50/70 border border-latte-200 cursor-pointer hover:bg-latte-100/60 transition-colors">
+                          <input
+                            type="checkbox"
+                            checked={checkList.q4}
+                            onChange={(e) => setCheckList({...checkList, q4: e.target.checked})}
+                            className="mt-1 w-4 h-4 rounded text-latte-600 focus:ring-latte-400"
+                          />
+                          <div className="text-xs md:text-sm">
+                            <span className="font-bold text-warm-textMain block">4. 수강 확정 후 중도 포기 불가 규정 숙지</span>
+                            <span className="text-warm-textMuted">수강 확정 후 개인 사유로 임의 포기가 불가하며, 미이수 발생 시 생기부에 영구 기록됨을 숙지하셨나요?</span>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-warm-border">
+                      {allChecked ? (
+                        <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs md:text-sm font-bold flex items-center space-x-2">
+                          <i data-lucide="check-circle" className="w-5 h-5 text-emerald-600 shrink-0"></i>
+                          <span>자가진단 완료! 부천 공동교육과정 수강생 학사 준칙을 모두 확인하셨습니다.</span>
+                        </div>
+                      ) : (
+                        <div className="text-xs text-warm-textSub text-center">
+                          4개 항목을 모두 확인하여 체크를 완료해 주세요.
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 도구 2: 2026 개정 고교학점제 출결/이수 시뮬레이터 */}
+                  <div className="bg-warm-card rounded-3xl border border-warm-border p-6 md:p-8 shadow-soft flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center space-x-3 mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-latte-100 text-latte-700 flex items-center justify-center font-bold">
+                          <i data-lucide="calculator" className="w-6 h-6"></i>
+                        </div>
+                        <div>
+                          <span className="text-xs font-semibold text-latte-600">출석 2/3 충족 기준</span>
+                          <h3 className="text-xl font-bold text-warm-textMain">출결 및 학점 이수 계산기</h3>
+                        </div>
+                      </div>
+
+                      {/* 학점 선택 */}
+                      <div className="mb-5">
+                        <label className="block text-xs font-bold text-warm-textSub mb-2">과목 이수 학점</label>
+                        <div className="grid grid-cols-2 gap-3">
+                          <button
+                            onClick={() => setCalcCredits(2)}
+                            className={`py-2.5 rounded-2xl text-xs md:text-sm font-bold transition-all border ${
+                              calcCredits === 2
+                                ? 'bg-latte-600 text-white border-latte-700 shadow-2xs'
+                                : 'bg-latte-50 text-warm-textMuted border-latte-200'
+                            }`}
+                          >
+                            2학점 (총 32차시)
+                          </button>
+                          <button
+                            onClick={() => setCalcCredits(3)}
+                            className={`py-2.5 rounded-2xl text-xs md:text-sm font-bold transition-all border ${
+                              calcCredits === 3
+                                ? 'bg-latte-600 text-white border-latte-700 shadow-2xs'
+                                : 'bg-latte-50 text-warm-textMuted border-latte-200'
+                            }`}
+                          >
+                            3학점 (총 48차시)
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* 결석 입력 슬라이더/인풋 */}
+                      <div className="space-y-4 mb-6">
+                        <div>
+                          <div className="flex justify-between text-xs font-bold text-warm-textMain mb-1">
+                            <span>예상 결석 횟수</span>
+                            <span className="text-latte-700 font-extrabold">{calcAbsence} 차시</span>
+                          </div>
+                          <input
+                            type="range"
+                            min="0"
+                            max={calcCredits === 2 ? 15 : 20}
+                            value={calcAbsence}
+                            onChange={(e) => setCalcAbsence(parseInt(e.target.value))}
+                            className="w-full accent-latte-600"
+                          />
+                        </div>
+                      </div>
+
+                      {/* 실시간 계산 결과 카드 */}
+                      <div className="p-4 rounded-2xl bg-latte-50/90 border border-latte-200 space-y-2.5 text-xs md:text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-warm-textMuted">총 기준 수업량</span>
+                          <span className="font-bold text-warm-textMain">{calcStats.total}차시</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-warm-textMuted">학점 승인 최소 출석선 (2/3)</span>
+                          <span className="font-bold text-latte-800">{calcStats.required}차시 이상</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-warm-textMuted">총 결석 차시</span>
+                          <span className="font-bold text-rose-700">{calcStats.totalAbsence}차시</span>
+                        </div>
+                        <div className="flex justify-between pt-2 border-t border-latte-200">
+                          <span className="text-warm-textMain font-bold">추가 결석 가능 잔여 한도</span>
+                          <span className="font-extrabold text-latte-800">
+                            {calcStats.remainingAbsenceBudget >= 0 ? `${calcStats.remainingAbsenceBudget}차시 남음` : `초과 (-${Math.abs(calcStats.remainingAbsenceBudget)}차시)`}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-warm-border">
+                      <div className={`p-3 rounded-2xl border text-xs md:text-sm font-bold flex items-center justify-center space-x-2 ${calcStats.statusColor}`}>
+                        <i data-lucide={calcStats.remainingAbsenceBudget < 0 ? "x-circle" : "check-circle"} className="w-5 h-5 shrink-0"></i>
+                        <span>현재 진단 상태: {calcStats.status}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ======================= TAB 5: 자주 묻는 질문 FAQ ======================= */}
+            {activeTab === 'faq' && (
+              <div className="py-10 md:py-14 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center max-w-2xl mx-auto mb-10">
+                  <span className="text-xs font-bold text-latte-600 tracking-wider uppercase">FAQ</span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-warm-textMain mt-1">
+                    학생들이 자주 묻는 질문 BEST 8
+                  </h2>
+                  <p className="text-sm md:text-base text-warm-textMuted mt-2">
+                    성적 산출, 출결, 대입 반영, 수강 자격 등 궁금한 점을 시원하게 해결해 드립니다.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  {FAQ_DATA.map((item, idx) => (
+                    <details
+                      key={idx}
+                      className="group bg-warm-card rounded-2xl border border-warm-border p-5 shadow-2xs hover:border-latte-300 transition-all [&_summary::-webkit-details-marker]:hidden"
+                    >
+                      <summary className="flex items-center justify-between cursor-pointer font-bold text-warm-textMain text-sm md:text-base">
+                        <span className="flex items-center space-x-2.5">
+                          <span className="w-6 h-6 rounded-full bg-latte-100 text-latte-700 text-xs flex items-center justify-center shrink-0">
+                            Q{idx + 1}
+                          </span>
+                          <span>{item.q}</span>
+                        </span>
+                        <span className="transition group-open:rotate-180 text-latte-500">
+                          <i data-lucide="chevron-down" className="w-5 h-5"></i>
+                        </span>
+                      </summary>
+                      <div className="mt-4 pt-4 border-t border-warm-border/60 text-xs md:text-sm text-warm-textMuted leading-relaxed pl-8 whitespace-pre-line">
+                        {item.a}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+
+                {/* 추가 문의처 안내 박스 */}
+                <div className="mt-12 p-6 rounded-3xl bg-latte-100/70 border border-latte-300 text-center">
+                  <h4 className="text-base md:text-lg font-bold text-warm-textMain mb-2">
+                    더 궁금한 사항이 있으신가요?
+                  </h4>
+                  <p className="text-xs md:text-sm text-warm-textMuted max-w-xl mx-auto mb-4">
+                    공동교육과정 학사 운영 및 본교 교육과정 편제표 확인은 
+                    <strong> 소속 고등학교의 진로진학상담부 또는 교육과정 담당 교사</strong>에게 문의하시면 가장 정확한 상담을 받으실 수 있습니다.
+                  </p>
+                  <div className="inline-flex items-center space-x-2 text-xs font-semibold text-latte-700 bg-white/80 px-4 py-2 rounded-xl border border-latte-200">
+                    <i data-lucide="phone" className="w-4 h-4 text-latte-500"></i>
+                    <span>경기도부천교육지원청 중등교육지원과 공동교육과정 담당</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </main>
+
+          {/* ================= 강좌 상세 모달 팝업 ================= */}
+          {selectedCourseModal && (
+            <div 
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/45 backdrop-blur-xs animate-in fade-in duration-200"
+              onClick={() => setSelectedCourseModal(null)}
+            >
+              <div 
+                className="bg-warm-card rounded-3xl border border-warm-border max-w-2xl w-full max-h-[92vh] overflow-y-auto p-6 md:p-8 shadow-soft-xl relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* 닫기 버튼 */}
+                <button
+                  onClick={() => setSelectedCourseModal(null)}
+                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-latte-100 hover:bg-latte-200 text-warm-textSub hover:text-warm-textMain flex items-center justify-center transition-colors text-sm font-bold"
+                  aria-label="닫기"
+                >
+                  ✕
+                </button>
+
+                {/* 모달 상단 헤더 */}
+                <div className="pr-8 mb-6">
+                  <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
+                    <span className="text-xs font-bold text-latte-700 bg-latte-100 px-2.5 py-0.5 rounded-full border border-latte-200">
+                      부천 공동교육과정 연번 #{selectedCourseModal.id}
+                    </span>
+                    {selectedCourseModal.status === '미개설(폐강)' ? (
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                        최종 미개설(폐강)
+                      </span>
+                    ) : (
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        개설 확정
+                      </span>
+                    )}
+                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                      selectedCourseModal.type === '온라인' ? 'badge-online' : 'badge-offline'
+                    }`}>
+                      {selectedCourseModal.type}
+                    </span>
+                    <span className="badge-grade2 px-2.5 py-0.5 rounded-full text-xs font-bold">
+                      {selectedCourseModal.grade}
+                    </span>
+                    {selectedCourseModal.credits > 0 && (
+                      <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-warm-sand text-warm-textMain border border-latte-200">
+                        {selectedCourseModal.credits}학점 ({selectedCourseModal.totalHours}차시)
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="text-2xl md:text-3xl font-bold text-warm-textMain leading-tight">
+                    {selectedCourseModal.subject}
+                  </h3>
+
+                  <div className="text-sm font-semibold text-latte-700 mt-2 flex items-center space-x-2">
+                    <i data-lucide="school" className="w-4 h-4 text-latte-600"></i>
+                    <span>거점학교: <strong>{selectedCourseModal.school}</strong></span>
+                    <span className="text-warm-textSub text-xs">({selectedCourseModal.category})</span>
+                  </div>
+                </div>
+
+                {/* 미개설 강좌 안내 (상원고 등) */}
+                {selectedCourseModal.status === '미개설(폐강)' && (
+                  <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs md:text-sm mb-6 flex items-start space-x-3">
+                    <i data-lucide="alert-circle" className="w-5 h-5 text-rose-600 shrink-0 mt-0.5"></i>
+                    <div>
+                      <strong className="block text-sm font-bold text-rose-800 mb-1">※ 강좌 개설 취소 안내 (폐강)</strong>
+                      <p className="leading-relaxed">
+                        본 강좌는 2026학년도 2학기 수강 신청 인원 미달 등으로 인해 최종 미개설(폐강) 처리되었습니다. 소프트웨어·인공지능 계열 진로를 희망하는 학생은 <strong>송내고(인공지능 모델링)</strong> 또는 <strong>상일고(인공지능 수학)</strong> 등 관내 다른 거점학교의 연계 강좌를 참고해 주시기 바랍니다.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* 1. 핵심 수업 일정 & 개강일 강조 카드 (PDF 1:1 반영) */}
+                <div className="p-5 rounded-2xl bg-gradient-to-br from-latte-100/90 via-latte-50 to-warm-card border border-latte-300 shadow-2xs mb-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* 수업 시작일 (개강일) */}
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-1.5 text-xs font-bold text-latte-700 uppercase tracking-wider">
+                        <i data-lucide="calendar" className="w-4 h-4 text-latte-600"></i>
+                        <span>수업 시작일 (개강일)</span>
+                      </div>
+                      <div className="text-xl md:text-2xl font-extrabold text-latte-900">
+                        {selectedCourseModal.startDate}
+                      </div>
+                      <p className="text-[11px] text-warm-textSub leading-snug">
+                        * 정규 일과 종료 후 첫 수업이 시작됩니다. 개강 일정에 맞춰 수업 참여 준비를 완료해 주세요.
+                      </p>
+                    </div>
+
+                    {/* 수업 요일 및 운영 시간 */}
+                    <div className="space-y-1">
+                      <div className="flex items-center space-x-1.5 text-xs font-bold text-latte-700 uppercase tracking-wider">
+                        <i data-lucide="clock" className="w-4 h-4 text-latte-600"></i>
+                        <span>수업 요일 및 세부 운영 시간</span>
+                      </div>
+                      <div className="text-base md:text-lg font-bold text-warm-textMain">
+                        {selectedCourseModal.operatingHours}
+                      </div>
+                      <div className="flex items-center space-x-2 text-xs text-warm-textSub">
+                        <span className="font-semibold px-2 py-0.5 rounded-md bg-white/80 border border-latte-200 text-latte-800">
+                          수업 요일: {selectedCourseModal.days}
+                        </span>
+                        <span>(정규 일과 후 진행)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. 2026 과목선택 나침반 연계: 과목의 성격 및 공식 교과 정보 (수업 시작일 바로 아래 배치) */}
+                <div className="p-5 rounded-2xl bg-latte-50/90 border border-latte-200 shadow-2xs mb-5 space-y-3.5">
+                  <div className="flex items-center justify-between flex-wrap gap-2 pb-2.5 border-b border-latte-200">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 rounded-lg bg-latte-600 text-white flex items-center justify-center shrink-0">
+                        <i data-lucide="compass" className="w-4 h-4"></i>
+                      </div>
+                      <div>
+                        <span className="text-[11px] font-bold text-latte-700 block">2026 선택과목 나침반 연계</span>
+                        <h4 className="text-base font-bold text-warm-textMain flex items-center gap-2">
+                          <span>과목의 성격 및 공식 교과 정보</span>
+                          <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-latte-200 text-latte-900 border border-latte-300">
+                            {selectedCourseModal.selectionType}
+                          </span>
+                        </h4>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white text-latte-700 border border-latte-200">
+                        {selectedCourseModal.category} 계열
+                      </span>
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-latte-100 text-latte-800 border border-latte-200">
+                        석차등급 '·' 표기
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 공식 교과 정보 & 성적 기재 방식 카드 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div className="p-3.5 rounded-xl bg-white/80 border border-latte-100">
+                      <span className="text-[11px] font-bold text-warm-textSub block mb-1">공식 교과 정보 (교육과정 편제)</span>
+                      <span className="text-sm font-bold text-warm-textMain block">{selectedCourseModal.subjectInfo}</span>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-white/80 border border-latte-100">
+                      <span className="text-[11px] font-bold text-warm-textSub block mb-1">성적 산출 및 기재 방식</span>
+                      <span className="text-xs md:text-sm font-bold text-warm-textMain block mb-0.5">{selectedCourseModal.evaluation}</span>
+                      <p className="text-[11px] text-warm-textMuted leading-relaxed">
+                        소인수 선택에 따른 등급 산출 불이익 없이 심화 학습에 몰입할 수 있습니다.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 과목의 성격 */}
+                  {selectedCourseModal.subjectNature && (
+                    <div className="text-xs md:text-sm text-warm-textMain leading-relaxed bg-white/80 p-3.5 rounded-xl border border-latte-100">
+                      <strong className="text-latte-800 font-bold block mb-1.5 flex items-center space-x-1.5">
+                        <i data-lucide="sparkles" className="w-3.5 h-3.5 text-latte-600"></i>
+                        <span>과목의 성격</span>
+                      </strong>
+                      <p className="text-warm-textMain leading-relaxed">{selectedCourseModal.subjectNature}</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* 3. 수업 운영 및 이수 준칙 세부 그리드 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5 text-xs md:text-sm">
+                  {/* 이수 학점 / 총 수업 시수 */}
+                  <div className="p-3.5 rounded-xl bg-white/80 border border-warm-border">
+                    <span className="text-warm-textSub text-xs block mb-0.5 font-medium">이수 학점 / 총 기준 수업량</span>
+                    <span className="font-bold text-warm-textMain">
+                      {selectedCourseModal.credits > 0 ? `${selectedCourseModal.credits}학점 (총 ${selectedCourseModal.totalHours}차시)` : '-'}
+                    </span>
+                    {selectedCourseModal.credits > 0 && (
+                      <span className="text-[11px] text-latte-700 block mt-0.5 font-medium">
+                        * 최소 출석 기준: <strong>{selectedCourseModal.credits === 2 ? '22차시 이상 (결석 10회 이내)' : '32차시 이상 (결석 16회 이내)'}</strong>
+                      </span>
+                    )}
+                  </div>
+
+                  {/* 수업 장소 / 플랫폼 */}
+                  <div className="p-3.5 rounded-xl bg-white/80 border border-warm-border">
+                    <span className="text-warm-textSub text-xs block mb-0.5 font-medium">수업 장소 및 플랫폼</span>
+                    <span className="font-bold text-warm-textMain">{selectedCourseModal.classroom}</span>
+                    <span className="text-[11px] text-warm-textMuted block mt-0.5">
+                      운영 형태: {selectedCourseModal.type} ({selectedCourseModal.locationType})
+                    </span>
+                    {selectedCourseModal.type === '온라인' && (
+                      <span className="text-[11px] text-cyan-800 font-semibold block mt-1">
+                        * 온라인 수업은 '경기온라인학교, 온라인공동교육과정' 사이트에서 실시간 화상으로 이루어집니다.
+                      </span>
+                    )}
+                  </div>
+
+                  {/* 수강 대상 학년 및 정원 */}
+                  <div className="p-3.5 rounded-xl bg-white/80 border border-warm-border">
+                    <span className="text-warm-textSub text-xs block mb-0.5 font-medium">수강 대상 학년 및 수강 정원</span>
+                    <span className="font-bold text-warm-textMain">
+                      {selectedCourseModal.grade} · {selectedCourseModal.capacity}
+                    </span>
+                    <span className="text-[11px] text-warm-textMuted block mt-0.5">
+                      * 소속 학교 미개설 과목 수강 원칙 준수
+                    </span>
+                  </div>
+
+                  {/* 학점 이수 기준 */}
+                  <div className="p-3.5 rounded-xl bg-white/80 border border-warm-border">
+                    <span className="text-warm-textSub text-xs block mb-0.5 font-medium">학점 이수 기준 및 성취율</span>
+                    <span className="font-bold text-latte-800">
+                      출석 2/3 이상 + 성취율 40% 이상
+                    </span>
+                    <span className="text-[11px] text-warm-textMuted block mt-0.5">
+                      * 교양교과는 출석 2/3 충족 시 이수 (미도달 시 보충지도 지원)
+                    </span>
+                  </div>
+                </div>
+
+                {/* 모달 하단 버튼 */}
+                <div className="flex flex-col-reverse sm:flex-row justify-end gap-2.5 pt-4 border-t border-warm-border">
+                  <button
+                    onClick={() => setSelectedCourseModal(null)}
+                    className="px-5 py-2.5 rounded-xl bg-latte-200 hover:bg-latte-300 text-latte-900 font-semibold text-xs md:text-sm transition-colors text-center"
+                  >
+                    닫기
+                  </button>
+                  {selectedCourseModal.credits > 0 && (
+                    <button
+                      onClick={() => {
+                        setCalcCredits(selectedCourseModal.credits);
+                        setSelectedCourseModal(null);
+                        setActiveTab('simulator');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="px-5 py-2.5 rounded-xl bg-latte-600 hover:bg-latte-700 text-white font-semibold text-xs md:text-sm transition-colors shadow-2xs flex items-center justify-center space-x-1.5"
+                    >
+                      <i data-lucide="calculator" className="w-4 h-4"></i>
+                      <span>이 과목({selectedCourseModal.credits}학점) 출결 및 이수 계산해보기</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 하단 푸터 */}
+          <footer className="bg-warm-sand border-t border-warm-border py-10 mt-auto">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                <div>
+                  <h4 className="font-bold text-warm-textMain text-base">
+                    부천 공동교육과정 안내
+                  </h4>
+                  <p className="text-xs text-warm-textSub mt-1">
+                    학생의 과목 선택권을 보장하고 심화·소인수 교과를 공교육 테두리 내에서 연계 운영하는 정규 학사 과정
+                  </p>
+                </div>
+                <div className="text-xs text-warm-textMuted bg-warm-card px-3.5 py-2 rounded-xl border border-warm-border">
+                  기반 문서: 2026 부천지역 고교 공동교육과정 편성 현황 및 학사 운영 지침
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-warm-border/60 text-center sm:text-left text-xs text-warm-textSub">
+                <span>© 2026 정명고등학교</span>
+              </div>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
