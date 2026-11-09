@@ -113,7 +113,7 @@
   <script type="text/babel">
     const { useState, useMemo, useEffect } = React;
 
-    // 개설 강좌 원본 데이터베이스 (2027학년도 1학기 지침 문서 100% 정밀 반영)
+    // 개설 강좌 원본 데이터베이스 (2027학년도 1학기 공동교육과정 운영 예정과목 문서 100% 정밀 반영)
     const COURSES_DATA = [
       {
         id: 1,
@@ -131,31 +131,31 @@
         startDate: "3.10.(수)",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<화학 실험>은 21세기를 살아가는 데 필요한 핵심역량과 물질 현상을 과학적이고 창의적으로 분석하고 예측할 수 있는 화학적 소양을 함양하는 과학 계열 선택 과목이다. 물질 탐구 과정과 지식에 대한 통합적 이해를 바탕으로 학생들이 화학에 대한 호기심과 흥미를 갖고 과학적 탐구 능력과 태도를 함양하여 개인과 사회의 문제를 과학적이고 창의적으로 해결하는 전문가로서의 역량 신장을 목표로 한다.",
         subjectFeatures: "화학 실험의 기초(데이터 처리, 첨단 기자재 사용법), 물질의 성질(물질의 세 가지 상태와 특징, 혼합물의 분리, 묽은 용액의 성질), 화학 반응(화학 변화와 반응열 측정, 산화·환원 반응, 화학 평형, 반응 속도, 산·염기 평형), 탄소 화합물의 합성과 특성 등을 실험과 탐구 중심으로 체계적으로 학습한다.",
         description: "물질의 상태와 변화, 화학 반응열, 산·염기 적정, 유기화합물 합성 등 심화 화학 실험을 수행하고 탐구보고서를 작성하는 2학년 대상 과학계열 오프라인 선택 과목입니다.",
-        classroom: "계남고등학교 화학실험실",
-        locationType: "오프라인 대면 집합 (계남고 특별실)",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
         id: 2,
         school: "덕산고등학교",
-        subject: "보건",
+        subject: "보건A",
         grade: "2학년",
         credits: 2,
         totalHours: 32,
         days: "수",
-        operatingHours: "수 18:00~19:50/20:50",
-        dayTime: "수 18:00~19:50/20:50",
+        operatingHours: "수 18:00~19:50(20:50)",
+        dayTime: "수 18:00~19:50(20:50)",
         selectionType: "진로 선택 과목",
         subjectInfo: "교양, 진로선택, P/F",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "보건·의료",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<보건>은 학생들이 건강역량을 함양하여 생활 속에서 건강을 실천하며 건강하고 행복한 시민으로 성장하는 데 필요한 자질을 갖추도록 설계한 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "건강 증진과 질병 예방(다차원적 건강 개념, 건강지표와 건강 평가), 정서와 정신건강(스트레스 관리, 약물 오남용 예방), 성과 건강(생애주기별 성 건강, 성인지 감수성), 건강 안전과 응급처치(심폐소생술, 응급처치체계), 건강 자원과 건강문화(디지털 헬스케어, 보건의료제도)를 다룬다.",
         description: "개인과 공동체의 건강 역량을 기르고 일상생활 속 건강 실천 및 보건의료·간호 계열 진로를 위한 기초 소양을 탐구하는 2학년 대상 온라인 교양 진로 선택 과목입니다.",
@@ -171,20 +171,20 @@
         credits: 2,
         totalHours: 32,
         days: "월 / 수",
-        operatingHours: "월 18:00~19:50 / 수 17:00~18:50/19:50",
-        dayTime: "월 18:00~19:50 / 수 17:00~18:50/19:50",
+        operatingHours: "월 18:00~19:50 / 수 17:00~18:50(19:50)",
+        dayTime: "월 18:00~19:50 / 수 17:00~18:50(19:50)",
         selectionType: "진로 선택 과목",
         subjectInfo: "교양, 진로선택, P/F",
         type: "오프라인",
         startDate: "3.10.(수)",
         category: "교육·심리·인문",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<인간과 심리> 과목은 심리학을 이해하고 실생활 문제 해결에 응용할 수 있도록 함으로써, 개인의 건강한 발달과 적응을 도모할 뿐만 아니라 민주시민으로서 필요한 주도성, 의사소통 능력, 창의적 문제 해결력, 개방적이고 포용적인 태도를 기르기 위한 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "마음의 과학적 탐구(과학으로서의 심리학, 심리학 연구 방법과 연구 윤리), 자기 이해(행동의 생물학적 기초, 성격과 동기, 인지와 정서 조절), 타인 이해(사회 인지, 집단과 사회적 영향, 사회적 관계), 삶과 적응(적응과 부적응, 스트레스 대처, 행복의 다면적 의미와 증진 활동)을 심층 학습한다.",
         description: "심리학의 과학적 연구 방법론을 바탕으로 인간의 마음과 행동, 대인관계 및 정서 조절 원리를 대면 수업으로 탐구하는 2학년 대상 오프라인 교양 진로 선택 과목입니다.",
-        classroom: "도당고등학교 지정 강의실",
-        locationType: "오프라인 대면 집합 (도당고 특별실)",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
@@ -203,7 +203,7 @@
         startDate: "추후 안내",
         category: "교육·심리·인문",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<인간과 심리> 과목은 심리학을 이해하고 실생활 문제 해결에 응용할 수 있도록 함으로써, 개인의 건강한 발달과 적응을 도모할 뿐만 아니라 민주시민으로서 필요한 주도성, 의사소통 능력, 창의적 문제 해결력, 개방적이고 포용적인 태도를 기르기 위한 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "마음의 과학적 탐구(과학으로서의 심리학, 심리학 연구 방법과 연구 윤리), 자기 이해(행동의 생물학적 기초, 성격과 동기, 인지와 정서 조절), 타인 이해(사회 인지, 집단과 사회적 영향, 사회적 관계), 삶과 적응(적응과 부적응, 스트레스 대처, 행복의 다면적 의미와 증진 활동)을 심층 학습한다.",
         description: "심리학의 과학적 연구 방법론을 바탕으로 인간의 마음과 행동, 대인관계 및 정서 조절 원리를 탐구하는 2학년 대상 온라인 교양 진로 선택 과목입니다.",
@@ -227,34 +227,34 @@
         startDate: "추후 안내",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<물리학 실험>은 역학, 전자기, 광학, 현대 물리와 관련된 다양한 주제의 실험을 설계하고 수행하여 물리 현상에 대한 이해를 심화하고 실생활에 응용할 수 있는 과학적 소양과 창의성을 함양하기 위한 과학 계열 융합 선택 과목이다.",
         subjectFeatures: "물리 실험의 기초(측정 오차와 유효숫자, 컴퓨터 센서 활용), 역학(마찰력, 진자 운동, 운동량 보존, 역학적 에너지 보존), 전자기학(휘트스톤 브리지, 전자기 유도, RLC 회로), 광학(빛의 간섭과 회절, 굴절과 전반사, 편광), 현대 물리(광전효과, 전자의 비전하 측정, 에너지 준위) 등 첨단 MBL 장비를 활용한 정량 실험을 수행한다.",
         description: "역학, 전자기, 광학, 현대물리 영역의 고난도 물리 법칙을 MBL 센서와 실험 설계를 통해 정량 검증하는 과학계열 융합 선택 과목입니다.",
-        classroom: "부명고등학교 물리실험실",
-        locationType: "오프라인 대면 집합 (부명고 특별실)",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
         id: 6,
         school: "부천고등학교",
-        subject: "교육의 이해",
-        grade: "2·3학년",
+        subject: "교육의 이해A",
+        grade: "2, 3학년",
         credits: 2,
         totalHours: 32,
         days: "수",
         operatingHours: "수 17:30~19:10",
-        dayTime: "매주 수요일 17:30~19:10",
+        dayTime: "수 17:30~19:10",
         selectionType: "진로 선택 과목",
         subjectInfo: "교양, 진로선택, P/F",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "교육·심리·인문",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<교육의 이해> 과목은 인간 활동 및 사회 제도 차원에서 이루어지는 교육에 대한 이해와 실천에 도움을 줌으로써 학생들이 당당한 교육의 주체로서 행복한 삶을 살아가는 데 필요한 역량을 함양하고자 하는 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "교육의 의미와 중요성(교육적 존재로서의 인간, 평생학습 역량), 교육 활동(학습과 교수의 원리 및 방법론), 교육 제도(교육 제도의 역사적 변천, 사회적 기능, 현대 교육 문제), 미래 교육(디지털·AI 소양 함양, 미래 학습 환경 변화)을 체계적으로 다룬다.",
-        description: "사범계열 및 교육학 관련 진로 희망자를 위해 교육철학, 교수학습 이론, 미래 학교 모델 및 교육 정책을 심층 고찰하는 2·3학년 대상 온라인 교양 진로 선택 과목입니다.",
+        description: "사범계열 및 교육학 관련 진로 희망자를 위해 교육철학, 교수학습 이론, 미래 학교 모델 및 교육 정책을 심층 고찰하는 2, 3학년 대상 온라인 교양 진로 선택 과목입니다.",
         classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
         locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
         status: "개설 확정"
@@ -262,20 +262,20 @@
       {
         id: 7,
         school: "부천고등학교",
-        subject: "고급 화학",
+        subject: "고급 화학A",
         grade: "3학년",
         credits: 3,
         totalHours: 48,
         days: "수",
         operatingHours: "수 18:00~20:50",
-        dayTime: "매주 수요일 18:00~20:50",
+        dayTime: "수 18:00~20:50",
         selectionType: "진로 선택 과목",
         subjectInfo: "과학, 진로선택, 5단계 성취도",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<고급 화학>은 21세기를 살아가는 데 필요한 핵심역량과 물질 현상을 과학적이고 창의적으로 분석하고 예측할 수 있는 화학적 소양을 함양하는 과학 계열 진로 선택 과목이다. 물질 탐구 과정과 지식에 대한 통합적 이해를 바탕으로 학생들이 화학에 대한 호기심과 흥미를 갖고 과학적 탐구 능력과 태도를 함양하여 개인과 사회의 문제를 과학적이고 창의적으로 해결하는 전문가로서의 역량 신장을 목표로 한다.",
         subjectFeatures: "원자 오비탈과 분자 구조, 기체 분자 운동론과 상평형, 열역학(엔탈피, 엔트로피, 깁스 자유 에너지), 화학 반응 속도론, 화학 평형과 산·염기 평형의 정량적 분석 등 화학 전공 심화 이론을 학습한다.",
         description: "물질의 미시적 구조와 열역학, 반응 속도 및 화학 평형의 심층 이론을 다루는 3학년 대상 화학·바이오·약학·재료 계열 온라인 진로 선택 과목입니다.",
@@ -286,8 +286,8 @@
       {
         id: 8,
         school: "부천북고등학교",
-        subject: "교육의 이해",
-        grade: "2·3학년",
+        subject: "교육의 이해B",
+        grade: "2, 3학년",
         credits: 2,
         totalHours: 32,
         days: "월 / 수",
@@ -299,10 +299,10 @@
         startDate: "3.10.(수)",
         category: "교육·심리·인문",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<교육의 이해> 과목은 인간 활동 및 사회 제도 차원에서 이루어지는 교육에 대한 이해와 실천에 도움을 줌으로써 학생들이 당당한 교육의 주체로서 행복한 삶을 살아가는 데 필요한 역량을 함양하고자 하는 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "교육의 의미와 중요성(교육적 존재로서의 인간, 평생학습 역량), 교육 활동(학습과 교수의 원리 및 방법론), 교육 제도(교육 제도의 역사적 변천, 사회적 기능, 현대 교육 문제), 미래 교육(디지털·AI 소양 함양, 미래 학습 환경 변화)을 체계적으로 다룬다.",
-        description: "사범계열 및 교육학 관련 진로 희망자를 위해 교육철학, 교수학습 이론, 미래 학교 모델 및 교육 정책을 심층 고찰하는 2·3학년 대상 온라인 교양 진로 선택 과목입니다.",
+        description: "사범계열 및 교육학 관련 진로 희망자를 위해 교육철학, 교수학습 이론, 미래 학교 모델 및 교육 정책을 심층 고찰하는 2, 3학년 대상 온라인 교양 진로 선택 과목입니다.",
         classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
         locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
         status: "개설 확정"
@@ -310,23 +310,23 @@
       {
         id: 9,
         school: "부천여자고등학교",
-        subject: "교육의 이해",
-        grade: "2·3학년",
+        subject: "교육의 이해C",
+        grade: "2, 3학년",
         credits: 2,
         totalHours: 32,
         days: "수",
         operatingHours: "수 18:00~19:50",
-        dayTime: "매주 수요일 18:00~19:50",
+        dayTime: "수 18:00~19:50",
         selectionType: "진로 선택 과목",
         subjectInfo: "교양, 진로선택, P/F",
         type: "온라인",
         startDate: "추후 안내",
         category: "교육·심리·인문",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<교육의 이해> 과목은 인간 활동 및 사회 제도 차원에서 이루어지는 교육에 대한 이해와 실천에 도움을 줌으로써 학생들이 당당한 교육의 주체로서 행복한 삶을 살아가는 데 필요한 역량을 함양하고자 하는 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "교육의 의미와 중요성(교육적 존재로서의 인간, 평생학습 역량), 교육 활동(학습과 교수의 원리 및 방법론), 교육 제도(교육 제도의 역사적 변천, 사회적 기능, 현대 교육 문제), 미래 교육(디지털·AI 소양 함양, 미래 학습 환경 변화)을 체계적으로 다룬다.",
-        description: "사범계열 및 교대 진학 희망자를 위해 교육철학, 교수학습 이론, 미래 학교 모델 및 교육 정책을 심층 고찰하는 2·3학년 대상 온라인 교양 진로 선택 과목입니다.",
+        description: "사범계열 및 교대 진학 희망자를 위해 교육철학, 교수학습 이론, 미래 학교 모델 및 교육 정책을 심층 고찰하는 2, 3학년 대상 온라인 교양 진로 선택 과목입니다.",
         classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
         locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
         status: "개설 확정"
@@ -340,43 +340,43 @@
         totalHours: 32,
         days: "수",
         operatingHours: "수 17:20~19:50",
-        dayTime: "매주 수요일 17:20~19:50",
+        dayTime: "수 17:20~19:50",
         selectionType: "진로 선택 과목",
         subjectInfo: "체육, 진로선택, 5단계 성취도",
         type: "오프라인",
         startDate: "3.10.(수)",
         category: "예체능",
         evaluation: "체육 교과군 (5단계 성취도 표기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<기초 체육 전공 실기>는 체육 전공 실기의 기본 기능을 깊이 있게 이해하고, 전문적으로 숙련함으로써 체육 전공 실기를 경기에 능숙하게 발휘하는 능력을 길러주는 체육계열 진로 선택 과목이다.",
         subjectFeatures: "전공 실기 기본 기능의 종류와 특성, 스포츠 과학적 원리, 기본 기능 트레이닝 방법론 및 맞춤형 기능 향상 프로그램을 통해 체육대학 입시 실기 및 체육 지도자 역량을 숙련한다.",
         description: "기초 체력 훈련과 전공 실기 종목별 과학적 트레이닝을 통해 체육계열 전공 진학 역량을 다지는 2학년 대상 오프라인 진로 선택 과목입니다.",
-        classroom: "상동고등학교 체육관",
-        locationType: "오프라인 대면 집합 (상동고 체육관)",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
         id: 11,
         school: "상원고등학교",
         subject: "인공지능 융합 프로젝트",
-        grade: "2·3학년",
+        grade: "2, 3학년",
         credits: 3,
         totalHours: 48,
         days: "월 / 수",
-        operatingHours: "월, 수 17:30~20:20",
-        dayTime: "매주 월·수요일 17:30~20:20",
+        operatingHours: "월·수 17:30~20:20",
+        dayTime: "월·수 17:30~20:20",
         selectionType: "융합 선택 과목",
         subjectInfo: "정보, 융합선택, 5단계 성취도",
         type: "오프라인",
         startDate: "3.10.(수)",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<인공지능 융합 프로젝트>는 인공지능과 다양한 학문 및 산업 분야를 융합하여 실생활 및 사회의 복잡한 문제를 정의하고, 데이터 기반 인공지능 모델링과 프로그래밍을 통해 창의적인 융합 산출물을 기획·설계·구현하는 정보 교과의 융합 선택 과목이다.",
         subjectFeatures: "문제 발견과 주제 선정, 데이터 수집·전처리 및 탐색적 분석, 기계학습·딥러닝 알고리즘 적용, 학문 간 융합 프로토타입 구현, 프로젝트 성능 평가 및 인공지능 윤리 성찰을 팀 프로젝트 중심으로 수행한다.",
-        description: "인공지능 기술을 다양한 전공 분야와 융합하여 실세계 문제 해결 프로젝트를 직접 설계·구현하는 2·3학년 대상 오프라인 융합 선택 과목입니다.",
-        classroom: "상원고등학교 AI·컴퓨터실습실",
-        locationType: "오프라인 대면 집합 (상원고 특별실)",
+        description: "인공지능 기술을 다양한 전공 분야와 융합하여 실세계 문제 해결 프로젝트를 직접 설계·구현하는 2, 3학년 대상 오프라인 융합 선택 과목입니다.",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
@@ -387,15 +387,15 @@
         credits: 3,
         totalHours: 48,
         days: "월 / 수",
-        operatingHours: "월, 수 17:30~20:20",
-        dayTime: "매주 월·수요일 17:30~20:20",
+        operatingHours: "월·수 17:30~20:20",
+        dayTime: "월·수 17:30~20:20",
         selectionType: "진로 선택 과목",
         subjectInfo: "수학, 진로선택, 5단계 성취도",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<고급 대수>는 수학의 여러 분야에서 대수적 개념과 방법을 어떻게 사용하는지, 인공지능, 기계공학, 전자공학 등 다양한 영역에서 행렬 및 벡터가 어떻게 사용되는지 이해하는 데 도움이 되며 대수의 심화된 내용과 추론 방식을 이해하고 탐구하는 과학 계열 진로 선택 과목이다.",
         subjectFeatures: "벡터공간(n차원 벡터공간, 기저벡터, 벡터의 내적과 정사영), 행렬과 선형변환(연립일차방정식과 가우스 소거법, 선형변환의 행렬 표현), 행렬의 대각화(고윳값과 고유벡터, 대각화의 성질과 공학적 활용) 등 대학 수학 및 인공지능 기초 수학을 체계적으로 다룬다.",
         description: "벡터공간, 선형변환, 행렬의 대각화 및 고윳값 등 첨단 공학 및 인공지능 수학의 핵심 토대를 심층 탐구하는 2학년 대상 온라인 진로 선택 과목입니다.",
@@ -412,38 +412,38 @@
         totalHours: 48,
         days: "수",
         operatingHours: "수 17:30~21:20",
-        dayTime: "매주 수요일 17:30~21:20",
+        dayTime: "수 17:30~21:20",
         selectionType: "융합 선택 과목",
         subjectInfo: "추후 안내 (국어, 융합선택, 5단계 성취도)",
         type: "오프라인",
         startDate: "추후 안내",
         category: "교육·심리·인문",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<매체 의사소통>은 고등학교 ‘공통국어1, 공통국어2’의 매체 영역을 심화·확장한 융합 선택 과목이다. 변화하는 매체 환경 속에서 개인과 사회에 영향을 미치는 매체 의사소통의 방식과 문화를 탐구하고 비판적으로 성찰하는 태도를 기르고 텍스트의 의미가 사회·문화적으로 어떻게 구성되는지 이해하며 개인적·사회적 관심사에 대한 자신의 관점을 반영하여 매체 자료를 제작하고 공유하는데 목적이 있다.",
         subjectFeatures: "매체의 유형과 특성, 디지털 기술과 매체 환경 변화, 매체 자료의 사회·문화적 구성과 재현, 매체 의사소통 현상 관찰, 매체 자료 기획·구성 및 제작·공유, 협력적 문제 해결과 매체 윤리를 다룬다.",
         description: "미디어 리터러시를 기르고 영상, 카드뉴스, 웹 콘텐츠 등 복합양식 매체 자료를 비판적으로 분석·제작하는 2학년 대상 오프라인 국어 융합 선택 과목입니다.",
-        classroom: "소명여자고등학교 국어/미디어실",
-        locationType: "오프라인 대면 집합 (소명여고 특별실)",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
         id: 14,
         school: "소사고등학교",
-        subject: "고급 화학",
+        subject: "고급 화학B",
         grade: "3학년",
         credits: 3,
         totalHours: 48,
         days: "수",
         operatingHours: "수 18:00~20:30",
-        dayTime: "매주 수요일 18:00~20:30",
+        dayTime: "수 18:00~20:30",
         selectionType: "진로 선택 과목",
         subjectInfo: "과학, 진로선택, 5단계 성취도",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<고급 화학>은 21세기를 살아가는 데 필요한 핵심역량과 물질 현상을 과학적이고 창의적으로 분석하고 예측할 수 있는 화학적 소양을 함양하는 과학 계열 진로 선택 과목이다. 물질 탐구 과정과 지식에 대한 통합적 이해를 바탕으로 학생들이 화학에 대한 호기심과 흥미를 갖고 과학적 탐구 능력과 태도를 함양하여 개인과 사회의 문제를 과학적이고 창의적으로 해결하는 전문가로서의 역량 신장을 목표로 한다.",
         subjectFeatures: "원자 오비탈과 분자 구조, 기체 분자 운동론과 상평형, 열역학(엔탈피, 엔트로피, 깁스 자유 에너지), 화학 반응 속도론, 화학 평형과 산·염기 평형의 정량적 분석 등 화학 전공 심화 이론을 학습한다.",
         description: "물질의 미시적 구조와 열역학, 반응 속도 및 화학 평형의 심층 이론을 다루는 3학년 대상 화학·바이오·약학·재료 계열 온라인 진로 선택 과목입니다.",
@@ -455,7 +455,7 @@
         id: 15,
         school: "송내고등학교",
         subject: "빅 데이터 분석",
-        grade: "2·3학년",
+        grade: "2, 3학년",
         credits: 3,
         totalHours: 48,
         days: "월 / 수",
@@ -467,34 +467,34 @@
         startDate: "3.10.(수)",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<빅 데이터 분석>은 디지털 사회에서 생성되는 대규모 정형·비정형 데이터를 수집, 저장, 처리, 분석 및 시각화하여 유의미한 가치를 창출하고 데이터 기반의 합리적 의사 결정 역량을 기르는 정보·과학 계열 진로 선택 과목이다.",
         subjectFeatures: "빅데이터의 개념과 플랫폼 이해, 데이터 수집(크롤링·공공데이터 API)과 정제·전처리, 통계적 데이터 탐색 및 추론, 기계학습 기반 회귀·분류·군집 분석, 데이터 시각화 및 실세계 문제 해결 프로젝트 실습을 수행한다.",
-        description: "대규모 데이터를 수집·전처리하고 통계 및 머신러닝 기법으로 분석·시각화하여 데이터 사이언스 역량을 기르는 2·3학년 대상 오프라인 진로 선택 과목입니다.",
-        classroom: "송내고등학교 첨단 AI·빅데이터실습실",
-        locationType: "오프라인 대면 집합 (송내고 특별실)",
+        description: "대규모 데이터를 수집·전처리하고 통계 및 머신러닝 기법으로 분석·시각화하여 데이터 사이언스 역량을 기르는 2, 3학년 대상 오프라인 진로 선택 과목입니다.",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
         id: 16,
         school: "수주고등학교",
-        subject: "보건",
-        grade: "2·3학년",
+        subject: "보건B",
+        grade: "2, 3학년",
         credits: 2,
         totalHours: 32,
         days: "수",
         operatingHours: "수 17:30~20:30",
-        dayTime: "매주 수요일 17:30~20:30",
+        dayTime: "수 17:30~20:30",
         selectionType: "진로 선택 과목",
         subjectInfo: "교양, 진로선택, P/F",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "보건·의료",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<보건>은 학생들이 건강역량을 함양하여 생활 속에서 건강을 실천하며 건강하고 행복한 시민으로 성장하는 데 필요한 자질을 갖추도록 설계한 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "청소년기 건강 관리와 질병 예방, 정서 및 정신건강 증진, 성과 생명 윤리, 응급처치와 안전 수칙, 보건의료 제도와 지역사회 건강 자원 탐색을 통합적으로 학습한다.",
-        description: "2·3학년을 대상으로 건강 관리와 응급처치, 보건의료 체계 및 간호·의학·보건 계열 진로를 위한 핵심 건강역량을 기르는 온라인 교양 진로 선택 과목입니다.",
+        description: "2, 3학년을 대상으로 건강 관리와 응급처치, 보건의료 체계 및 간호·의학·보건 계열 진로를 위한 핵심 건강역량을 기르는 온라인 교양 진로 선택 과목입니다.",
         classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
         locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
         status: "개설 확정"
@@ -502,20 +502,20 @@
       {
         id: 17,
         school: "시온고등학교",
-        subject: "보건",
+        subject: "보건C",
         grade: "3학년",
         credits: 2,
         totalHours: 32,
         days: "수",
-        operatingHours: "수 17:30~19:20",
-        dayTime: "매주 수요일 17:30~19:20",
+        operatingHours: "수 18:00~19:50",
+        dayTime: "수 18:00~19:50",
         selectionType: "진로 선택 과목",
         subjectInfo: "교양, 진로선택, P/F",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "보건·의료",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<보건>은 학생들이 건강역량을 함양하여 생활 속에서 건강을 실천하며 건강하고 행복한 시민으로 성장하는 데 필요한 자질을 갖추도록 설계한 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "생활 속 건강 증진과 질병 예방, 신체적·정신적 안녕, 생활 안전과 응급구조 원리, 디지털 시대 헬스케어와 미래 보건의료 환경을 다각적으로 탐구한다.",
         description: "3학년을 대상으로 생애주기별 건강 증진과 보건 안전, 의학·간호·보건계열 진학을 위한 전공 소양을 함양하는 온라인 교양 진로 선택 과목입니다.",
@@ -532,14 +532,14 @@
         totalHours: 48,
         days: "수",
         operatingHours: "수 18:00~20:50",
-        dayTime: "매주 수요일 18:00~20:50",
+        dayTime: "수 18:00~20:50",
         selectionType: "진로 선택 과목",
         subjectInfo: "추후 안내 (과학, 진로선택, 5단계 성취도)",
         type: "온라인",
         startDate: "추후 안내",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<고급 물리학>은 물리학에 흥미와 관심이 있는 과학계열 고등학교 학생이나 일반계 고등학교에서 과학 과목 중점 교육과정을 이수하는 학생들의 심화된 수준으로 물리학의 학문적 체계와 내용을 학습하기 위한 과학 계열 진로 선택 과목이다.",
         subjectFeatures: "역학(입자계 운동, 각운동량 보존, 열역학 제1·2법칙), 전자기학(전기장, 키르히호프 법칙, 맥스웰 방정식), 광학(빛의 간섭·회절, 편광), 현대 물리(특수·일반 상대성 이론, 핵융합, 상보성 원리와 불확정성 원리)를 심층 다룬다.",
         description: "역학, 전자기학, 광학, 상대성 이론 및 양자역학 등 물리·기계·전자·우주항공 계열 필수 심화 이론을 탐구하는 3학년 대상 과학계열 온라인 진로 선택 과목입니다.",
@@ -555,15 +555,15 @@
         credits: 3,
         totalHours: 48,
         days: "월 / 수",
-        operatingHours: "월 18:00~20:50 / 수 18:00~20:50",
-        dayTime: "월 18:00~20:50 / 수 18:00~20:50",
+        operatingHours: "월·수 18:00~20:50",
+        dayTime: "월·수 18:00~20:50",
         selectionType: "진로 선택 과목",
         subjectInfo: "과학, 진로선택, 5단계 성취도",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<고급 생명과학>은 과학계열 고등학교 학생이나 일반계 고등학교에서 과학 과목 중점으로 교육과정을 이수하는 학생들이 심화된 수준의 생명과학의 학문적 체계와 내용을 학습하기 위한 과학 계열 진로 선택 과목이다. ‘고급 생명과학’은 생물의 구조와 에너지, 생물의 조절과 방어, 생명의 연속성, 생명공학기술과 미래 4개의 영역으로 구성된다.",
         subjectFeatures: "세포 수준 에너지 대사(광인산화, 캘빈회로, 전자전달계), 신경계 전달과 면역 반응 기전, 분자유전학(DNA 복제·수선, 전사인자와 오페론 설), 유전자 재조합 및 최신 생명공학 기술의 전망을 학습한다.",
         description: "분자생물학, 유전학, 면역학 및 첨단 바이오 기술을 심층 탐구하여 의예·생명공학·약학 진로를 설계하는 3학년 대상 과학계열 온라인 진로 선택 과목입니다.",
@@ -575,7 +575,7 @@
         id: 20,
         school: "원미고등학교",
         subject: "소설 창작",
-        grade: "2·3학년",
+        grade: "2, 3학년",
         credits: 2,
         totalHours: 32,
         days: "월 / 수",
@@ -587,12 +587,12 @@
         startDate: "3.10.(수)",
         category: "교육·심리·인문",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<소설 창작>은 사건, 인물, 배경, 시점 등 소설을 구성하는 주요 요소에 대한 탐구를 바탕으로 체험과 상상을 통해 구성한 이야기를 문학 언어로 표현하는 예술 계열 진로 선택 과목이다. 소설 창작의 원리에 대한 이해를 바탕으로 창작자의 개성이 담긴 소설을 창작하고 독자와 능동적으로 소통하는 방안을 모색한다.",
         subjectFeatures: "소설의 플롯과 구성 원리, 인물 형상화와 배경 설정, 시점과 서술 방식, 개성 있는 문체 형성, 단편소설 습작 및 상호 합평을 통해 문학적 상상력을 구체화한다.",
-        description: "서사 구조와 인물 설정, 플롯 구성을 익히고 실제 단편 소설을 집필·합평하며 문예창작 역량을 기르는 2·3학년 대상 오프라인 예술 진로 선택 과목입니다.",
-        classroom: "원미고등학교 창의인문실",
-        locationType: "오프라인 대면 집합 (원미고 특별실)",
+        description: "서사 구조와 인물 설정, 플롯 구성을 익히고 실제 단편 소설을 집필·합평하며 문예창작 역량을 기르는 2, 3학년 대상 오프라인 예술 진로 선택 과목입니다.",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
@@ -611,7 +611,7 @@
         startDate: "추후 안내",
         category: "사회·국제",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<국제 정치>는 외국어·국제 계열의 진로 선택 과목으로 일반사회 영역에서 국제 관계의 협력과 경쟁 및 갈등을 이해하고, 급변하는 국제 정치 변화에 능동적으로 대처하며 세계 평화에 기여할 수 있는 능력을 키우기 위한 과목이다.",
         subjectFeatures: "국제 정치 체제의 형성과 이론(현실주의, 자유주의, 구성주의), 국제 분쟁의 원인과 외교적 해결, 국제법과 국제기구의 역할, 한반도를 둘러싼 국제 정세와 통일 외교 과제를 다룬다.",
         description: "외교, 국제 안보, 글로벌 거버넌스 및 국제 분쟁의 메커니즘을 탐구하여 정치·외교·행정 계열 진로를 준비하는 2학년 대상 온라인 진로 선택 과목입니다.",
@@ -622,23 +622,23 @@
       {
         id: 22,
         school: "정명고등학교",
-        subject: "교육의 이해",
-        grade: "2·3학년",
+        subject: "교육의 이해D",
+        grade: "2, 3학년",
         credits: 2,
         totalHours: 32,
         days: "수",
         operatingHours: "수 18:00~19:50",
-        dayTime: "매주 수요일 18:00~19:50",
+        dayTime: "수 18:00~19:50",
         selectionType: "진로 선택 과목",
         subjectInfo: "교양, 진로선택, P/F",
         type: "온라인",
         startDate: "3.10.(수)",
         category: "교육·심리·인문",
         evaluation: "교양 교과군 (P/이수 표기, 석차등급은 '·' 표기)",
-        capacity: "15명 내외 권장 (본교생 70% 이하)",
+        capacity: "온라인 20명 기준 운영",
         subjectNature: "<교육의 이해> 과목은 인간 활동 및 사회 제도 차원에서 이루어지는 교육에 대한 이해와 실천에 도움을 줌으로써 학생들이 당당한 교육의 주체로서 행복한 삶을 살아가는 데 필요한 역량을 함양하고자 하는 교양 교과의 진로 선택 과목이다.",
         subjectFeatures: "교육의 본질과 교직관 형성, 교수-학습 원리 및 혁신 교수법, 교육 제도의 사회적 변천과 교육 불평등 해소 방안, AI 디지털 교과서 등 미래 교육 환경 혁신을 탐색한다.",
-        description: "교직관 확립, 교육과정 및 교수학습 설계, 미래 디지털 교육 혁신 모델을 고찰하여 교원 양성 대학 진학을 대비하는 2·3학년 대상 온라인 교양 진로 선택 과목입니다.",
+        description: "교직관 확립, 교육과정 및 교수학습 설계, 미래 디지털 교육 혁신 모델을 고찰하여 교원 양성 대학 진학을 대비하는 2, 3학년 대상 온라인 교양 진로 선택 과목입니다.",
         classroom: "'경기온라인학교, 온라인공동교육과정' 사이트",
         locationType: "'경기온라인학교, 온라인공동교육과정' 사이트 (실시간 쌍방향 원격)",
         status: "개설 확정"
@@ -651,20 +651,20 @@
         credits: 3,
         totalHours: 48,
         days: "월 / 수",
-        operatingHours: "월 17:30~20:30 / 수 17:30~20:30",
-        dayTime: "월 17:30~20:30 / 수 17:30~20:30",
+        operatingHours: "월·수 17:30~20:30",
+        dayTime: "월·수 17:30~20:30",
         selectionType: "진로 선택 과목",
         subjectInfo: "과학, 진로선택, 5단계 성취도",
         type: "오프라인",
         startDate: "3.10.(수)",
         category: "자연과학·공학",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<생명과학 실험>은 과학계열 고등학교 학생이나 일반계 고등학교에서 과학 과목 중점으로 교육과정을 이수하는 학생들이 심화된 수준의 생명과학의 학문적 체계와 내용을 탐구하기 위한 과학 계열 선택 과목이다.",
         subjectFeatures: "현미경 표본 제작, 삼투와 수분퍼텐셜, 효소 반응 속도 측정, 세포분열과 염색체 관찰, 플라스미드 DNA 추출, 제한효소 절단 및 겔 전기영동, 박테리아 형질전환 등 핵심 실험을 직접 수행한다.",
         description: "DNA 추출, 겔 전기영동, 효소 활성도 측정 등 분자생물학 핵심 실험을 직접 수행하고 보고서를 작성하는 2학년 대상 과학계열 오프라인 선택 과목입니다.",
-        classroom: "중원고등학교 생물실험실",
-        locationType: "오프라인 대면 집합 (중원고 특별실)",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       },
       {
@@ -675,20 +675,20 @@
         credits: 3,
         totalHours: 48,
         days: "월 / 수",
-        operatingHours: "월 17:30~20:20 / 수 17:30~20:20",
-        dayTime: "월 17:30~20:20 / 수 17:30~20:20",
+        operatingHours: "월·수 17:30~20:20",
+        dayTime: "월·수 17:30~20:20",
         selectionType: "진로 선택 과목",
         subjectInfo: "사회, 진로선택, 5단계 성취도",
         type: "오프라인",
         startDate: "3.10.(수)",
         category: "사회·국제",
         evaluation: "보통교과 (5단계 성취도 표기, 원점수/과목평균 병기, 석차등급은 '·' 표기)",
-        capacity: "13~25명 권장 (본교생 70% 이하)",
+        capacity: "오프라인 15명 기준 운영",
         subjectNature: "<국제 경제>는 외국어·국제 계열의 진로 선택 과목으로 <경제> 과목에서 배운 내용을 국가 간의 관계에 적용하고 확장하기 위한 과목이다. 일반사회 영역에서 국제 교역, 외환 시장과 환율, 국제 통화 등 국제 경제 현상과 관련 있는 내용을 학습하며 국제 사회의 변화를 선도할 수 있는 능력을 갖추기 위한 과목이다.",
         subjectFeatures: "국제 무역 이론과 무역 정책(자유무역과 관세), 환율 변동과 국제통화체제(IMF, 외환시장), 글로벌 금융위기와 통화정책, 세계 속 한국 경제의 당면 과제를 케이스 스터디로 다룬다.",
         description: "국제무역, 환율, 글로벌 금융 시장 및 무역 정책을 심층 분석하여 상경계열(경영·경제·통상) 진로 역량을 기르는 2학년 대상 오프라인 진로 선택 과목입니다.",
-        classroom: "중흥고등학교 교과교실",
-        locationType: "오프라인 대면 집합 (중흥고 특별실)",
+        classroom: "추후 알림",
+        locationType: "추후 알림",
         status: "개설 확정"
       }
     ];
@@ -705,15 +705,15 @@
       },
       {
         q: "2027학년도 1학기 대상 학년(2학년·3학년)별로 수강할 수 있는 강좌는 어떻게 나뉘나요?",
-        a: "2027학년도 1학기 기준 대상 학년별 개설 강좌(총 24개 강좌)는 다음과 같습니다.\n• 2학년 대상 (11개 강좌): 계남고(화학 실험), 덕산고(보건), 도당고(인간과 심리), 범박고(인간과 심리), 부명고(물리학 실험), 상동고(기초 체육 전공 실기), 상일고(고급 대수), 소명여자고(매체 의사소통), 원종고(국제 정치), 중원고(생명과학 실험), 중흥고(국제 경제)\n• 2·3학년 공통 대상 (8개 강좌): 부천고(교육의 이해), 부천북고(교육의 이해), 부천여자고(교육의 이해), 상원고(인공지능 융합 프로젝트), 송내고(빅 데이터 분석), 수주고(보건), 원미고(소설 창작), 정명고(교육의 이해)\n• 3학년 대상 (5개 강좌): 부천고(고급 화학), 소사고(고급 화학), 시온고(보건), 심원고(고급 물리학), 역곡고(고급 생명과학)"
+        a: "2027학년도 1학기 기준 대상 학년별 개설 강좌(총 24개 강좌, 2, 3학년 강좌는 두 학년 모두 신청 가능)는 다음과 같습니다.\n• 2학년 대상 (11개 강좌): 계남고(화학 실험), 덕산고(보건A), 도당고(인간과 심리), 범박고(인간과 심리), 부명고(물리학 실험), 상동고(기초 체육 전공 실기), 상일고(고급 대수), 소명여자고(매체 의사소통), 원종고(국제 정치), 중원고(생명과학 실험), 중흥고(국제 경제)\n• 2, 3학년 공통 대상 (8개 강좌): 부천고(교육의 이해A), 부천북고(교육의 이해B), 부천여자고(교육의 이해C), 상원고(인공지능 융합 프로젝트), 송내고(빅 데이터 분석), 수주고(보건B), 원미고(소설 창작), 정명고(교육의 이해D)\n• 3학년 대상 (5개 강좌): 부천고(고급 화학A), 소사고(고급 화학B), 시온고(보건C), 심원고(고급 물리학), 역곡고(고급 생명과학)"
       },
       {
         q: "우리 학교(본교)에 개설된 과목을 공동교육과정으로 수강할 수 있나요?",
         a: "수강할 수 없습니다. 본인 소속 학교의 3개년 교육과정 편제표에 이미 개설되어 있거나 향후 학기에 개설 예정인 과목은 공동교육과정으로 수강할 수 없습니다(본교 미개설 원칙). 소인수 과목 학습 기회 확대를 위한 제도이므로, 본교 개설 과목 우회 수강은 엄격히 차단됩니다. (단, 거점학교 재학생은 자교에 설치된 강좌에 한해 정원 내 수강이 가능합니다.)"
       },
       {
-        q: "한 학기에 몇 개 강좌까지 수강할 수 있나요?",
-        a: "공동교육과정 지침상 '학기당 최대 2개 과목 이내'로 수강 신청이 가능합니다. 단, 정규 일과 후 방과 후에 운영되므로 학생 본인의 학습 부담, 이동 거리, 본교 정규 교육과정 이수 균형을 종합적으로 고려하여 신중하게 수강해야 합니다."
+        q: "한 학기에 몇 개 강좌까지 수강신청할 수 있나요?",
+        a: "2027학년도 1학기 부천 공동교육과정 수강 신청 안내에 따라 '1인 1개 강좌까지만 수강신청 가능'하며, 2과목 이상 수강신청 시 모두 수강취소 처리됩니다. 또한 기존에 이수한 과목의 중복이수는 불가하므로 반드시 확인 후 신중하게 신청해야 합니다."
       },
       {
         q: "수업을 듣다가 도중에 힘들면 수강 취소나 중도 포기를 할 수 있나요?",
@@ -735,7 +735,8 @@
 
     // 메인 앱 컴포넌트
     function App() {
-      const [activeTab, setActiveTab] = useState('home'); // 'home', 'guide', 'courses', 'simulator', 'faq'
+      const [activeTab, setActiveTab] = useState('home'); // 'home', 'overview', 'guide', 'courses', 'simulator', 'faq'
+      const [overviewFilter, setOverviewFilter] = useState('all'); // 'all', 'online', 'offline', 'grade2', 'grade3'
       const [selectedGrade, setSelectedGrade] = useState('all'); // 'all', 'grade2', 'grade3'
       const [selectedType, setSelectedType] = useState('all'); // 'all', 'online', 'offline'
       const [selectedCategory, setSelectedCategory] = useState('all');
@@ -761,7 +762,7 @@
         if (window.lucide) {
           window.lucide.createIcons();
         }
-      }, [activeTab, viewMode, selectedCourseModal, selectedGrade, selectedType, selectedCategory]);
+      }, [activeTab, overviewFilter, viewMode, selectedCourseModal, selectedGrade, selectedType, selectedCategory]);
 
       // 필터링된 강좌 목록
       const filteredCourses = useMemo(() => {
@@ -855,7 +856,7 @@
                 {/* 브랜드 로고 */}
                 <div 
                   onClick={() => setActiveTab('home')}
-                  className="flex items-center space-x-3 cursor-pointer group"
+                  className="flex items-center space-x-3 cursor-pointer group shrink-0"
                 >
                   <div className="w-10 h-10 md:w-11 md:h-11 rounded-2xl bg-gradient-to-br from-latte-500 to-latte-700 text-white flex items-center justify-center shadow-md shadow-latte-600/20 group-hover:scale-105 transition-transform">
                     <i data-lucide="compass" className="w-6 h-6"></i>
@@ -872,11 +873,11 @@
                   </div>
                 </div>
 
-                {/* 데스크톱 메뉴 */}
-                <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+                {/* 데스크톱 메뉴 (중앙 정렬) */}
+                <nav className="hidden md:flex flex-1 items-center justify-center space-x-1 lg:space-x-1.5">
                   <button
                     onClick={() => setActiveTab('home')}
-                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                    className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                       activeTab === 'home'
                         ? 'bg-latte-600 text-white shadow-sm'
                         : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
@@ -889,8 +890,22 @@
                   </button>
 
                   <button
+                    onClick={() => setActiveTab('overview')}
+                    className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
+                      activeTab === 'overview'
+                        ? 'bg-latte-600 text-white shadow-sm'
+                        : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
+                    }`}
+                  >
+                    <span className="flex items-center space-x-1.5">
+                      <i data-lucide="table-2" className="w-4 h-4"></i>
+                      <span>한 눈에 보기</span>
+                    </span>
+                  </button>
+
+                  <button
                     onClick={() => setActiveTab('guide')}
-                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                    className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                       activeTab === 'guide'
                         ? 'bg-latte-600 text-white shadow-sm'
                         : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
@@ -904,7 +919,7 @@
 
                   <button
                     onClick={() => setActiveTab('courses')}
-                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                    className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                       activeTab === 'courses'
                         ? 'bg-latte-600 text-white shadow-sm'
                         : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
@@ -918,7 +933,7 @@
 
                   <button
                     onClick={() => setActiveTab('simulator')}
-                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                    className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                       activeTab === 'simulator'
                         ? 'bg-latte-600 text-white shadow-sm'
                         : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
@@ -932,7 +947,7 @@
 
                   <button
                     onClick={() => setActiveTab('faq')}
-                    className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
+                    className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                       activeTab === 'faq'
                         ? 'bg-latte-600 text-white shadow-sm'
                         : 'text-warm-textMuted hover:text-warm-textMain hover:bg-latte-100/70'
@@ -945,16 +960,8 @@
                   </button>
                 </nav>
 
-                {/* 우측 빠른 강좌 탐색 버튼 (강조) */}
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => setActiveTab('courses')}
-                    className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs md:text-sm font-semibold bg-latte-100 hover:bg-latte-200 text-latte-800 border border-latte-300 transition-colors shadow-2xs"
-                  >
-                    <i data-lucide="search" className="w-4 h-4 text-latte-600"></i>
-                    <span>강좌 찾기</span>
-                  </button>
-                </div>
+                {/* 우측 대칭 여백 (데스크톱 화면 중앙 정렬 유지용) */}
+                <div className="hidden xl:block w-[180px] shrink-0" aria-hidden="true"></div>
               </div>
             </div>
 
@@ -967,6 +974,14 @@
                 }`}
               >
                 홈
+              </button>
+              <button
+                onClick={() => setActiveTab('overview')}
+                className={`flex-1 py-1.5 px-2 rounded-lg font-medium whitespace-nowrap text-center ${
+                  activeTab === 'overview' ? 'bg-latte-600 text-white' : 'text-warm-textMuted'
+                }`}
+              >
+                한 눈에 보기
               </button>
               <button
                 onClick={() => setActiveTab('guide')}
@@ -1009,184 +1024,285 @@
             {activeTab === 'home' && (
               <div>
                 {/* Hero Section */}
-                <section className="relative overflow-hidden pt-10 pb-16 md:pt-14 md:pb-24 border-b border-warm-border/60 bg-gradient-to-b from-[#FAF7F2] via-warm-sand/50 to-[#FAF7F2]">
+                <section className="relative overflow-hidden pt-8 pb-12 md:pt-12 md:pb-16 border-b border-warm-border/60 bg-gradient-to-b from-[#FAF7F2] via-warm-sand/50 to-[#FAF7F2]">
                   <div className="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(#C2A38A_1px,transparent_1px)] [background-size:24px_24px]"></div>
                   
-                  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-4xl mx-auto text-center">
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-warm-textMain tracking-tight mb-3">
-                        공동교육과정 안내
-                      </h2>
-                      <p className="text-sm sm:text-base md:text-lg text-warm-textMuted max-w-2xl mx-auto mb-10">
-                        희망학생이 적거나 교사 수급 곤란 등으로 단위 학교에서 개설이 어려운 소인수·심화 과목 등을 학교 간, 지역 기관과 연계·협력을 통해 운영하는 교육과정입니다.
-                      </p>
+                  <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* 공식 가정통신문 / 수강 신청 안내문 메인 보드 */}
+                    <div className="bg-warm-card rounded-3xl border border-latte-300 shadow-soft-lg p-6 sm:p-8 md:p-10">
+                      {/* 상단 타이틀 및 인사말 */}
+                      <div className="text-center border-b border-latte-200 pb-6 mb-8">
+                        <span className="inline-block text-xs font-bold px-3 py-1 rounded-full bg-latte-200 text-latte-900 mb-3">
+                          경기도부천교육지원청 · 부천지역 고등학교 공식 안내
+                        </span>
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-warm-textMain tracking-tight leading-snug">
+                          2027학년도 부천 <span className="text-latte-700 underline decoration-latte-400 decoration-2 underline-offset-4">1학기 공동교육과정 수강 신청 안내</span>
+                        </h2>
+                        <p className="text-xs sm:text-sm md:text-base text-warm-textMuted max-w-3xl mx-auto mt-4 leading-relaxed text-left sm:text-center">
+                          질문과 상상이 넘치는 즐거운 배움을 지향하는 부천교육지원청과 부천지역 고등학교에서는 학생의 진로·적성에 따른 <strong>과목 선택권을 확대하고 학생 맞춤형 교육과정 운영을 지원</strong>하기 위해 <strong>2027학년도 1학기 공동교육과정을 운영</strong>합니다. 수강을 희망하는 학생은 개설 과목을 확인한 후 기간 내 신청하여 주시기 바랍니다.
+                        </p>
+                      </div>
 
-                      {/* 학생 맞춤 3대 핵심 안내 (뭐고 / 뭐가 있고 / 어떻게 진행되나) */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left mb-10">
-                        {/* 1. 공동교육과정이 뭐예요? */}
-                        <div 
-                          onClick={() => setActiveTab('guide')}
-                          className="bg-warm-card p-5 sm:p-6 rounded-3xl border border-latte-200 hover:border-latte-400 shadow-soft hover:shadow-soft-lg cursor-pointer transition-all group flex flex-col justify-between"
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-3">
-                              <span className="w-8 h-8 rounded-xl bg-latte-100 text-latte-700 font-bold flex items-center justify-center text-sm">
-                                01
-                              </span>
-                              <span className="text-xs font-semibold text-latte-600 group-hover:translate-x-0.5 transition-transform flex items-center">
-                                지침 보기 &rarr;
-                              </span>
-                            </div>
-                            <h3 className="text-lg font-bold text-warm-textMain mb-2 group-hover:text-latte-700 transition-colors">
-                              공동교육과정이 뭐예요?
+                      <div className="space-y-7 text-sm md:text-base text-warm-textMain">
+                        {/* 1. 공동교육과정이란? */}
+                        <div>
+                          <h3 className="text-base md:text-lg font-extrabold text-warm-textMain flex items-center gap-2 mb-3">
+                            <span className="w-6 h-6 rounded-lg bg-latte-700 text-white text-xs font-bold flex items-center justify-center shrink-0">1</span>
+                            <span>공동교육과정이란?</span>
+                          </h3>
+                          <div className="overflow-hidden rounded-2xl border border-latte-300 bg-[#FDFBF7]">
+                            <table className="w-full text-xs sm:text-sm border-collapse">
+                              <tbody className="divide-y divide-latte-200">
+                                <tr>
+                                  <th className="w-20 sm:w-28 py-3.5 px-3 bg-[#F3ECE1] font-bold text-latte-900 text-center border-r border-latte-200">
+                                    개념
+                                  </th>
+                                  <td className="py-3.5 px-4 text-warm-textMain leading-relaxed">
+                                    학생들의 과목 선택권을 보장하기 위해 학교 간 상호 협력하여 운영교를 지정하고, 2개 이상의 학교 학생이 공동으로, 오프라인 또는 온라인 형태로 모여서 함께 개설 과목을 수강하는 교육과정
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th className="py-3.5 px-3 bg-[#F3ECE1] font-bold text-latte-900 text-center border-r border-latte-200">
+                                    특징
+                                  </th>
+                                  <td className="py-3.5 px-4 text-warm-textMain leading-relaxed space-y-1">
+                                    <p>• <strong>학교생활기록부의 “교과학습발달상황”에 기록되는 정규교과목임.</strong></p>
+                                    <p>• <strong>학업성적관리시행지침에 따라 성적 처리(단, 석차 등급은 산출되지 않음)</strong></p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th className="py-3.5 px-3 bg-[#F3ECE1] font-bold text-latte-900 text-center border-r border-latte-200">
+                                    운영
+                                  </th>
+                                  <td className="py-3.5 px-4 text-warm-textMain leading-relaxed">
+                                    • <strong>온라인, 오프라인 공동교육과정으로 운영하며, 과목별 이수학점이 다르므로 확인 후 신청</strong>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        {/* 2. 운영기간 & 3. 신청 대상 */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="p-4 rounded-2xl bg-[#F7F1E8]/80 border border-latte-200">
+                            <h3 className="text-base font-extrabold text-warm-textMain flex items-center gap-2 mb-1.5">
+                              <span className="w-6 h-6 rounded-lg bg-latte-700 text-white text-xs font-bold flex items-center justify-center shrink-0">2</span>
+                              <span>운영기간</span>
                             </h3>
-                            <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-4">
-                              단위 학교에서 개설하기 어려운 소인수·심화 과목을 관내 거점 고등학교와 연계하여 <strong>정규 일과 외(174학점 초과)</strong>로 운영하는 정규 교육과정입니다.
+                            <p className="text-sm md:text-base font-bold text-latte-900 pl-8">
+                              2027학년도 1학기
                             </p>
                           </div>
-                          <div className="space-y-2 text-xs pt-3 border-t border-latte-100">
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span><strong>석차 등급 미산출</strong> (석차등급 '·' 표기, 내신 부담 Zero)</span>
-                            </div>
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span>원점수·과목평균·성취도·<strong>성취도별 분포비율</strong> 생기부 정식 등재</span>
-                            </div>
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span>거점교 교사의 <strong>세특(공통문구 포함)</strong> 소속교 자동 전송</span>
-                            </div>
-                          </div>
-                        </div>
 
-                        {/* 2. 어떤 강좌가 개설되어 있나요? */}
-                        <div 
-                          onClick={() => setActiveTab('courses')}
-                          className="bg-warm-card p-5 sm:p-6 rounded-3xl border border-latte-200 hover:border-latte-400 shadow-soft hover:shadow-soft-lg cursor-pointer transition-all group flex flex-col justify-between"
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-3">
-                              <span className="w-8 h-8 rounded-xl bg-latte-100 text-latte-700 font-bold flex items-center justify-center text-sm">
-                                02
-                              </span>
-                              <span className="text-xs font-semibold text-latte-600 group-hover:translate-x-0.5 transition-transform flex items-center">
-                                강좌 찾기 &rarr;
-                              </span>
-                            </div>
-                            <h3 className="text-lg font-bold text-warm-textMain mb-2 group-hover:text-latte-700 transition-colors">
-                              어떤 강좌가 있나요?
+                          <div className="p-4 rounded-2xl bg-[#F7F1E8]/80 border border-latte-200">
+                            <h3 className="text-base font-extrabold text-warm-textMain flex items-center gap-2 mb-1.5">
+                              <span className="w-6 h-6 rounded-lg bg-latte-700 text-white text-xs font-bold flex items-center justify-center shrink-0">3</span>
+                              <span>신청 대상</span>
                             </h3>
-                            <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-4">
-                              관내 거점 고등학교에서 온라인 및 오프라인으로 다양한 심화·소인수 강좌가 개설되어 운영됩니다.
+                            <p className="text-xs sm:text-sm text-warm-textMain pl-8 leading-relaxed">
+                              부천 관내 <strong>2026학년도 고등학교 1, 2학년 재학생</strong> 중 참여 희망 학생
+                              <span className="inline-block font-extrabold text-latte-800 bg-latte-200/80 px-2 py-0.5 rounded-md ml-1">
+                                (2027학년도 기준 2, 3학년)
+                              </span>
                             </p>
                           </div>
-                          <div className="space-y-2 text-xs pt-3 border-t border-latte-100">
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span><strong>2학년 대상:</strong> 과학실험, 고급대수, 국제정치·경제, 매체의사소통, 인간과 심리, 보건, 체육실기 등</span>
+                        </div>
+
+                        {/* 4. 신청 방법 (온라인 & 학년별 오프라인 신청 사이트 링크) */}
+                        <div>
+                          <h3 className="text-base md:text-lg font-extrabold text-warm-textMain flex items-center gap-2 mb-3">
+                            <span className="w-6 h-6 rounded-lg bg-latte-700 text-white text-xs font-bold flex items-center justify-center shrink-0">4</span>
+                            <span>신청 방법</span>
+                          </h3>
+                          <div className="space-y-4 pl-1 sm:pl-2">
+                            {/* ① 온라인 강좌 신청 */}
+                            <div className="p-4 sm:p-5 rounded-2xl bg-cyan-50/50 border border-cyan-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                              <div>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="badge-online px-2.5 py-0.5 rounded-full text-xs font-bold">① 온라인 강좌</span>
+                                  <span className="text-xs font-semibold text-cyan-900">교육디지털원패스 학생 회원가입 후 신청</span>
+                                </div>
+                                <p className="text-xs sm:text-sm font-bold text-warm-textMain">
+                                  온라인 강좌는 <span className="underline decoration-cyan-600 underline-offset-4">온라인공동교육과정 플랫폼(https://online.goe.go.kr/goecr)</span>에서 신청
+                                </p>
+                              </div>
+                              <a
+                                href="https://online.goe.go.kr/goecr"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="shrink-0 px-4 py-2.5 rounded-xl bg-[#2A6E78] hover:bg-[#215860] text-white font-bold text-xs sm:text-sm shadow-2xs transition-all flex items-center justify-center gap-1.5"
+                              >
+                                <span>온라인 강좌 수강신청 바로가기</span>
+                                <i data-lucide="external-link" className="w-4 h-4"></i>
+                              </a>
                             </div>
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span><strong>2·3학년 및 3학년:</strong> 교육의 이해, AI융합프로젝트, 빅데이터분석, 고급물리·화학·생명과학, 보건, 소설창작</span>
-                            </div>
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span>진로선택 및 융합선택 중심 맞춤형 편제 (2027학년도 1학기 기준)</span>
+
+                            {/* ② 오프라인 강좌 신청 (구글 설문 사이트) */}
+                            <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/50 border border-amber-200">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="badge-offline px-2.5 py-0.5 rounded-full text-xs font-bold">② 오프라인 강좌</span>
+                                <span className="text-xs sm:text-sm font-bold text-warm-textMain">
+                                  오프라인 강좌는 아래 학년별 수강신청 사이트(구글 설문)로 학생 개별 신청
+                                </span>
+                              </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-3">
+                                {/* 현 1학년 (2027학년도 2학년) 오프라인 신청 */}
+                                <a
+                                  href="https://docs.google.com/forms/d/e/1FAIpQLSc7ZicJx34eskgkWON2zfcMmvFsC-T-nIUULeh_jLj-YZv_Xg/viewform?pli=1"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="group p-4 rounded-2xl bg-white hover:bg-amber-50/80 border-2 border-latte-300 hover:border-latte-600 shadow-2xs hover:shadow-soft transition-all flex flex-col justify-between"
+                                >
+                                  <div>
+                                    <div className="flex items-center justify-between mb-1.5">
+                                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-latte-100 text-latte-800 border border-latte-200">
+                                        2027학년도 2학년 대상
+                                      </span>
+                                      <i data-lucide="external-link" className="w-4 h-4 text-latte-600 group-hover:translate-x-0.5 transition-transform"></i>
+                                    </div>
+                                    <h4 className="text-sm sm:text-base font-extrabold text-warm-textMain group-hover:text-latte-800">
+                                      現 1학년(2027학년도 2학년) 오프라인 신청
+                                    </h4>
+                                    <p className="text-xs text-warm-textMuted mt-1">
+                                      클릭하여 구글 설문(Google Forms) 수강신청 페이지로 이동
+                                    </p>
+                                  </div>
+                                  <div className="mt-3 pt-2.5 border-t border-latte-100 flex items-center justify-between text-xs font-bold text-latte-700">
+                                    <span>수강신청 사이트 열기</span>
+                                    <span>&rarr;</span>
+                                  </div>
+                                </a>
+
+                                {/* 현 2학년 (2027학년도 3학년) 오프라인 신청 */}
+                                <a
+                                  href="https://docs.google.com/forms/d/e/1FAIpQLScnH_YKNdarct-JVfZ1IXhKHcOP84qlTq6gt69vkS6DIOOCyA/viewform?pli=1"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="group p-4 rounded-2xl bg-white hover:bg-emerald-50/60 border-2 border-emerald-200 hover:border-emerald-600 shadow-2xs hover:shadow-soft transition-all flex flex-col justify-between"
+                                >
+                                  <div>
+                                    <div className="flex items-center justify-between mb-1.5">
+                                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                        2027학년도 3학년 대상
+                                      </span>
+                                      <i data-lucide="external-link" className="w-4 h-4 text-emerald-700 group-hover:translate-x-0.5 transition-transform"></i>
+                                    </div>
+                                    <h4 className="text-sm sm:text-base font-extrabold text-warm-textMain group-hover:text-emerald-900">
+                                      現 2학년(2027학년도 3학년) 오프라인 신청
+                                    </h4>
+                                    <p className="text-xs text-warm-textMuted mt-1">
+                                      클릭하여 구글 설문(Google Forms) 수강신청 페이지로 이동
+                                    </p>
+                                  </div>
+                                  <div className="mt-3 pt-2.5 border-t border-emerald-100 flex items-center justify-between text-xs font-bold text-emerald-800">
+                                    <span>수강신청 사이트 열기</span>
+                                    <span>&rarr;</span>
+                                  </div>
+                                </a>
+                              </div>
                             </div>
                           </div>
                         </div>
 
-                        {/* 3. 어떻게 진행되나요? */}
-                        <div 
-                          onClick={() => setActiveTab('guide')}
-                          className="bg-warm-card p-5 sm:p-6 rounded-3xl border border-latte-200 hover:border-latte-400 shadow-soft hover:shadow-soft-lg cursor-pointer transition-all group flex flex-col justify-between"
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-3">
-                              <span className="w-8 h-8 rounded-xl bg-latte-100 text-latte-700 font-bold flex items-center justify-center text-sm">
-                                03
-                              </span>
-                              <span className="text-xs font-semibold text-latte-600 group-hover:translate-x-0.5 transition-transform flex items-center">
-                                일정 보기 &rarr;
-                              </span>
-                            </div>
-                            <h3 className="text-lg font-bold text-warm-textMain mb-2 group-hover:text-latte-700 transition-colors">
-                              어떻게 진행되나요?
-                            </h3>
-                            <p className="text-xs md:text-sm text-warm-textMuted leading-relaxed mb-4">
-                              <strong>정규 일과 후</strong>에 진행되며, 기준 수업 시수(16시수/학점)의 2/3 이상 출석하면 학점이 이수됩니다.
+                        {/* 5. 수강 신청 기간 */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-rose-50/70 border border-rose-200">
+                          <h3 className="text-base md:text-lg font-extrabold text-warm-textMain flex items-center gap-2 mb-2">
+                            <span className="w-6 h-6 rounded-lg bg-rose-700 text-white text-xs font-bold flex items-center justify-center shrink-0">5</span>
+                            <span>수강 신청 기간</span>
+                          </h3>
+                          <div className="pl-8 space-y-1">
+                            <p className="text-sm sm:text-base md:text-lg font-extrabold text-warm-textMain">
+                              2026. 11. 12.(목) <span className="text-rose-700 text-base sm:text-xl">17:00</span> – 11. 19.(목) 17:00, <span className="text-rose-700 underline underline-offset-4">선착순 선발</span>
+                            </p>
+                            <p className="text-xs sm:text-sm font-bold text-rose-700">
+                              ※ 해당 시각 이전, 이후에 제출된 신청은 접수되지 않음.
                             </p>
                           </div>
-                          <div className="space-y-2 text-xs pt-3 border-t border-latte-100">
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span><strong>수업 방식:</strong> 온라인 화상 강의실 또는 거점교 특별실 (정기시험 시 전원 거점교 오프라인 대면)</span>
-                            </div>
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span><strong>이수 기준:</strong> 선택과목 출석률 2/3 이상 (미도달 시 최소 성취수준 보장지도/추가학습 지원)</span>
-                            </div>
-                            <div className="flex items-start space-x-2 text-warm-textMain">
-                              <i data-lucide="check" className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5"></i>
-                              <span><strong>출결 관리:</strong> 거점교 별도 출석부 관리 (매월 말 수기 출석부 내부결재를 이수 자료로 활용)</span>
-                            </div>
+                        </div>
+
+                        {/* 6. 신청 과목 */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F1E8]/80 border border-latte-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div>
+                            <h3 className="text-base md:text-lg font-extrabold text-warm-textMain flex items-center gap-2 mb-1">
+                              <span className="w-6 h-6 rounded-lg bg-latte-700 text-white text-xs font-bold flex items-center justify-center shrink-0">6</span>
+                              <span>신청 과목</span>
+                            </h3>
+                            <p className="text-xs sm:text-sm text-warm-textMain pl-8">
+                              개설 예정 과목 참고 <strong>(2027학년도 본인 학년에 해당하는 과목을 확인 후 신청)</strong>
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 pl-8 sm:pl-0 shrink-0">
+                            <button
+                              onClick={() => setActiveTab('overview')}
+                              className="px-3.5 py-2 rounded-xl bg-latte-700 hover:bg-latte-800 text-white font-bold text-xs shadow-2xs transition-all flex items-center gap-1.5"
+                            >
+                              <i data-lucide="table-2" className="w-3.5 h-3.5"></i>
+                              <span>한 눈에 보기</span>
+                            </button>
+                            <button
+                              onClick={() => setActiveTab('courses')}
+                              className="px-3.5 py-2 rounded-xl bg-white hover:bg-latte-100 text-warm-textMain border border-latte-300 font-bold text-xs shadow-2xs transition-all flex items-center gap-1.5"
+                            >
+                              <i data-lucide="graduation-cap" className="w-3.5 h-3.5 text-latte-700"></i>
+                              <span>학교별 강좌 탐색</span>
+                            </button>
                           </div>
                         </div>
-                      </div>
 
-                      {/* 빠른 액션 버튼들 */}
-                      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-                        <button
-                          onClick={() => setActiveTab('courses')}
-                          className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-latte-600 hover:bg-latte-700 text-white font-semibold text-base shadow-soft hover:shadow-soft-lg transition-all flex items-center justify-center space-x-2"
-                        >
-                          <i data-lucide="sparkles" className="w-5 h-5"></i>
-                          <span>개설 강좌 찾아보기</span>
-                        </button>
-                        
-                        <button
-                          onClick={() => setActiveTab('guide')}
-                          className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-warm-card hover:bg-latte-100 text-warm-textMain border border-warm-border font-semibold text-base shadow-2xs transition-all flex items-center justify-center space-x-2"
-                        >
-                          <i data-lucide="book-open-text" className="w-5 h-5 text-latte-600"></i>
-                          <span>성적·출결 운영 지침 자세히 보기</span>
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* 핵심 지표 4대 카드 */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 md:mt-16">
-                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-soft flex flex-col items-center text-center">
-                        <div className="w-12 h-12 rounded-xl bg-latte-100 text-latte-700 flex items-center justify-center mb-3">
-                          <i data-lucide="layers" className="w-6 h-6"></i>
+                        {/* 7. 수강신청시 유의사항 */}
+                        <div className="p-5 sm:p-6 rounded-2xl bg-[#FDFBF7] border-2 border-latte-300">
+                          <h3 className="text-base md:text-lg font-extrabold text-warm-textMain flex items-center gap-2 mb-3.5">
+                            <span className="w-6 h-6 rounded-lg bg-latte-700 text-white text-xs font-bold flex items-center justify-center shrink-0">7</span>
+                            <span>수강신청시 유의사항</span>
+                          </h3>
+                          <ul className="space-y-2 text-xs sm:text-sm text-warm-textMain leading-relaxed pl-2 sm:pl-4">
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-latte-700">-</span>
+                              <span>공동교육과정은 <strong>선착순 신청 및 선발</strong> 방식으로 운영함.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-latte-700">-</span>
+                              <div>
+                                <span>학생 수강 기준: <strong>학생의 3년간 정규교육과정 기준으로 본교에 개설되지 않은 과목</strong></span>
+                                <p className="text-xs font-bold text-latte-800 mt-0.5">
+                                  ※ 개설교 소속 학생은 소속교의 공동교육과정 개설 강좌 수강 가능
+                                </p>
+                              </div>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-latte-700">-</span>
+                              <span>온라인 강좌는 교육디지털원패스 학생 회원가입 후 신청 가능함.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-latte-700">-</span>
+                              <span>소속교, 학번, 이름, 연락처가 정확하지 않을 경우 선발되지 않을 수 있음.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-latte-700">-</span>
+                              <span>명단이 확정된 이후는 수강 포기가 불가능하므로 <strong>신중히 신청</strong>.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-latte-700">-</span>
+                              <span><strong>중복이수는 불가</strong>하므로, 기존에 이수한 과목이 아닌지 반드시 확인 후 신청 요망.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-rose-700">-</span>
+                              <span className="font-extrabold text-rose-800 underline decoration-rose-400 underline-offset-4">
+                                1인 1개 강좌까지만 수강신청 가능함.(2과목 이상 수강신청 시, 모두 수강취소함)
+                              </span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-latte-700">-</span>
+                              <span>원활한 운영을 위해, <strong className="underline underline-offset-4">거점교 업무담당교사 및 수업교사의 연락과 안내 사항을 반드시 확인하여야 함</strong></span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="font-bold text-latte-700">-</span>
+                              <span>수강신청 기간 이후는 추가 신청이 불가함.</span>
+                            </li>
+                          </ul>
                         </div>
-                        <span className="text-2xl md:text-3xl font-bold text-warm-textMain">온·오프라인</span>
-                        <span className="text-xs md:text-sm text-warm-textSub mt-1">일과 외(174학점 초과) 연계</span>
-                      </div>
-
-                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-soft flex flex-col items-center text-center">
-                        <div className="w-12 h-12 rounded-xl bg-latte-100 text-latte-700 flex items-center justify-center mb-3">
-                          <i data-lucide="shield-check" className="w-6 h-6"></i>
-                        </div>
-                        <span className="text-2xl md:text-3xl font-bold text-latte-600">석차 등급 無</span>
-                        <span className="text-xs md:text-sm text-warm-textSub mt-1">석차 등급 '·' 표기 (미산출)</span>
-                      </div>
-
-                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-soft flex flex-col items-center text-center">
-                        <div className="w-12 h-12 rounded-xl bg-latte-100 text-latte-700 flex items-center justify-center mb-3">
-                          <i data-lucide="check-circle" className="w-6 h-6"></i>
-                        </div>
-                        <span className="text-2xl md:text-3xl font-bold text-warm-textMain">출석 2/3 이상</span>
-                        <span className="text-xs md:text-sm text-warm-textSub mt-1">1학점당 16시수 기준 충족</span>
-                      </div>
-
-                      <div className="bg-warm-card p-5 rounded-2xl border border-warm-border shadow-soft flex flex-col items-center text-center">
-                        <div className="w-12 h-12 rounded-xl bg-latte-100 text-latte-700 flex items-center justify-center mb-3">
-                          <i data-lucide="file-text" className="w-6 h-6"></i>
-                        </div>
-                        <span className="text-2xl md:text-3xl font-bold text-warm-textMain">세특 공통문구</span>
-                        <span className="text-xs md:text-sm text-warm-textSub mt-1">"공동교육과정(과목명)을 이수함."</span>
                       </div>
                     </div>
                   </div>
@@ -1346,10 +1462,10 @@
                         <i data-lucide="arrow-right" className="w-5 h-5 text-latte-600 group-hover:translate-x-1 transition-transform"></i>
                       </div>
                       <h4 className="text-xl md:text-2xl font-bold text-warm-textMain mb-2">
-                        2학년 전공 심화·실험 강좌 (21개 강좌)
+                        2학년 전공 심화·실험 강좌 (19개 강좌)
                       </h4>
                       <p className="text-sm text-warm-textMuted mb-4">
-                        화학·물리·생명과학 실험부터 고급 수학·과학, 인공지능·빅데이터, 국제 정치·경제, 매체 의사소통, 교육·심리·보건까지 진로별 맞춤 탐구!
+                        화학·물리·생명과학 실험부터 고급 대수, 인공지능·빅데이터, 국제 정치·경제, 매체 의사소통, 교육·심리·보건까지 진로별 맞춤 탐구!
                       </p>
                       <div className="flex flex-wrap gap-2">
                         <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
@@ -1379,28 +1495,193 @@
                         <i data-lucide="arrow-right" className="w-5 h-5 text-latte-600 group-hover:translate-x-1 transition-transform"></i>
                       </div>
                       <h4 className="text-xl md:text-2xl font-bold text-warm-textMain mb-2">
-                        3학년 참여 가능 추천 강좌 (7개 강좌)
+                        3학년 참여 가능 추천 강좌 (13개 강좌)
                       </h4>
                       <p className="text-sm text-warm-textMuted mb-4">
-                        상원고·송내고·상일고·소사고의 <strong>AI·빅데이터·고급대수·고급화학</strong> 및 수주고·시온고 <strong>보건</strong>, 원미고 <strong>소설 창작</strong>을 확인해 보세요!
+                        상원고·송내고 <strong>AI·빅데이터</strong>, 부천고·소사고·심원고·역곡고 <strong>고급 과학</strong>, 부천고·부천북고·부천여고·정명고 <strong>교육의 이해</strong>, 수주고·시온고 <strong>보건</strong>, 원미고 <strong>소설 창작</strong>을 확인해 보세요!
                       </p>
                       <div className="flex flex-wrap gap-2">
                         <span className="text-xs px-2.5 py-1 rounded-lg bg-latte-600 text-white font-medium">
-                          상원고(인공지능 융합 프로젝트)
+                          AI 융합 프로젝트 · 빅 데이터 분석
                         </span>
                         <span className="text-xs px-2.5 py-1 rounded-lg bg-latte-600 text-white font-medium">
-                          송내고(빅 데이터 분석)
+                          고급 물리학 · 고급 화학 · 고급 생명과학
                         </span>
                         <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
-                          상일고(고급 대수) · 소사고(고급 화학)
-                        </span>
-                        <span className="text-xs px-2.5 py-1 rounded-lg bg-white/80 border border-latte-200 font-medium text-warm-textMain">
-                          수주고·시온고(보건) · 원미고(소설 창작)
+                          교육의 이해 · 보건 · 소설 창작
                         </span>
                       </div>
                     </div>
                   </div>
                 </section>
+              </div>
+            )}
+
+            {/* ======================= TAB: 한 눈에 보기 (전체 현황표) ======================= */}
+            {activeTab === 'overview' && (
+              <div className="py-5 md:py-7 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                {/* 상단 컴팩트 타이틀 & 퀵 필터 바 */}
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
+                  <div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-latte-200 text-latte-900">
+                        2027학년도 1학기 공식 편성 현황표
+                      </span>
+                      <span className="text-xs text-warm-textSub">
+                        * 과목 행을 클릭하면 상세 정보를 확인할 수 있습니다.
+                      </span>
+                    </div>
+                    <h2 className="text-xl md:text-2xl font-extrabold text-warm-textMain mt-1">
+                      부천 공동교육과정 개설 강좌 한 눈에 보기 (총 23개교 24개 강좌)
+                    </h2>
+                  </div>
+
+                  {/* 한 눈에 보기 퀵 필터 버튼 */}
+                  <div className="flex flex-wrap items-center gap-1.5 text-xs">
+                    <button
+                      onClick={() => setOverviewFilter('all')}
+                      className={`px-3 py-1.5 rounded-xl font-bold transition-all border ${
+                        overviewFilter === 'all'
+                          ? 'bg-latte-700 text-white border-latte-800 shadow-2xs'
+                          : 'bg-warm-card text-warm-textMuted border-warm-border hover:bg-latte-100'
+                      }`}
+                    >
+                      전체 ({COURSES_DATA.length})
+                    </button>
+                    <button
+                      onClick={() => setOverviewFilter('online')}
+                      className={`px-3 py-1.5 rounded-xl font-bold transition-all border ${
+                        overviewFilter === 'online'
+                          ? 'bg-[#2A6E78] text-white border-[#2A6E78] shadow-2xs'
+                          : 'bg-warm-card text-warm-textMuted border-warm-border hover:bg-latte-100'
+                      }`}
+                    >
+                      온라인 ({COURSES_DATA.filter(c => c.type === '온라인').length})
+                    </button>
+                    <button
+                      onClick={() => setOverviewFilter('offline')}
+                      className={`px-3 py-1.5 rounded-xl font-bold transition-all border ${
+                        overviewFilter === 'offline'
+                          ? 'bg-[#8C5938] text-white border-[#8C5938] shadow-2xs'
+                          : 'bg-warm-card text-warm-textMuted border-warm-border hover:bg-latte-100'
+                      }`}
+                    >
+                      오프라인 ({COURSES_DATA.filter(c => c.type === '오프라인').length})
+                    </button>
+                    <button
+                      onClick={() => setOverviewFilter('grade2')}
+                      className={`px-3 py-1.5 rounded-xl font-bold transition-all border ${
+                        overviewFilter === 'grade2'
+                          ? 'bg-latte-600 text-white border-latte-700 shadow-2xs'
+                          : 'bg-warm-card text-warm-textMuted border-warm-border hover:bg-latte-100'
+                      }`}
+                    >
+                      2학년 가능 ({COURSES_DATA.filter(c => c.grade.includes('2')).length})
+                    </button>
+                    <button
+                      onClick={() => setOverviewFilter('grade3')}
+                      className={`px-3 py-1.5 rounded-xl font-bold transition-all border ${
+                        overviewFilter === 'grade3'
+                          ? 'bg-emerald-700 text-white border-emerald-800 shadow-2xs'
+                          : 'bg-warm-card text-warm-textMuted border-warm-border hover:bg-latte-100'
+                      }`}
+                    >
+                      3학년 가능 ({COURSES_DATA.filter(c => c.grade.includes('3')).length})
+                    </button>
+                  </div>
+                </div>
+
+                {/* 한 화면 전체 현황 테이블 */}
+                <div className="bg-warm-card rounded-2xl border border-latte-300 shadow-soft overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse text-xs">
+                      <thead>
+                        <tr className="bg-[#232D3F] text-white font-bold text-center border-b border-latte-300">
+                          <th className="py-2.5 px-2 w-12 border-r border-slate-600/60">연번</th>
+                          <th className="py-2.5 px-3 w-28 border-r border-slate-600/60">학교명</th>
+                          <th className="py-2.5 px-3 min-w-[150px] border-r border-slate-600/60">과목명</th>
+                          <th className="py-2.5 px-2.5 w-20 border-r border-slate-600/60">운영 형태</th>
+                          <th className="py-2.5 px-2.5 w-28 border-r border-slate-600/60">대상 학년(2027 기준)</th>
+                          <th className="py-2.5 px-2 w-14 border-r border-slate-600/60">학점</th>
+                          <th className="py-2.5 px-3 min-w-[195px] border-r border-slate-600/60">수업 요일·시간</th>
+                          <th className="py-2.5 px-3 min-w-[180px] border-r border-slate-600/60">교과정보</th>
+                          <th className="py-2.5 px-2.5 w-24">수업 시작일</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-latte-200/80">
+                        {COURSES_DATA.filter(c => {
+                          if (overviewFilter === 'online') return c.type === '온라인';
+                          if (overviewFilter === 'offline') return c.type === '오프라인';
+                          if (overviewFilter === 'grade2') return c.grade.includes('2');
+                          if (overviewFilter === 'grade3') return c.grade.includes('3');
+                          return true;
+                        }).map((c, idx) => (
+                          <tr
+                            key={c.id}
+                            onClick={() => setSelectedCourseModal(c)}
+                            className={`cursor-pointer transition-colors hover:bg-latte-100/80 ${
+                              idx % 2 === 0 ? 'bg-[#FDFBF7]' : 'bg-[#F7F1E8]/70'
+                            }`}
+                          >
+                            <td className="py-1.5 px-2 text-center font-bold text-latte-800 border-r border-latte-200/70">
+                              {c.id}
+                            </td>
+                            <td className="py-1.5 px-3 text-center font-bold text-warm-textMain border-r border-latte-200/70 whitespace-nowrap">
+                              {c.school.replace('고등학교', '고')}
+                            </td>
+                            <td className="py-1.5 px-3 font-bold text-warm-textMain border-r border-latte-200/70">
+                              <div className="flex items-center justify-between gap-1">
+                                <span>{c.subject}</span>
+                                <i data-lucide="external-link" className="w-3 h-3 text-latte-400 shrink-0 opacity-70"></i>
+                              </div>
+                            </td>
+                            <td className="py-1.5 px-2.5 text-center border-r border-latte-200/70 whitespace-nowrap">
+                              <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${
+                                c.type === '온라인' ? 'badge-online' : 'badge-offline'
+                              }`}>
+                                {c.type}
+                              </span>
+                            </td>
+                            <td className={`py-1.5 px-2.5 text-center font-bold border-r border-latte-200/70 whitespace-nowrap ${
+                              c.grade === '2, 3학년'
+                                ? 'bg-amber-100/80 text-amber-900'
+                                : c.grade === '3학년'
+                                ? 'text-emerald-800'
+                                : 'text-warm-textMain'
+                            }`}>
+                              {c.grade}
+                            </td>
+                            <td className="py-1.5 px-2 text-center font-bold text-warm-textMain border-r border-latte-200/70">
+                              {c.credits}
+                            </td>
+                            <td className="py-1.5 px-3 text-warm-textMain font-medium border-r border-latte-200/70">
+                              {c.operatingHours}
+                            </td>
+                            <td className={`py-1.5 px-3 border-r border-latte-200/70 ${
+                              c.subjectInfo.startsWith('추후') ? 'text-warm-textSub' : 'text-slate-800 font-medium bg-[#DCE6F2]/55'
+                            }`}>
+                              {c.subjectInfo}
+                            </td>
+                            <td className={`py-1.5 px-2.5 text-center font-bold whitespace-nowrap ${
+                              c.startDate === '추후 안내'
+                                ? 'text-warm-textSub font-normal'
+                                : 'bg-[#DCE6F2]/55 text-slate-900'
+                            }`}>
+                              {c.startDate}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  {/* 하단 공식 유의사항 안내 */}
+                  <div className="px-4 py-3 bg-[#F7F1E8]/80 border-t border-latte-200 text-[11px] md:text-xs text-warm-textMuted space-y-1">
+                    <p>※ 대상학년은 2027학년도 학년 기준이며, <strong>2, 3학년 강좌는 두 학년 모두 신청 가능</strong>합니다.</p>
+                    <p>※ 강좌별 정원은 <strong>온라인 20명, 오프라인 15명</strong>을 기준으로 운영합니다.</p>
+                    <p>※ 수업 시작 시간은 강좌별로 다르며, 해당 과목 교사 및 개설교 학교 상황에 따라 변경될 수 있습니다(변경 시 개설교에서 수업 시작 전 공지 예정).</p>
+                    <p>※ 예정된 요일 외에 참여 학생 학교들의 학사일정으로 인해 다른 요일의 수업이 있을 수 있습니다.</p>
+                  </div>
+                </div>
               </div>
             )}
 
@@ -1802,7 +2083,7 @@
                           <span className="badge-online px-2.5 py-1 rounded-lg text-xs font-bold">
                             온라인 공동교육과정
                           </span>
-                          <span className="text-xs font-semibold text-cyan-800">15명 내외 권장</span>
+                          <span className="text-xs font-semibold text-cyan-800">정원 20명 기준 운영</span>
                         </div>
                         <h4 className="font-bold text-warm-textMain text-base mb-2">
                           '경기온라인학교, 온라인공동교육과정' 사이트
@@ -1811,7 +2092,7 @@
                           단순 동영상 시청 강의는 일체 배제되며, 온라인 수업은 <strong>'경기온라인학교, 온라인공동교육과정' 사이트</strong>의 실시간 쌍방향 원격 화상 강의실에서 이루어집니다. 학생은 <strong>웹캠과 마이크를 켠 상태</strong>로 토론, 협업 프로젝트, 질의응답에 능동적으로 참여해야 합니다.
                         </p>
                         <div className="text-xs text-warm-textSub bg-white/80 p-2.5 rounded-xl border border-cyan-100">
-                          <strong>개설 과목군:</strong> 보건(덕산고·수주고·시온고), 인간과 심리(범박고), 교육의 이해(부천고·부천북고·부천여고·정명고), 고급 대수(상일고), 고급 물리학(심원고)/화학(소사고·부천고)/생명과학(역곡고), 국제 정치(원종고)
+                          <strong>개설 과목군:</strong> 보건A·B·C(덕산고·수주고·시온고), 인간과 심리(범박고), 교육의 이해A·B·C·D(부천고·부천북고·부천여고·정명고), 고급 대수(상일고), 고급 물리학(심원고)/화학A·B(부천고·소사고)/생명과학(역곡고), 국제 정치(원종고)
                         </div>
                       </div>
 
@@ -1821,7 +2102,7 @@
                           <span className="badge-offline px-2.5 py-1 rounded-lg text-xs font-bold">
                             오프라인 공동교육과정
                           </span>
-                          <span className="text-xs font-semibold text-amber-800">13~25명 내외 권장</span>
+                          <span className="text-xs font-semibold text-amber-800">정원 15명 기준 운영</span>
                         </div>
                         <h4 className="font-bold text-warm-textMain text-base mb-2">
                           거점학교 특별교실 대면 집합
@@ -2258,8 +2539,8 @@
                             className="mt-1 w-4 h-4 rounded text-latte-600 focus:ring-latte-400"
                           />
                           <div className="text-xs md:text-sm">
-                            <span className="font-bold text-warm-textMain block">2. 학기당 최대 2개 과목 이내 성실 수강 준수</span>
-                            <span className="text-warm-textMuted">선정된 강좌에 집중하여 한 학기 동안 성실하게 학업에 몰입할 준비가 되셨나요?</span>
+                            <span className="font-bold text-warm-textMain block">2. 1인 1개 강좌 신청 및 중복이수 불가 확인</span>
+                            <span className="text-warm-textMuted">1인 1개 강좌까지만 신청 가능(2과목 이상 신청 시 모두 취소)하며, 기존에 이수한 과목이 아님을 확인하셨나요?</span>
                           </div>
                         </label>
 
@@ -2640,6 +2921,11 @@
                     {selectedCourseModal.type === '온라인' && (
                       <span className="text-[11px] text-cyan-800 font-semibold block mt-1">
                         * 온라인 수업은 '경기온라인학교, 온라인공동교육과정' 사이트에서 실시간 화상으로 진행됩니다. (정기시험 실시 시 전원 거점교 오프라인 대면 실시)
+                      </span>
+                    )}
+                    {selectedCourseModal.type === '오프라인' && (
+                      <span className="text-[11px] text-amber-800 font-semibold block mt-1">
+                        * 오프라인 수업의 세부 강의실 및 수업 장소는 거점학교에서 추후 알림 예정입니다.
                       </span>
                     )}
                   </div>
